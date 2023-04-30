@@ -1,0 +1,16 @@
+{
+  "name": "bot-lambda",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.ts",
+  "scripts": {
+    "start:dev": "npx nodemon",
+    "build": "rimraf ./build && tsc"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "telegraf": "^4.12.2"
+  }
+}
