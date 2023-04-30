@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "module": "ES2022",
+    "target": "es2022",
+    "moduleResolution": "NodeNext",
+    "outDir": "dist"
+  },
+  "ts-node": {
+    "esm": true
+  }
+}
