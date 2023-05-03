@@ -37,6 +37,8 @@
 ### 3. страница `transaction`
 - все детали транзакции 
 
+<img width="1466" alt="image" src="https://user-images.githubusercontent.com/26582175/235954823-64e127eb-afc6-4c8c-9a36-dd9af691c050.png">
+
 ## Список терминов
 
 ### Конверт - envelop
