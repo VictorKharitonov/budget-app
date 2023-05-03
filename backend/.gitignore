@@ -1,7 +1,0 @@
-node_modules
-/.idea/
-env.js
-.zip
-.env
-build
-build/*
