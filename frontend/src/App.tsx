@@ -1,11 +1,14 @@
-import React, {useState} from 'react';
+import React from 'react';
+import Layout from "./components/Layout/Layout";
+import Main from "./pages/Main";
+import './App.scss';
 
 function App() {
-  const [counter, setCounter] = useState<number>(0);
   return (
-    <div>
-      <h1 onClick={() => setCounter(counter + 1)}>Hello Budget: {counter}</h1>
-    </div>
+    <Layout>
+      <Main/>
+      <div>123</div>
+    </Layout>
   );
 }
 
