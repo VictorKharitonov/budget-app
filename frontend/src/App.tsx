@@ -1,14 +1,13 @@
 import React from 'react';
-import Layout from "./components/Layout/Layout";
 import Main from "./pages/Main";
 import './App.scss';
+import {theme, ThemeProvider} from './Theme/index';
 
 function App() {
   return (
-    <Layout>
+    <ThemeProvider theme={theme}>
       <Main/>
-      <div>123</div>
-    </Layout>
+    </ThemeProvider>
   );
 }
 
