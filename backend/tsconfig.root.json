@@ -1,9 +1,14 @@
 {
   "compilerOptions": {
-    "module": "ES2022",
-    "target": "es2022",
+    "resolveJsonModule": true,
+    "module": "NodeNext",
     "moduleResolution": "NodeNext",
-    "outDir": "dist"
+    "target": "es2022",
+    "outDir": "dist",
+    "strict": true,
+    "alwaysStrict": true,
+    "allowJs": false,
+    "baseUrl": "."
   },
   "ts-node": {
     "esm": true

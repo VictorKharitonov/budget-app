@@ -3,10 +3,10 @@
   "type": "module",
   "version": "1.0.0",
   "description": "",
-  "main": "index.ts",
+  "main": "src/index.ts",
   "scripts": {
-    "start": "npm run build && node build/index.js",
-    "start:dev": "npx nodemon",
+    "start": "npm run build && DOTENV_CONFIG_PATH=../../.env node -r dotenv/config dist/index.js",
+    "start:dev": "DOTENV_CONFIG_PATH=../../.env nodemon -r dotenv/config src/index.ts",
     "build": "rimraf ./build && tsc"
   },
   "author": "",
