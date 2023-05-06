@@ -17,8 +17,8 @@
     "build:layer:prod": "npm run clear-artifacts:layer && zip -r artifacts/layer/layer-$npm_package_version.zip node_modules",
     "build:prod": "npm run build:lambda:prod && npm run build:layer",
 
-    "bump:patch": "commit-and-tag-version --release-as patch -t 'but-lambda.v'",
-    "bump:minor": "commit-and-tag-version --release-as minor -t 'but-lambda.v'"
+    "bump:patch": "commit-and-tag-version --release-as patch -t 'bot-lambda.v'",
+    "bump:minor": "commit-and-tag-version --release-as minor -t 'bot-lambda.v'"
   },
   "author": "",
   "license": "ISC",
