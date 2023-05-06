@@ -21,6 +21,7 @@
   },
   "include": [
     "src",
-    "Globals.d.ts"
+    "Globals.d.ts",
+    "public/test_data"
   ]
 }

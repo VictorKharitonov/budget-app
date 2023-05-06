@@ -1,10 +1,8 @@
 import React, {FC} from 'react';
-import cl from './Main.module.scss';
-import Envelope from "../components/Envelope/Envelop";
+import Envelope from "../components/envelope/Envelop";
 import {Container} from "@mui/material";
 
 const Main: FC = () => {
-  console.log(cl);
   return (
     <Container>
       <Envelope/>

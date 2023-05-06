@@ -31,7 +31,7 @@ body {
   scroll-behavior: smooth;
   text-rendering: optimizeSpeed;
   line-height: 1.5;
-  background: #FAFBFC;
+  background: var(--ba-palette-grey-100);
 }
 
 ul[class],
