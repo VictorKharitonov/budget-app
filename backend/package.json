@@ -2,6 +2,7 @@
   "type": "module",
   "devDependencies": {
     "@types/node": "^18.16.3",
+    "commit-and-tag-version": "^11.2.1",
     "dotenv": "^16.0.3",
     "nodemon": "^2.0.22",
     "rimraf": "^5.0.0",
