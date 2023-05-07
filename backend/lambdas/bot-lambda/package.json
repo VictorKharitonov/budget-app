@@ -15,6 +15,7 @@
     "build:lambda:prod": "npm run build:lambda && npm run clear-artifacts:lambda && (cd dist && zip -r ../artifacts/lambda/lambda-$npm_package_version.zip .)",
     "build:layer:prod": "npm run clear-artifacts:layer && (cd node_modules && zip -r ../artifacts/layer/layer-$npm_package_version.zip .)",
     "build:prod": "npm run build:lambda:prod && npm run build:layer:prod",
+    "bump:first-release": "commit-and-tag-version --first-release -m \"release($npm_package_version): release initial version\"",
     "bump:patch": "commit-and-tag-version --release-as patch -t 'bot-lambda.v' -m \"release($npm_package_version): new patch version %s\"",
     "bump:minor": "commit-and-tag-version --release-as minor -t 'bot-lambda.v' -m \"release($npm_package_version): new minor version %s\"",
     "aws:identity": "aws sts get-caller-identity",
