@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.1.0](https://github.com/mmfKupl/budget-app/compare/bot-lambda.v1.0.0...bot-lambda.v1.1.0) (2023-05-10)
+
+
+### Features
+
+* create base echo bot which work on lambda ([#7](https://github.com/mmfKupl/budget-app/issues/7)) ([55e38a7](https://github.com/mmfKupl/budget-app/commit/55e38a7d8cc957af497f7c214131cf1150493112))
+
 ## 1.0.0 (2023-05-07)
 
 
