@@ -5,6 +5,33 @@ import {
 } from '@mui/material/styles';
 
 const theme = extendTheme({
+  components: {
+    MuiOutlinedInput: {
+      styleOverrides: {
+        input: {
+          padding: "8px 16px",
+          background: "#fff"
+        }
+      }
+    },
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          boxShadow: "none",
+          '&:hover': {
+            boxShadow: "none",
+          }
+        }
+      }
+    },
+    MuiFormHelperText: {
+      styleOverrides: {
+        root: {
+          marginLeft: 0
+        }
+      }
+    }
+  },
   cssVarPrefix: 'ba',
   colorSchemes: {
     light: {

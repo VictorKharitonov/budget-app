@@ -12,10 +12,16 @@
 
   &.active {
     background-color: var(--ba-palette-grey-200);
-    border-color: var(--ba-palette-grey-200);
+    border-color: var(--ba-palette-primary-main);
   }
 
   .listItemText {
     word-break: break-word;
+  }
+}
+
+.search {
+  .searchInput {
+    padding: 8px 16px;
   }
 }

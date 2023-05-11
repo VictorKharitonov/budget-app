@@ -36,7 +36,7 @@ const EnvelopeList: FC<IEnvelopesListProps> = ({envelopes, selectedEnvelopeId, s
             />
           </ListItem>
         )
-        : <Typography variant="h3">Envelopes is empty</Typography>
+        : <Typography variant="body1" sx={{mt: 1}}>Envelopes is empty</Typography>
       }
     </List>
   );
