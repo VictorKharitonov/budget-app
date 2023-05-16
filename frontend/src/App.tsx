@@ -1,13 +1,16 @@
 import React from 'react';
-import Main from "./pages/Main";
 import './App.scss';
 import {theme, CssVarsProvider} from './theme/index';
+import {BrowserRouter as Router} from "react-router-dom";
+import AppRouter from './components/AppRouter';
 
 function App() {
   return (
-    <CssVarsProvider theme={theme}>
-      <Main/>
-    </CssVarsProvider>
+    <Router>
+      <CssVarsProvider theme={theme}>
+        <AppRouter/>
+      </CssVarsProvider>
+    </Router>
   );
 }
 

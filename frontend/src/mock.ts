@@ -1,4 +1,17 @@
-[
+export const testEnvelopes = [{"id":"a","userId":"test","name":"jopa"},
+  {"id":"b","userId":"test","name":"salary"},
+  {"id":"c","userId":"test","name":"bar"},
+  {"id":"d","userId":"test","name":"negr"}];
+
+export const testCategories = [{"id":"q","userId":"test","name":"healthy"},
+  {"id":"b","userId":"test","name":"beauty"},
+  {"id":"c","userId":"test","name":"study"},
+  {"id":"d","userId":"test","name":"daily"},
+  {"id":"e","userId":"test","name":"clothing"},
+  {"id":"f","userId":"test","name":"food"},
+  {"id":"j","userId":"test","name":"transport"}];
+
+export const testTransactions = [
   {
     "id": "01GZHAN3Q9P4GX93ND861HPDPZ",
     "envelop": [
@@ -9,8 +22,8 @@
       "food"
     ],
     "amount": 369.41,
-    "date": "Thu May 04 2023 21:39:43 GMT+0300 (Москва, стандартное время)",
-    "description": "nec sem duis aliquam convallis nunc proin at turpis",
+    "date": "12.05.2023",
+"description": "nec sem duis aliquam convallis nunc proin at turpis",
     "type": "income"
   },
   {
@@ -26,8 +39,8 @@
       "food"
     ],
     "amount": 349.85,
-    "date": "Thu May 04 2023 21:39:43 GMT+0300 (Москва, стандартное время)",
-    "description": "parturient montes nascetur ridiculus mus vivamus vestibulum sagittis",
+    "date": "12.05.2023",
+"description": "parturient montes nascetur ridiculus mus vivamus vestibulum sagittis",
     "type": "income"
   },
   {
@@ -43,8 +56,8 @@
       "transport"
     ],
     "amount": 106.99,
-    "date": "Thu May 04 2023 21:39:43 GMT+0300 (Москва, стандартное время)",
-    "description": "pellentesque ultrices mattis odio donec vitae nisi nam",
+    "date": "12.05.2023",
+"description": "pellentesque ultrices mattis odio donec vitae nisi nam",
     "type": "expense"
   },
   {
@@ -58,8 +71,8 @@
       "daily"
     ],
     "amount": 393.35,
-    "date": "Thu May 04 2023 21:39:43 GMT+0300 (Москва, стандартное время)",
-    "description": "arcu sed augue aliquam erat",
+    "date": "12.05.2023",
+"description": "arcu sed augue aliquam erat",
     "type": "expense"
   },
   {
@@ -74,8 +87,8 @@
       "study"
     ],
     "amount": 987.83,
-    "date": "Thu May 04 2023 21:39:43 GMT+0300 (Москва, стандартное время)",
-    "description": "lacus at velit vivamus vel nulla eget",
+    "date": "12.05.2023",
+"description": "lacus at velit vivamus vel nulla eget",
     "type": "income"
   },
   {
@@ -90,8 +103,8 @@
       "transport"
     ],
     "amount": 253.23,
-    "date": "Thu May 04 2023 21:39:43 GMT+0300 (Москва, стандартное время)",
-    "description": "cursus vestibulum proin eu mi nulla ac enim in",
+    "date": "12.05.2023",
+"description": "cursus vestibulum proin eu mi nulla ac enim in",
     "type": "expense"
   },
   {
@@ -106,8 +119,8 @@
       "healthy"
     ],
     "amount": 144.12,
-    "date": "Thu May 04 2023 21:39:43 GMT+0300 (Москва, стандартное время)",
-    "description": "aliquam convallis nunc proin at turpis",
+    "date": "12.05.2023",
+"description": "aliquam convallis nunc proin at turpis",
     "type": "expense"
   },
   {
@@ -122,8 +135,8 @@
       "food"
     ],
     "amount": 494.79,
-    "date": "Thu May 04 2023 21:39:43 GMT+0300 (Москва, стандартное время)",
-    "description": "morbi porttitor lorem id ligula suspendisse ornare",
+    "date": "12.05.2023",
+"description": "morbi porttitor lorem id ligula suspendisse ornare",
     "type": "expense"
   },
   {
@@ -138,8 +151,8 @@
       "daily"
     ],
     "amount": 619.49,
-    "date": "Thu May 04 2023 21:39:43 GMT+0300 (Москва, стандартное время)",
-    "description": "turpis integer aliquet massa id",
+    "date": "12.05.2023",
+"description": "turpis integer aliquet massa id",
     "type": "expense"
   },
   {
@@ -153,8 +166,8 @@
       "beauty"
     ],
     "amount": 688.94,
-    "date": "Thu May 04 2023 21:39:43 GMT+0300 (Москва, стандартное время)",
-    "description": "ligula suspendisse ornare consequat lectus in est risus auctor sed",
+    "date": "12.05.2023",
+"description": "ligula suspendisse ornare consequat lectus in est risus auctor sed",
     "type": "expense"
   },
   {
@@ -170,8 +183,8 @@
       "beauty"
     ],
     "amount": 812.65,
-    "date": "Thu May 04 2023 21:39:43 GMT+0300 (Москва, стандартное время)",
-    "description": "eleifend pede libero quis orci nullam molestie nibh in lectus",
+    "date": "12.05.2023",
+"description": "eleifend pede libero quis orci nullam molestie nibh in lectus",
     "type": "expense"
   },
   {
@@ -184,8 +197,8 @@
       "clothing"
     ],
     "amount": 888.64,
-    "date": "Thu May 04 2023 21:39:43 GMT+0300 (Москва, стандартное время)",
-    "description": "ut blandit non interdum in ante",
+    "date": "12.05.2023",
+"description": "ut blandit non interdum in ante",
     "type": "expense"
   },
   {
@@ -200,8 +213,8 @@
       "food"
     ],
     "amount": 347.66,
-    "date": "Thu May 04 2023 21:39:43 GMT+0300 (Москва, стандартное время)",
-    "description": "vestibulum ante ipsum primis in",
+    "date": "12.05.2023",
+"description": "vestibulum ante ipsum primis in",
     "type": "expense"
   },
   {
@@ -218,8 +231,8 @@
       "daily"
     ],
     "amount": 172.24,
-    "date": "Thu May 04 2023 21:39:43 GMT+0300 (Москва, стандартное время)",
-    "description": "adipiscing elit proin interdum mauris non ligula",
+    "date": "12.05.2023",
+"description": "adipiscing elit proin interdum mauris non ligula",
     "type": "income"
   },
   {
@@ -235,8 +248,8 @@
       "daily"
     ],
     "amount": 736.68,
-    "date": "Thu May 04 2023 21:39:43 GMT+0300 (Москва, стандартное время)",
-    "description": "blandit mi in porttitor pede justo",
+    "date": "12.05.2023",
+"description": "blandit mi in porttitor pede justo",
     "type": "income"
   },
   {
@@ -250,8 +263,8 @@
       "clothing"
     ],
     "amount": 164.56,
-    "date": "Thu May 04 2023 21:39:43 GMT+0300 (Москва, стандартное время)",
-    "description": "lorem ipsum dolor sit amet",
+    "date": "12.05.2023",
+"description": "lorem ipsum dolor sit amet",
     "type": "income"
   },
   {
@@ -267,8 +280,8 @@
       "clothing"
     ],
     "amount": 63.11,
-    "date": "Thu May 04 2023 21:39:43 GMT+0300 (Москва, стандартное время)",
-    "description": "volutpat sapien arcu sed augue aliquam erat volutpat in congue",
+    "date": "12.05.2023",
+"description": "volutpat sapien arcu sed augue aliquam erat volutpat in congue",
     "type": "expense"
   },
   {
@@ -283,8 +296,8 @@
       "beauty"
     ],
     "amount": 746.15,
-    "date": "Thu May 04 2023 21:39:43 GMT+0300 (Москва, стандартное время)",
-    "description": "ipsum dolor sit amet consectetuer adipiscing elit proin risus praesent",
+    "date": "12.05.2023",
+"description": "ipsum dolor sit amet consectetuer adipiscing elit proin risus praesent",
     "type": "income"
   },
   {
@@ -298,8 +311,8 @@
       "daily"
     ],
     "amount": 127.86,
-    "date": "Thu May 04 2023 21:39:43 GMT+0300 (Москва, стандартное время)",
-    "description": "nullam porttitor lacus at turpis",
+    "date": "12.05.2023",
+"description": "nullam porttitor lacus at turpis",
     "type": "income"
   },
   {
@@ -314,8 +327,8 @@
       "transport"
     ],
     "amount": 733.98,
-    "date": "Thu May 04 2023 21:39:43 GMT+0300 (Москва, стандартное время)",
-    "description": "blandit mi in porttitor pede justo eu massa",
+    "date": "12.05.2023",
+"description": "blandit mi in porttitor pede justo eu massa",
     "type": "income"
   },
   {
@@ -331,8 +344,8 @@
       "food"
     ],
     "amount": 976.06,
-    "date": "Thu May 04 2023 21:39:43 GMT+0300 (Москва, стандартное время)",
-    "description": "curae donec pharetra magna vestibulum aliquet ultrices erat tortor sollicitudin",
+    "date": "12.05.2023",
+"description": "curae donec pharetra magna vestibulum aliquet ultrices erat tortor sollicitudin",
     "type": "income"
   },
   {
@@ -347,8 +360,8 @@
       "study"
     ],
     "amount": 711.16,
-    "date": "Thu May 04 2023 21:39:43 GMT+0300 (Москва, стандартное время)",
-    "description": "odio condimentum id luctus nec molestie sed justo pellentesque",
+    "date": "12.05.2023",
+"description": "odio condimentum id luctus nec molestie sed justo pellentesque",
     "type": "income"
   },
   {
@@ -363,8 +376,8 @@
       "beauty"
     ],
     "amount": 303.22,
-    "date": "Thu May 04 2023 21:39:43 GMT+0300 (Москва, стандартное время)",
-    "description": "molestie lorem quisque ut erat curabitur gravida nisi",
+    "date": "12.05.2023",
+"description": "molestie lorem quisque ut erat curabitur gravida nisi",
     "type": "expense"
   },
   {
@@ -379,8 +392,8 @@
       "healthy"
     ],
     "amount": 346.7,
-    "date": "Thu May 04 2023 21:39:43 GMT+0300 (Москва, стандартное время)",
-    "description": "luctus ultricies eu nibh quisque id justo sit",
+    "date": "12.05.2023",
+"description": "luctus ultricies eu nibh quisque id justo sit",
     "type": "income"
   },
   {
@@ -393,8 +406,8 @@
       "beauty"
     ],
     "amount": 998.93,
-    "date": "Thu May 04 2023 21:39:43 GMT+0300 (Москва, стандартное время)",
-    "description": "mauris eget massa tempor convallis",
+    "date": "12.05.2023",
+"description": "mauris eget massa tempor convallis",
     "type": "expense"
   },
   {
@@ -408,8 +421,8 @@
       "study"
     ],
     "amount": 835.36,
-    "date": "Thu May 04 2023 21:39:43 GMT+0300 (Москва, стандартное время)",
-    "description": "quam turpis adipiscing lorem vitae mattis nibh ligula",
+    "date": "12.05.2023",
+"description": "quam turpis adipiscing lorem vitae mattis nibh ligula",
     "type": "income"
   },
   {
@@ -426,8 +439,8 @@
       "beauty"
     ],
     "amount": 441.73,
-    "date": "Thu May 04 2023 21:39:43 GMT+0300 (Москва, стандартное время)",
-    "description": "amet eleifend pede libero quis orci nullam",
+    "date": "12.05.2023",
+"description": "amet eleifend pede libero quis orci nullam",
     "type": "expense"
   },
   {
@@ -441,8 +454,8 @@
       "transport"
     ],
     "amount": 590.62,
-    "date": "Thu May 04 2023 21:39:43 GMT+0300 (Москва, стандартное время)",
-    "description": "leo rhoncus sed vestibulum sit amet",
+    "date": "12.05.2023",
+"description": "leo rhoncus sed vestibulum sit amet",
     "type": "income"
   },
   {
@@ -458,8 +471,8 @@
       "study"
     ],
     "amount": 366.46,
-    "date": "Thu May 04 2023 21:39:43 GMT+0300 (Москва, стандартное время)",
-    "description": "turpis sed ante vivamus tortor duis mattis egestas",
+    "date": "12.05.2023",
+"description": "turpis sed ante vivamus tortor duis mattis egestas",
     "type": "expense"
   },
   {
@@ -475,8 +488,8 @@
       "daily"
     ],
     "amount": 794.8,
-    "date": "Thu May 04 2023 21:39:43 GMT+0300 (Москва, стандартное время)",
-    "description": "habitasse platea dictumst maecenas ut massa quis",
+    "date": "12.05.2023",
+"description": "habitasse platea dictumst maecenas ut massa quis",
     "type": "income"
   },
   {
@@ -491,8 +504,8 @@
       "daily"
     ],
     "amount": 972.18,
-    "date": "Thu May 04 2023 21:39:43 GMT+0300 (Москва, стандартное время)",
-    "description": "sed nisl nunc rhoncus dui vel sem sed",
+    "date": "12.05.2023",
+"description": "sed nisl nunc rhoncus dui vel sem sed",
     "type": "income"
   },
   {
@@ -508,8 +521,8 @@
       "beauty"
     ],
     "amount": 142.15,
-    "date": "Thu May 04 2023 21:39:43 GMT+0300 (Москва, стандартное время)",
-    "description": "imperdiet sapien urna pretium nisl ut",
+    "date": "12.05.2023",
+"description": "imperdiet sapien urna pretium nisl ut",
     "type": "income"
   },
   {
@@ -524,8 +537,8 @@
       "beauty"
     ],
     "amount": 336.59,
-    "date": "Thu May 04 2023 21:39:43 GMT+0300 (Москва, стандартное время)",
-    "description": "urna pretium nisl ut volutpat sapien arcu",
+    "date": "12.05.2023",
+"description": "urna pretium nisl ut volutpat sapien arcu",
     "type": "expense"
   },
   {
@@ -541,8 +554,8 @@
       "healthy"
     ],
     "amount": 888.67,
-    "date": "Thu May 04 2023 21:39:43 GMT+0300 (Москва, стандартное время)",
-    "description": "lacinia erat vestibulum sed magna at nunc commodo",
+    "date": "12.05.2023",
+"description": "lacinia erat vestibulum sed magna at nunc commodo",
     "type": "income"
   },
   {
@@ -555,8 +568,8 @@
       "healthy"
     ],
     "amount": 769.94,
-    "date": "Thu May 04 2023 21:39:43 GMT+0300 (Москва, стандартное время)",
-    "description": "cras pellentesque volutpat dui maecenas tristique est et",
+    "date": "12.05.2023",
+"description": "cras pellentesque volutpat dui maecenas tristique est et",
     "type": "expense"
   },
   {
@@ -572,8 +585,8 @@
       "transport"
     ],
     "amount": 94.57,
-    "date": "Thu May 04 2023 21:39:43 GMT+0300 (Москва, стандартное время)",
-    "description": "id nulla ultrices aliquet maecenas leo odio",
+    "date": "12.05.2023",
+"description": "id nulla ultrices aliquet maecenas leo odio",
     "type": "income"
   },
   {
@@ -588,8 +601,8 @@
       "study"
     ],
     "amount": 679.17,
-    "date": "Thu May 04 2023 21:39:43 GMT+0300 (Москва, стандартное время)",
-    "description": "nulla facilisi cras non velit nec nisi",
+    "date": "12.05.2023",
+"description": "nulla facilisi cras non velit nec nisi",
     "type": "income"
   },
   {
@@ -602,8 +615,8 @@
       "daily"
     ],
     "amount": 679.41,
-    "date": "Thu May 04 2023 21:39:43 GMT+0300 (Москва, стандартное время)",
-    "description": "bibendum morbi non quam nec dui",
+    "date": "12.05.2023",
+"description": "bibendum morbi non quam nec dui",
     "type": "expense"
   },
   {
@@ -618,8 +631,8 @@
       "beauty"
     ],
     "amount": 908.99,
-    "date": "Thu May 04 2023 21:39:43 GMT+0300 (Москва, стандартное время)",
-    "description": "in quam fringilla rhoncus mauris enim leo rhoncus sed vestibulum",
+    "date": "12.05.2023",
+"description": "in quam fringilla rhoncus mauris enim leo rhoncus sed vestibulum",
     "type": "expense"
   },
   {
@@ -636,8 +649,8 @@
       "transport"
     ],
     "amount": 944.38,
-    "date": "Thu May 04 2023 21:39:43 GMT+0300 (Москва, стандартное время)",
-    "description": "commodo placerat praesent blandit nam nulla",
+    "date": "12.05.2023",
+"description": "commodo placerat praesent blandit nam nulla",
     "type": "expense"
   },
   {
@@ -652,8 +665,8 @@
       "food"
     ],
     "amount": 304.75,
-    "date": "Thu May 04 2023 21:39:43 GMT+0300 (Москва, стандартное время)",
-    "description": "pulvinar sed nisl nunc rhoncus dui vel",
+    "date": "12.05.2023",
+"description": "pulvinar sed nisl nunc rhoncus dui vel",
     "type": "expense"
   },
   {
@@ -666,8 +679,8 @@
       "food"
     ],
     "amount": 617.35,
-    "date": "Thu May 04 2023 21:39:43 GMT+0300 (Москва, стандартное время)",
-    "description": "odio condimentum id luctus nec molestie sed justo pellentesque",
+    "date": "12.05.2023",
+"description": "odio condimentum id luctus nec molestie sed justo pellentesque",
     "type": "expense"
   },
   {
@@ -682,8 +695,8 @@
       "study"
     ],
     "amount": 838.8,
-    "date": "Thu May 04 2023 21:39:43 GMT+0300 (Москва, стандартное время)",
-    "description": "ipsum aliquam non mauris morbi non lectus aliquam",
+    "date": "12.05.2023",
+"description": "ipsum aliquam non mauris morbi non lectus aliquam",
     "type": "income"
   },
   {
@@ -696,8 +709,8 @@
       "beauty"
     ],
     "amount": 647.1,
-    "date": "Thu May 04 2023 21:39:43 GMT+0300 (Москва, стандартное время)",
-    "description": "convallis morbi odio odio elementum",
+    "date": "12.05.2023",
+"description": "convallis morbi odio odio elementum",
     "type": "income"
   },
   {
@@ -714,8 +727,8 @@
       "clothing"
     ],
     "amount": 944.9,
-    "date": "Thu May 04 2023 21:39:43 GMT+0300 (Москва, стандартное время)",
-    "description": "morbi non quam nec dui luctus",
+    "date": "12.05.2023",
+"description": "morbi non quam nec dui luctus",
     "type": "income"
   },
   {
@@ -728,8 +741,8 @@
       "study"
     ],
     "amount": 699.72,
-    "date": "Thu May 04 2023 21:39:43 GMT+0300 (Москва, стандартное время)",
-    "description": "ultrices posuere cubilia curae mauris viverra diam vitae quam",
+    "date": "12.05.2023",
+"description": "ultrices posuere cubilia curae mauris viverra diam vitae quam",
     "type": "expense"
   },
   {
@@ -744,8 +757,8 @@
       "beauty"
     ],
     "amount": 9.35,
-    "date": "Thu May 04 2023 21:39:43 GMT+0300 (Москва, стандартное время)",
-    "description": "neque vestibulum eget vulputate ut ultrices vel augue vestibulum",
+    "date": "12.05.2023",
+"description": "neque vestibulum eget vulputate ut ultrices vel augue vestibulum",
     "type": "income"
   },
   {
@@ -762,8 +775,8 @@
       "beauty"
     ],
     "amount": 135.45,
-    "date": "Thu May 04 2023 21:39:43 GMT+0300 (Москва, стандартное время)",
-    "description": "odio consequat varius integer ac leo pellentesque ultrices mattis",
+    "date": "12.05.2023",
+"description": "odio consequat varius integer ac leo pellentesque ultrices mattis",
     "type": "expense"
   },
   {
@@ -778,8 +791,8 @@
       "transport"
     ],
     "amount": 211.61,
-    "date": "Thu May 04 2023 21:39:43 GMT+0300 (Москва, стандартное время)",
-    "description": "elementum in hac habitasse platea",
+    "date": "12.05.2023",
+"description": "elementum in hac habitasse platea",
     "type": "expense"
   },
   {
@@ -794,8 +807,8 @@
       "study"
     ],
     "amount": 644.68,
-    "date": "Thu May 04 2023 21:39:43 GMT+0300 (Москва, стандартное время)",
-    "description": "habitasse platea dictumst morbi vestibulum velit id pretium iaculis",
+    "date": "12.05.2023",
+"description": "habitasse platea dictumst morbi vestibulum velit id pretium iaculis",
     "type": "income"
   },
   {
@@ -808,8 +821,8 @@
       "clothing"
     ],
     "amount": 865.23,
-    "date": "Thu May 04 2023 21:39:43 GMT+0300 (Москва, стандартное время)",
-    "description": "vestibulum sit amet cursus id",
+    "date": "12.05.2023",
+"description": "vestibulum sit amet cursus id",
     "type": "income"
   },
   {
@@ -825,8 +838,8 @@
       "transport"
     ],
     "amount": 999.19,
-    "date": "Thu May 04 2023 21:39:43 GMT+0300 (Москва, стандартное время)",
-    "description": "integer a nibh in quis justo maecenas rhoncus aliquam",
+    "date": "12.05.2023",
+"description": "integer a nibh in quis justo maecenas rhoncus aliquam",
     "type": "income"
   },
   {
@@ -842,8 +855,8 @@
       "food"
     ],
     "amount": 713.9,
-    "date": "Thu May 04 2023 21:39:43 GMT+0300 (Москва, стандартное время)",
-    "description": "cubilia curae duis faucibus accumsan odio curabitur convallis",
+    "date": "12.05.2023",
+"description": "cubilia curae duis faucibus accumsan odio curabitur convallis",
     "type": "income"
   },
   {
@@ -858,8 +871,8 @@
       "food"
     ],
     "amount": 429.05,
-    "date": "Thu May 04 2023 21:39:43 GMT+0300 (Москва, стандартное время)",
-    "description": "nam congue risus semper porta volutpat quam pede lobortis",
+    "date": "12.05.2023",
+"description": "nam congue risus semper porta volutpat quam pede lobortis",
     "type": "income"
   },
   {
@@ -875,8 +888,8 @@
       "daily"
     ],
     "amount": 102.72,
-    "date": "Thu May 04 2023 21:39:43 GMT+0300 (Москва, стандартное время)",
-    "description": "velit id pretium iaculis diam",
+    "date": "12.05.2023",
+"description": "velit id pretium iaculis diam",
     "type": "expense"
   },
   {
@@ -891,8 +904,8 @@
       "clothing"
     ],
     "amount": 238.42,
-    "date": "Thu May 04 2023 21:39:43 GMT+0300 (Москва, стандартное время)",
-    "description": "id turpis integer aliquet massa id",
+    "date": "12.05.2023",
+"description": "id turpis integer aliquet massa id",
     "type": "income"
   },
   {
@@ -908,8 +921,8 @@
       "study"
     ],
     "amount": 984.81,
-    "date": "Thu May 04 2023 21:39:43 GMT+0300 (Москва, стандартное время)",
-    "description": "proin at turpis a pede posuere",
+    "date": "12.05.2023",
+"description": "proin at turpis a pede posuere",
     "type": "expense"
   },
   {
@@ -925,8 +938,8 @@
       "transport"
     ],
     "amount": 527.92,
-    "date": "Thu May 04 2023 21:39:43 GMT+0300 (Москва, стандартное время)",
-    "description": "proin at turpis a pede",
+    "date": "12.05.2023",
+"description": "proin at turpis a pede",
     "type": "expense"
   },
   {
@@ -941,8 +954,8 @@
       "food"
     ],
     "amount": 222.24,
-    "date": "Thu May 04 2023 21:39:43 GMT+0300 (Москва, стандартное время)",
-    "description": "consectetuer eget rutrum at lorem integer tincidunt ante vel ipsum",
+    "date": "12.05.2023",
+"description": "consectetuer eget rutrum at lorem integer tincidunt ante vel ipsum",
     "type": "income"
   },
   {
@@ -959,8 +972,8 @@
       "beauty"
     ],
     "amount": 900.95,
-    "date": "Thu May 04 2023 21:39:43 GMT+0300 (Москва, стандартное время)",
-    "description": "nunc nisl duis bibendum felis sed interdum",
+    "date": "12.05.2023",
+"description": "nunc nisl duis bibendum felis sed interdum",
     "type": "income"
   },
   {
@@ -974,8 +987,8 @@
       "daily"
     ],
     "amount": 693.32,
-    "date": "Thu May 04 2023 21:39:43 GMT+0300 (Москва, стандартное время)",
-    "description": "auctor gravida sem praesent id massa id",
+    "date": "12.05.2023",
+"description": "auctor gravida sem praesent id massa id",
     "type": "income"
   },
   {
@@ -990,8 +1003,8 @@
       "food"
     ],
     "amount": 672.28,
-    "date": "Thu May 04 2023 21:39:43 GMT+0300 (Москва, стандартное время)",
-    "description": "cursus urna ut tellus nulla ut erat",
+    "date": "12.05.2023",
+"description": "cursus urna ut tellus nulla ut erat",
     "type": "expense"
   },
   {
@@ -1005,8 +1018,8 @@
       "transport"
     ],
     "amount": 181.16,
-    "date": "Thu May 04 2023 21:39:43 GMT+0300 (Москва, стандартное время)",
-    "description": "sit amet nulla quisque arcu libero rutrum ac lobortis",
+    "date": "12.05.2023",
+"description": "sit amet nulla quisque arcu libero rutrum ac lobortis",
     "type": "expense"
   },
   {
@@ -1023,8 +1036,8 @@
       "study"
     ],
     "amount": 422.41,
-    "date": "Thu May 04 2023 21:39:43 GMT+0300 (Москва, стандартное время)",
-    "description": "quis augue luctus tincidunt nulla mollis molestie",
+    "date": "12.05.2023",
+"description": "quis augue luctus tincidunt nulla mollis molestie",
     "type": "expense"
   },
   {
@@ -1041,8 +1054,8 @@
       "beauty"
     ],
     "amount": 187.11,
-    "date": "Thu May 04 2023 21:39:43 GMT+0300 (Москва, стандартное время)",
-    "description": "integer pede justo lacinia eget",
+    "date": "12.05.2023",
+"description": "integer pede justo lacinia eget",
     "type": "income"
   },
   {
@@ -1056,8 +1069,8 @@
       "beauty"
     ],
     "amount": 476.81,
-    "date": "Thu May 04 2023 21:39:43 GMT+0300 (Москва, стандартное время)",
-    "description": "mauris morbi non lectus aliquam sit amet diam",
+    "date": "12.05.2023",
+"description": "mauris morbi non lectus aliquam sit amet diam",
     "type": "income"
   },
   {
@@ -1072,8 +1085,8 @@
       "transport"
     ],
     "amount": 982.46,
-    "date": "Thu May 04 2023 21:39:43 GMT+0300 (Москва, стандартное время)",
-    "description": "donec ut dolor morbi vel lectus in quam fringilla",
+    "date": "12.05.2023",
+"description": "donec ut dolor morbi vel lectus in quam fringilla",
     "type": "income"
   },
   {
@@ -1088,8 +1101,8 @@
       "food"
     ],
     "amount": 908.28,
-    "date": "Thu May 04 2023 21:39:43 GMT+0300 (Москва, стандартное время)",
-    "description": "lectus vestibulum quam sapien varius ut",
+    "date": "12.05.2023",
+"description": "lectus vestibulum quam sapien varius ut",
     "type": "expense"
   },
   {
@@ -1102,8 +1115,8 @@
       "beauty"
     ],
     "amount": 374.61,
-    "date": "Thu May 04 2023 21:39:43 GMT+0300 (Москва, стандартное время)",
-    "description": "eleifend donec ut dolor morbi vel lectus in quam",
+    "date": "12.05.2023",
+"description": "eleifend donec ut dolor morbi vel lectus in quam",
     "type": "expense"
   },
   {
@@ -1119,8 +1132,8 @@
       "food"
     ],
     "amount": 796.94,
-    "date": "Thu May 04 2023 21:39:43 GMT+0300 (Москва, стандартное время)",
-    "description": "venenatis lacinia aenean sit amet justo morbi ut odio cras",
+    "date": "12.05.2023",
+"description": "venenatis lacinia aenean sit amet justo morbi ut odio cras",
     "type": "expense"
   },
   {
@@ -1134,8 +1147,8 @@
       "food"
     ],
     "amount": 145.48,
-    "date": "Thu May 04 2023 21:39:43 GMT+0300 (Москва, стандартное время)",
-    "description": "eu massa donec dapibus duis at velit eu est congue",
+    "date": "12.05.2023",
+"description": "eu massa donec dapibus duis at velit eu est congue",
     "type": "income"
   },
   {
@@ -1149,8 +1162,8 @@
       "beauty"
     ],
     "amount": 437.29,
-    "date": "Thu May 04 2023 21:39:43 GMT+0300 (Москва, стандартное время)",
-    "description": "nibh in quis justo maecenas rhoncus aliquam lacus morbi quis",
+    "date": "12.05.2023",
+"description": "nibh in quis justo maecenas rhoncus aliquam lacus morbi quis",
     "type": "expense"
   },
   {
@@ -1167,8 +1180,8 @@
       "transport"
     ],
     "amount": 344.14,
-    "date": "Thu May 04 2023 21:39:43 GMT+0300 (Москва, стандартное время)",
-    "description": "rutrum rutrum neque aenean auctor gravida sem praesent id",
+    "date": "12.05.2023",
+"description": "rutrum rutrum neque aenean auctor gravida sem praesent id",
     "type": "expense"
   },
   {
@@ -1185,8 +1198,8 @@
       "transport"
     ],
     "amount": 515.83,
-    "date": "Thu May 04 2023 21:39:43 GMT+0300 (Москва, стандартное время)",
-    "description": "metus sapien ut nunc vestibulum ante ipsum",
+    "date": "12.05.2023",
+"description": "metus sapien ut nunc vestibulum ante ipsum",
     "type": "income"
   },
   {
@@ -1200,8 +1213,8 @@
       "healthy"
     ],
     "amount": 754.34,
-    "date": "Thu May 04 2023 21:39:43 GMT+0300 (Москва, стандартное время)",
-    "description": "nullam orci pede venenatis non sodales sed tincidunt",
+    "date": "12.05.2023",
+"description": "nullam orci pede venenatis non sodales sed tincidunt",
     "type": "income"
   },
   {
@@ -1215,8 +1228,8 @@
       "food"
     ],
     "amount": 481.54,
-    "date": "Thu May 04 2023 21:39:43 GMT+0300 (Москва, стандартное время)",
-    "description": "pede morbi porttitor lorem id ligula",
+    "date": "12.05.2023",
+"description": "pede morbi porttitor lorem id ligula",
     "type": "income"
   },
   {
@@ -1229,8 +1242,8 @@
       "beauty"
     ],
     "amount": 831.33,
-    "date": "Thu May 04 2023 21:39:43 GMT+0300 (Москва, стандартное время)",
-    "description": "ut massa volutpat convallis morbi odio odio elementum eu",
+    "date": "12.05.2023",
+"description": "ut massa volutpat convallis morbi odio odio elementum eu",
     "type": "income"
   },
   {
@@ -1245,8 +1258,8 @@
       "beauty"
     ],
     "amount": 770.93,
-    "date": "Thu May 04 2023 21:39:43 GMT+0300 (Москва, стандартное время)",
-    "description": "quam pharetra magna ac consequat metus sapien ut nunc",
+    "date": "12.05.2023",
+"description": "quam pharetra magna ac consequat metus sapien ut nunc",
     "type": "income"
   },
   {
@@ -1259,8 +1272,8 @@
       "healthy"
     ],
     "amount": 596.58,
-    "date": "Thu May 04 2023 21:39:43 GMT+0300 (Москва, стандартное время)",
-    "description": "suscipit ligula in lacus curabitur at ipsum ac tellus",
+    "date": "12.05.2023",
+"description": "suscipit ligula in lacus curabitur at ipsum ac tellus",
     "type": "expense"
   },
   {
@@ -1275,8 +1288,8 @@
       "food"
     ],
     "amount": 191.8,
-    "date": "Thu May 04 2023 21:39:43 GMT+0300 (Москва, стандартное время)",
-    "description": "ligula vehicula consequat morbi a ipsum",
+    "date": "12.05.2023",
+"description": "ligula vehicula consequat morbi a ipsum",
     "type": "expense"
   },
   {
@@ -1290,8 +1303,8 @@
       "food"
     ],
     "amount": 39.78,
-    "date": "Thu May 04 2023 21:39:43 GMT+0300 (Москва, стандартное время)",
-    "description": "erat id mauris vulputate elementum nullam varius nulla",
+    "date": "12.05.2023",
+"description": "erat id mauris vulputate elementum nullam varius nulla",
     "type": "income"
   },
   {
@@ -1305,8 +1318,8 @@
       "clothing"
     ],
     "amount": 697.09,
-    "date": "Thu May 04 2023 21:39:43 GMT+0300 (Москва, стандартное время)",
-    "description": "consectetuer adipiscing elit proin risus praesent",
+    "date": "12.05.2023",
+"description": "consectetuer adipiscing elit proin risus praesent",
     "type": "expense"
   },
   {
@@ -1321,8 +1334,8 @@
       "beauty"
     ],
     "amount": 899.01,
-    "date": "Thu May 04 2023 21:39:43 GMT+0300 (Москва, стандартное время)",
-    "description": "ut dolor morbi vel lectus in quam fringilla rhoncus",
+    "date": "12.05.2023",
+"description": "ut dolor morbi vel lectus in quam fringilla rhoncus",
     "type": "income"
   },
   {
@@ -1336,8 +1349,8 @@
       "beauty"
     ],
     "amount": 932.7,
-    "date": "Thu May 04 2023 21:39:43 GMT+0300 (Москва, стандартное время)",
-    "description": "dolor sit amet consectetuer adipiscing elit proin interdum mauris non",
+    "date": "12.05.2023",
+"description": "dolor sit amet consectetuer adipiscing elit proin interdum mauris non",
     "type": "income"
   },
   {
@@ -1352,8 +1365,8 @@
       "clothing"
     ],
     "amount": 920.95,
-    "date": "Thu May 04 2023 21:39:43 GMT+0300 (Москва, стандартное время)",
-    "description": "risus dapibus augue vel accumsan tellus nisi",
+    "date": "12.05.2023",
+"description": "risus dapibus augue vel accumsan tellus nisi",
     "type": "expense"
   },
   {
@@ -1366,8 +1379,8 @@
       "transport"
     ],
     "amount": 652.54,
-    "date": "Thu May 04 2023 21:39:43 GMT+0300 (Москва, стандартное время)",
-    "description": "dictumst morbi vestibulum velit id pretium iaculis diam erat fermentum",
+    "date": "12.05.2023",
+"description": "dictumst morbi vestibulum velit id pretium iaculis diam erat fermentum",
     "type": "income"
   },
   {
@@ -1381,8 +1394,8 @@
       "daily"
     ],
     "amount": 596.94,
-    "date": "Thu May 04 2023 21:39:43 GMT+0300 (Москва, стандартное время)",
-    "description": "quis tortor id nulla ultrices aliquet maecenas leo odio",
+    "date": "12.05.2023",
+"description": "quis tortor id nulla ultrices aliquet maecenas leo odio",
     "type": "income"
   },
   {
@@ -1398,8 +1411,8 @@
       "study"
     ],
     "amount": 162.16,
-    "date": "Thu May 04 2023 21:39:43 GMT+0300 (Москва, стандартное время)",
-    "description": "fringilla rhoncus mauris enim leo",
+    "date": "12.05.2023",
+"description": "fringilla rhoncus mauris enim leo",
     "type": "expense"
   },
   {
@@ -1414,8 +1427,8 @@
       "transport"
     ],
     "amount": 464.44,
-    "date": "Thu May 04 2023 21:39:43 GMT+0300 (Москва, стандартное время)",
-    "description": "sit amet consectetuer adipiscing elit proin interdum mauris non",
+    "date": "12.05.2023",
+"description": "sit amet consectetuer adipiscing elit proin interdum mauris non",
     "type": "expense"
   },
   {
@@ -1432,8 +1445,8 @@
       "study"
     ],
     "amount": 824,
-    "date": "Thu May 04 2023 21:39:43 GMT+0300 (Москва, стандартное время)",
-    "description": "dolor sit amet consectetuer adipiscing elit proin risus praesent",
+    "date": "12.05.2023",
+"description": "dolor sit amet consectetuer adipiscing elit proin risus praesent",
     "type": "expense"
   },
   {
@@ -1450,8 +1463,8 @@
       "healthy"
     ],
     "amount": 980.02,
-    "date": "Thu May 04 2023 21:39:43 GMT+0300 (Москва, стандартное время)",
-    "description": "ridiculus mus etiam vel augue vestibulum rutrum rutrum",
+    "date": "12.05.2023",
+"description": "ridiculus mus etiam vel augue vestibulum rutrum rutrum",
     "type": "expense"
   },
   {
@@ -1466,8 +1479,8 @@
       "daily"
     ],
     "amount": 835.96,
-    "date": "Thu May 04 2023 21:39:43 GMT+0300 (Москва, стандартное время)",
-    "description": "eget eleifend luctus ultricies eu nibh quisque id justo sit",
+    "date": "12.05.2023",
+"description": "eget eleifend luctus ultricies eu nibh quisque id justo sit",
     "type": "income"
   },
   {
@@ -1483,8 +1496,8 @@
       "food"
     ],
     "amount": 828.38,
-    "date": "Thu May 04 2023 21:39:43 GMT+0300 (Москва, стандартное время)",
-    "description": "in faucibus orci luctus et",
+    "date": "12.05.2023",
+"description": "in faucibus orci luctus et",
     "type": "expense"
   },
   {
@@ -1500,8 +1513,8 @@
       "food"
     ],
     "amount": 373.01,
-    "date": "Thu May 04 2023 21:39:43 GMT+0300 (Москва, стандартное время)",
-    "description": "lorem integer tincidunt ante vel ipsum praesent",
+    "date": "12.05.2023",
+"description": "lorem integer tincidunt ante vel ipsum praesent",
     "type": "income"
   },
   {
@@ -1517,8 +1530,8 @@
       "daily"
     ],
     "amount": 474.95,
-    "date": "Thu May 04 2023 21:39:43 GMT+0300 (Москва, стандартное время)",
-    "description": "non mauris morbi non lectus aliquam sit amet",
+    "date": "12.05.2023",
+"description": "non mauris morbi non lectus aliquam sit amet",
     "type": "income"
   },
   {
@@ -1534,8 +1547,8 @@
       "daily"
     ],
     "amount": 922.55,
-    "date": "Thu May 04 2023 21:39:43 GMT+0300 (Москва, стандартное время)",
-    "description": "varius ut blandit non interdum",
+    "date": "12.05.2023",
+"description": "varius ut blandit non interdum",
     "type": "expense"
   },
   {
@@ -1552,8 +1565,8 @@
       "beauty"
     ],
     "amount": 816.61,
-    "date": "Thu May 04 2023 21:39:43 GMT+0300 (Москва, стандартное время)",
-    "description": "primis in faucibus orci luctus et ultrices posuere",
+    "date": "12.05.2023",
+"description": "primis in faucibus orci luctus et ultrices posuere",
     "type": "income"
   },
   {
@@ -1569,8 +1582,8 @@
       "beauty"
     ],
     "amount": 803.33,
-    "date": "Thu May 04 2023 21:39:43 GMT+0300 (Москва, стандартное время)",
-    "description": "risus auctor sed tristique in tempus sit amet",
+    "date": "12.05.2023",
+"description": "risus auctor sed tristique in tempus sit amet",
     "type": "income"
   },
   {
@@ -1585,8 +1598,8 @@
       "healthy"
     ],
     "amount": 130.5,
-    "date": "Thu May 04 2023 21:39:43 GMT+0300 (Москва, стандартное время)",
-    "description": "in magna bibendum imperdiet nullam orci pede venenatis non sodales",
+    "date": "12.05.2023",
+"description": "in magna bibendum imperdiet nullam orci pede venenatis non sodales",
     "type": "income"
   },
   {
@@ -1602,8 +1615,8 @@
       "daily"
     ],
     "amount": 254.23,
-    "date": "Thu May 04 2023 21:39:43 GMT+0300 (Москва, стандартное время)",
-    "description": "suspendisse potenti nullam porttitor lacus at turpis donec posuere metus",
+    "date": "12.05.2023",
+"description": "suspendisse potenti nullam porttitor lacus at turpis donec posuere metus",
     "type": "income"
   }
-]
+];

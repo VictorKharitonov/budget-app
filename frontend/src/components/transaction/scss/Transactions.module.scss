@@ -1,0 +1,26 @@
+.transactionsLayout {
+  width: 100%;
+  overflow: hidden;
+
+  .transactionsContainer {
+    max-height: 39rem;
+  }
+
+  .transactionsTableCell {
+    text-align: left;
+    min-width: 6.25rem;
+
+    &:nth-child(3) {
+      text-align: center;
+    }
+
+    &:last-child {
+      text-align: right;
+    }
+  }
+}
+
+
+.types {
+  min-width: 4rem;
+}

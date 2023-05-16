@@ -2,16 +2,21 @@ import React, {FC} from 'react';
 import TextField from '@mui/material/TextField';
 import {Box, Button, Typography} from '@mui/material';
 
-interface envelopeFormProps {
+interface EnvelopeFormProps {
   newItem: string,
   newItemHandleChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
   createItem: () => void,
   error: boolean
 }
 
-const EnvelopeForm: FC<envelopeFormProps> = ({newItem, newItemHandleChange, createItem, error}) => {
+const EnvelopeForm: FC<EnvelopeFormProps> = ({newItem, newItemHandleChange, createItem, error}) => {
+  const onSubmitHandle = (e: React.SyntheticEvent) => {
+    e.preventDefault();
+    createItem();
+  };
+
   return (
-    <Box component="form">
+    <Box component="form" onSubmit={onSubmitHandle}>
       <TextField
         error={error}
         helperText={error ? 'Field can not be empty' : ''}
@@ -19,9 +24,10 @@ const EnvelopeForm: FC<envelopeFormProps> = ({newItem, newItemHandleChange, crea
         variant="outlined"
         placeholder='Shopping'
         fullWidth
-        sx={{ mb: 1 }}
+        sx={{mb: 1}}
         value={newItem}
         onChange={newItemHandleChange}
+        autoFocus={true}
       />
       <Button
         fullWidth

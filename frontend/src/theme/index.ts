@@ -30,6 +30,14 @@ const theme = extendTheme({
           marginLeft: 0
         }
       }
+    },
+    MuiTableCell: {
+      styleOverrides: {
+        head: {
+          background: "#2A5AEE",
+          color: "#ffffff",
+        }
+      }
     }
   },
   cssVarPrefix: 'ba',
@@ -37,7 +45,14 @@ const theme = extendTheme({
     light: {
       palette: {
         primary: {
-          main: '#2A5AEE',
+          main: "#2A5AEE",
+        },
+        success: {
+          main: "#00c9a7",
+          contrastText: "#ffffff"
+        },
+        error: {
+          main: "#de4437"
         }
       },
     }

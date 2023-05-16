@@ -2,14 +2,14 @@ import React, {FC, PropsWithChildren} from 'react';
 import {Backdrop, Box, Fade, Modal, Typography} from '@mui/material';
 import cl from './scss/CustomModal.module.scss';
 
-interface customModalProps extends PropsWithChildren{
+interface CustomModalProps extends PropsWithChildren{
   title: string,
   modal: boolean,
   setModal: (val: boolean) => void,
   children: React.ReactNode
 }
 
-const CustomModal: FC<customModalProps> = ({title, modal, setModal, children}) => {
+const CustomModal: FC<CustomModalProps> = ({title, modal, setModal, children}) => {
   return (
     <Modal
       aria-labelledby="transition-modal-title"

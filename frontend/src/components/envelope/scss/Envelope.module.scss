@@ -1,7 +1,7 @@
 .listItem {
   border: 1px solid var(--ba-palette-grey-300);
-  margin: 10px 0;
-  border-radius: 5px;
+  margin: .6rem 0;
+  border-radius: .3rem;
   background: var(--ba-palette-common-white);
 
   &:hover {
@@ -22,6 +22,6 @@
 
 .search {
   .searchInput {
-    padding: 8px 16px;
+    padding: .5rem 1rem;
   }
 }

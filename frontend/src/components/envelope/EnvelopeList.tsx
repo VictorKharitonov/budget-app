@@ -6,15 +6,15 @@ import cl from './scss/Envelope.module.scss';
 import ListItemText from '@mui/material/ListItemText';
 import Typography from '@mui/material/Typography';
 import List from '@mui/material/List';
-import {IEnvelopeItem} from '../../types';
+import {EnvelopeItem} from '../../types';
 
-interface IEnvelopesListProps {
-  envelopes: IEnvelopeItem[],
+interface EnvelopesListProps {
+  envelopes: EnvelopeItem[],
   selectedEnvelopeId: string,
   setCurrentEnvelope: (e: React.MouseEvent<HTMLLIElement, MouseEvent>, envelopeId: string) => void
 }
 
-const EnvelopeList: FC<IEnvelopesListProps> = ({envelopes, selectedEnvelopeId, setCurrentEnvelope}) => {
+const EnvelopeList: FC<EnvelopesListProps> = ({envelopes, selectedEnvelopeId, setCurrentEnvelope}) => {
   return (
     <List>
       {envelopes.length > 0

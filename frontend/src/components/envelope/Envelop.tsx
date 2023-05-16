@@ -1,30 +1,33 @@
 import React, {useState, FC} from 'react';
 import {Divider, Grid, Box} from '@mui/material';
-import {IEnvelopeItem} from '../../types';
+import {EnvelopeItem} from '../../types';
 import EnvelopeList from './EnvelopeList';
 import useFilter from '../../hooks/useFilter';
 import ToolBar from '../toolBar/ToolBar';
 import CustomModal from '../ui/modal/CustomModal';
 import EnvelopeForm from './EnvelopeForm';
+import {useNavigate} from "react-router-dom"
 
-const Envelope: FC = () => {
-  const [envelopes, setEnvelopes] = useState<IEnvelopeItem[]>([{'id': 'a', 'userId': 'test', 'name': 'jopa'},
-    {'id': 'b', 'userId': 'test', 'name': 'salary'},
-    {'id': 'c', 'userId': 'test', 'name': 'bar'},
-    {'id': 'd', 'userId': 'test', 'name': 'negr'},
-    {'id': 'f', 'userId': 'test', 'name': 'jop'}]);
+interface EnvelopesProps {
+  envelopes: EnvelopeItem[],
+  setEnvelopes: (envelopes: EnvelopeItem[]) => void
+}
+
+const Envelope: FC<EnvelopesProps> = ({envelopes, setEnvelopes}) => {
   const [selectedEnvelopeId, setSelectedEnvelopeId] = useState<string>('');
   const [searchEnvelope, setSearchEnvelope] = useState<string>('');
   const [envelopeModal, setEnvelopeModal] = useState<boolean>(false);
   const [newEnvelope, setNewEnvelope] = useState<string>('');
   const [error, setError] = useState<boolean>(false);
-  const filteredEnvelopes = useFilter<IEnvelopeItem>(searchEnvelope, envelopes, ['name']);
+  const envelopesByName = useFilter<EnvelopeItem>(searchEnvelope, envelopes, ['name']);
+  const navigate = useNavigate();
 
   const setCurrentEnvelope = (
     e: React.MouseEvent<HTMLLIElement, MouseEvent>,
     envelopeId: string
   ) => {
     setSelectedEnvelopeId(envelopeId);
+    navigate(`/envelope/${envelopeId}`);
   };
 
   const searchEnvelopeHandleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -47,15 +50,15 @@ const Envelope: FC = () => {
       return;
     }
 
-    setEnvelopes([{'id': 'g', 'userId': 'test', 'name': envelope}, ...envelopes]);
-    setEnvelopeModal(!envelopeModal);
+    setEnvelopes([{'id': String(Math.random() * 1000), 'userId': 'test', 'name': envelope}, ...envelopes]);
+    setEnvelopeModal(false);
     setNewEnvelope('');
   };
 
   return (
-    <Box sx={{flexGrow: 1, maxWidth: 550}}>
-      <Grid container spacing={2} mt={2}>
-        <Grid item xs={12} md={6}>
+    <Box sx={{flexGrow: 1, maxWidth: 'fit-content'}}>
+      <Grid container spacing={2}>
+        <Grid item>
           <ToolBar
             setModal={setEnvelopeModal}
             searchHandleChange={searchEnvelopeHandleChange}
@@ -63,7 +66,7 @@ const Envelope: FC = () => {
           />
           <Divider/>
           <EnvelopeList
-            envelopes={filteredEnvelopes}
+            envelopes={envelopesByName}
             selectedEnvelopeId={selectedEnvelopeId}
             setCurrentEnvelope={setCurrentEnvelope}
           />
