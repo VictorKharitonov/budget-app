@@ -63,6 +63,13 @@ const Transactions: FC<TransactionsProps> = ({
 }) => {
   const [page, setPage] = useState<number>(0);
   const [rowsPerPage, setRowsPerPage] = useState<number>(perPage);
+  const [selectedTransactionId, setSelectedTransactionId] = useState<string>('');
+
+  const selectTransaction = (e: React.MouseEvent<HTMLTableRowElement>, id: string) => {
+    setSelectedTransactionId(id);
+  };
+
+  const isSelectedTransaction = (id: string): boolean => selectedTransactionId === id;
 
   const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage);
@@ -94,8 +101,17 @@ const Transactions: FC<TransactionsProps> = ({
               ? transactions
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((transaction) => {
+                  const isSelected: boolean = isSelectedTransaction(transaction.id);
+
                   return (
-                    <TableRow hover role="checkbox" tabIndex={-1} key={transaction.id}>
+                    <TableRow
+                      hover
+                      role="checkbox"
+                      tabIndex={-1}
+                      key={transaction.id}
+                      onClick={(e) => selectTransaction(e, transaction.id)}
+                      selected={isSelected}
+                    >
                       {columns.map((column) => {
                         const value = transaction[column.id];
                         return (

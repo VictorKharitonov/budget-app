@@ -10,6 +10,10 @@
     text-align: left;
     min-width: 6.25rem;
 
+    &:hover {
+      cursor: pointer;
+    }
+
     &:nth-child(3) {
       text-align: center;
     }
