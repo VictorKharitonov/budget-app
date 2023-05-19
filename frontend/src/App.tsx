@@ -1,11 +1,16 @@
-import React, {useState} from 'react';
+import React from 'react';
+import './App.scss';
+import {theme, CssVarsProvider} from './theme/index';
+import {BrowserRouter as Router} from "react-router-dom";
+import AppRouter from './components/AppRouter';
 
 function App() {
-  const [counter, setCounter] = useState<number>(0);
   return (
-    <div>
-      <h1 onClick={() => setCounter(counter + 1)}>Hello Budget: {counter}</h1>
-    </div>
+    <Router>
+      <CssVarsProvider theme={theme}>
+        <AppRouter/>
+      </CssVarsProvider>
+    </Router>
   );
 }
 

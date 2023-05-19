@@ -1,0 +1,11 @@
+.customModal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 22rem;
+  background-color: var(--ba-palette-background-paper);
+  box-shadow: var(--ba-shadows-24);
+  border-radius: 1.25rem;
+  padding: 2rem;
+}

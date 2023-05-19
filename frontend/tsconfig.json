@@ -17,9 +17,11 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx"
+    "jsx": "react"
   },
   "include": [
-    "src"
+    "src",
+    "Globals.d.ts",
+    "public/test_data"
   ]
 }
