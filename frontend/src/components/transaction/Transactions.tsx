@@ -23,7 +23,8 @@ interface Column {
 const columns: readonly Column[] = [
   {
     id: 'date',
-    label: 'Date'
+    label: 'Date',
+    format: (value: number) => new Date(value).toLocaleDateString('en-CA')
   },
   {
     id: 'amount',
@@ -50,20 +51,25 @@ const columns: readonly Column[] = [
 
 interface TransactionsProps {
   transactions: TransactionsItem[],
+  selectedTransactionId: string,
+  setSelectedTransactionId: (id: string) => void,
   isPagination?: boolean,
   rowsPerPageOptions?: number[],
   perPage?: number
 }
 
-const Transactions: FC<TransactionsProps> = ({
-  transactions,
-  isPagination = false,
-  rowsPerPageOptions = [],
-  perPage = 10
-}) => {
+const Transactions: FC<TransactionsProps> = (
+  {
+    transactions,
+    selectedTransactionId,
+    setSelectedTransactionId,
+    isPagination = false,
+    rowsPerPageOptions = [],
+    perPage = 10
+  }
+) => {
   const [page, setPage] = useState<number>(0);
   const [rowsPerPage, setRowsPerPage] = useState<number>(perPage);
-  const [selectedTransactionId, setSelectedTransactionId] = useState<string>('');
 
   const selectTransaction = (e: React.MouseEvent<HTMLTableRowElement>, id: string) => {
     setSelectedTransactionId(id);

@@ -47,6 +47,9 @@ const theme = extendTheme({
         primary: {
           main: "#2A5AEE",
         },
+        secondary: {
+          main: "#E6E9F0",
+        },
         success: {
           main: "#00c9a7",
           contrastText: "#ffffff"

@@ -22,7 +22,7 @@ export const testTransactions = [
       "food"
     ],
     "amount": 369.41,
-    "date": "12.05.2023",
+    "date": Date.now(),
 "description": "nec sem duis aliquam convallis nunc proin at turpis",
     "type": "income"
   },
@@ -39,7 +39,7 @@ export const testTransactions = [
       "food"
     ],
     "amount": 349.85,
-    "date": "12.05.2023",
+    "date": Date.now(),
 "description": "parturient montes nascetur ridiculus mus vivamus vestibulum sagittis",
     "type": "income"
   },
@@ -56,7 +56,7 @@ export const testTransactions = [
       "transport"
     ],
     "amount": 106.99,
-    "date": "12.05.2023",
+    "date": Date.now(),
 "description": "pellentesque ultrices mattis odio donec vitae nisi nam",
     "type": "expense"
   },
@@ -71,7 +71,7 @@ export const testTransactions = [
       "daily"
     ],
     "amount": 393.35,
-    "date": "12.05.2023",
+    "date": Date.now(),
 "description": "arcu sed augue aliquam erat",
     "type": "expense"
   },
@@ -87,7 +87,7 @@ export const testTransactions = [
       "study"
     ],
     "amount": 987.83,
-    "date": "12.05.2023",
+    "date": Date.now(),
 "description": "lacus at velit vivamus vel nulla eget",
     "type": "income"
   },
@@ -103,7 +103,7 @@ export const testTransactions = [
       "transport"
     ],
     "amount": 253.23,
-    "date": "12.05.2023",
+    "date": Date.now(),
 "description": "cursus vestibulum proin eu mi nulla ac enim in",
     "type": "expense"
   },
@@ -119,7 +119,7 @@ export const testTransactions = [
       "healthy"
     ],
     "amount": 144.12,
-    "date": "12.05.2023",
+    "date": Date.now(),
 "description": "aliquam convallis nunc proin at turpis",
     "type": "expense"
   },
@@ -135,7 +135,7 @@ export const testTransactions = [
       "food"
     ],
     "amount": 494.79,
-    "date": "12.05.2023",
+    "date": Date.now(),
 "description": "morbi porttitor lorem id ligula suspendisse ornare",
     "type": "expense"
   },
@@ -151,7 +151,7 @@ export const testTransactions = [
       "daily"
     ],
     "amount": 619.49,
-    "date": "12.05.2023",
+    "date": Date.now(),
 "description": "turpis integer aliquet massa id",
     "type": "expense"
   },
@@ -166,7 +166,7 @@ export const testTransactions = [
       "beauty"
     ],
     "amount": 688.94,
-    "date": "12.05.2023",
+    "date": Date.now(),
 "description": "ligula suspendisse ornare consequat lectus in est risus auctor sed",
     "type": "expense"
   },
@@ -183,7 +183,7 @@ export const testTransactions = [
       "beauty"
     ],
     "amount": 812.65,
-    "date": "12.05.2023",
+    "date": Date.now(),
 "description": "eleifend pede libero quis orci nullam molestie nibh in lectus",
     "type": "expense"
   },
@@ -197,7 +197,7 @@ export const testTransactions = [
       "clothing"
     ],
     "amount": 888.64,
-    "date": "12.05.2023",
+    "date": Date.now(),
 "description": "ut blandit non interdum in ante",
     "type": "expense"
   },
@@ -213,7 +213,7 @@ export const testTransactions = [
       "food"
     ],
     "amount": 347.66,
-    "date": "12.05.2023",
+    "date": Date.now(),
 "description": "vestibulum ante ipsum primis in",
     "type": "expense"
   },
@@ -231,7 +231,7 @@ export const testTransactions = [
       "daily"
     ],
     "amount": 172.24,
-    "date": "12.05.2023",
+    "date": Date.now(),
 "description": "adipiscing elit proin interdum mauris non ligula",
     "type": "income"
   },
@@ -248,7 +248,7 @@ export const testTransactions = [
       "daily"
     ],
     "amount": 736.68,
-    "date": "12.05.2023",
+    "date": Date.now(),
 "description": "blandit mi in porttitor pede justo",
     "type": "income"
   },
@@ -263,7 +263,7 @@ export const testTransactions = [
       "clothing"
     ],
     "amount": 164.56,
-    "date": "12.05.2023",
+    "date": Date.now(),
 "description": "lorem ipsum dolor sit amet",
     "type": "income"
   },
@@ -280,7 +280,7 @@ export const testTransactions = [
       "clothing"
     ],
     "amount": 63.11,
-    "date": "12.05.2023",
+    "date": Date.now(),
 "description": "volutpat sapien arcu sed augue aliquam erat volutpat in congue",
     "type": "expense"
   },
@@ -296,7 +296,7 @@ export const testTransactions = [
       "beauty"
     ],
     "amount": 746.15,
-    "date": "12.05.2023",
+    "date": Date.now(),
 "description": "ipsum dolor sit amet consectetuer adipiscing elit proin risus praesent",
     "type": "income"
   },
@@ -311,7 +311,7 @@ export const testTransactions = [
       "daily"
     ],
     "amount": 127.86,
-    "date": "12.05.2023",
+    "date": Date.now(),
 "description": "nullam porttitor lacus at turpis",
     "type": "income"
   },
@@ -327,7 +327,7 @@ export const testTransactions = [
       "transport"
     ],
     "amount": 733.98,
-    "date": "12.05.2023",
+    "date": Date.now(),
 "description": "blandit mi in porttitor pede justo eu massa",
     "type": "income"
   },
@@ -344,7 +344,7 @@ export const testTransactions = [
       "food"
     ],
     "amount": 976.06,
-    "date": "12.05.2023",
+    "date": Date.now(),
 "description": "curae donec pharetra magna vestibulum aliquet ultrices erat tortor sollicitudin",
     "type": "income"
   },
@@ -360,7 +360,7 @@ export const testTransactions = [
       "study"
     ],
     "amount": 711.16,
-    "date": "12.05.2023",
+    "date": Date.now(),
 "description": "odio condimentum id luctus nec molestie sed justo pellentesque",
     "type": "income"
   },
@@ -376,7 +376,7 @@ export const testTransactions = [
       "beauty"
     ],
     "amount": 303.22,
-    "date": "12.05.2023",
+    "date": Date.now(),
 "description": "molestie lorem quisque ut erat curabitur gravida nisi",
     "type": "expense"
   },
@@ -392,7 +392,7 @@ export const testTransactions = [
       "healthy"
     ],
     "amount": 346.7,
-    "date": "12.05.2023",
+    "date": Date.now(),
 "description": "luctus ultricies eu nibh quisque id justo sit",
     "type": "income"
   },
@@ -406,7 +406,7 @@ export const testTransactions = [
       "beauty"
     ],
     "amount": 998.93,
-    "date": "12.05.2023",
+    "date": Date.now(),
 "description": "mauris eget massa tempor convallis",
     "type": "expense"
   },
@@ -421,7 +421,7 @@ export const testTransactions = [
       "study"
     ],
     "amount": 835.36,
-    "date": "12.05.2023",
+    "date": Date.now(),
 "description": "quam turpis adipiscing lorem vitae mattis nibh ligula",
     "type": "income"
   },
@@ -439,7 +439,7 @@ export const testTransactions = [
       "beauty"
     ],
     "amount": 441.73,
-    "date": "12.05.2023",
+    "date": Date.now(),
 "description": "amet eleifend pede libero quis orci nullam",
     "type": "expense"
   },
@@ -454,7 +454,7 @@ export const testTransactions = [
       "transport"
     ],
     "amount": 590.62,
-    "date": "12.05.2023",
+    "date": Date.now(),
 "description": "leo rhoncus sed vestibulum sit amet",
     "type": "income"
   },
@@ -471,7 +471,7 @@ export const testTransactions = [
       "study"
     ],
     "amount": 366.46,
-    "date": "12.05.2023",
+    "date": Date.now(),
 "description": "turpis sed ante vivamus tortor duis mattis egestas",
     "type": "expense"
   },
@@ -488,7 +488,7 @@ export const testTransactions = [
       "daily"
     ],
     "amount": 794.8,
-    "date": "12.05.2023",
+    "date": Date.now(),
 "description": "habitasse platea dictumst maecenas ut massa quis",
     "type": "income"
   },
@@ -504,7 +504,7 @@ export const testTransactions = [
       "daily"
     ],
     "amount": 972.18,
-    "date": "12.05.2023",
+    "date": Date.now(),
 "description": "sed nisl nunc rhoncus dui vel sem sed",
     "type": "income"
   },
@@ -521,7 +521,7 @@ export const testTransactions = [
       "beauty"
     ],
     "amount": 142.15,
-    "date": "12.05.2023",
+    "date": Date.now(),
 "description": "imperdiet sapien urna pretium nisl ut",
     "type": "income"
   },
@@ -537,7 +537,7 @@ export const testTransactions = [
       "beauty"
     ],
     "amount": 336.59,
-    "date": "12.05.2023",
+    "date": Date.now(),
 "description": "urna pretium nisl ut volutpat sapien arcu",
     "type": "expense"
   },
@@ -554,7 +554,7 @@ export const testTransactions = [
       "healthy"
     ],
     "amount": 888.67,
-    "date": "12.05.2023",
+    "date": Date.now(),
 "description": "lacinia erat vestibulum sed magna at nunc commodo",
     "type": "income"
   },
@@ -568,7 +568,7 @@ export const testTransactions = [
       "healthy"
     ],
     "amount": 769.94,
-    "date": "12.05.2023",
+    "date": Date.now(),
 "description": "cras pellentesque volutpat dui maecenas tristique est et",
     "type": "expense"
   },
@@ -585,7 +585,7 @@ export const testTransactions = [
       "transport"
     ],
     "amount": 94.57,
-    "date": "12.05.2023",
+    "date": Date.now(),
 "description": "id nulla ultrices aliquet maecenas leo odio",
     "type": "income"
   },
@@ -601,7 +601,7 @@ export const testTransactions = [
       "study"
     ],
     "amount": 679.17,
-    "date": "12.05.2023",
+    "date": Date.now(),
 "description": "nulla facilisi cras non velit nec nisi",
     "type": "income"
   },
@@ -615,7 +615,7 @@ export const testTransactions = [
       "daily"
     ],
     "amount": 679.41,
-    "date": "12.05.2023",
+    "date": Date.now(),
 "description": "bibendum morbi non quam nec dui",
     "type": "expense"
   },
@@ -631,7 +631,7 @@ export const testTransactions = [
       "beauty"
     ],
     "amount": 908.99,
-    "date": "12.05.2023",
+    "date": Date.now(),
 "description": "in quam fringilla rhoncus mauris enim leo rhoncus sed vestibulum",
     "type": "expense"
   },
@@ -649,7 +649,7 @@ export const testTransactions = [
       "transport"
     ],
     "amount": 944.38,
-    "date": "12.05.2023",
+    "date": Date.now(),
 "description": "commodo placerat praesent blandit nam nulla",
     "type": "expense"
   },
@@ -665,7 +665,7 @@ export const testTransactions = [
       "food"
     ],
     "amount": 304.75,
-    "date": "12.05.2023",
+    "date": Date.now(),
 "description": "pulvinar sed nisl nunc rhoncus dui vel",
     "type": "expense"
   },
@@ -679,7 +679,7 @@ export const testTransactions = [
       "food"
     ],
     "amount": 617.35,
-    "date": "12.05.2023",
+    "date": Date.now(),
 "description": "odio condimentum id luctus nec molestie sed justo pellentesque",
     "type": "expense"
   },
@@ -695,7 +695,7 @@ export const testTransactions = [
       "study"
     ],
     "amount": 838.8,
-    "date": "12.05.2023",
+    "date": Date.now(),
 "description": "ipsum aliquam non mauris morbi non lectus aliquam",
     "type": "income"
   },
@@ -709,7 +709,7 @@ export const testTransactions = [
       "beauty"
     ],
     "amount": 647.1,
-    "date": "12.05.2023",
+    "date": Date.now(),
 "description": "convallis morbi odio odio elementum",
     "type": "income"
   },
@@ -727,7 +727,7 @@ export const testTransactions = [
       "clothing"
     ],
     "amount": 944.9,
-    "date": "12.05.2023",
+    "date": Date.now(),
 "description": "morbi non quam nec dui luctus",
     "type": "income"
   },
@@ -741,7 +741,7 @@ export const testTransactions = [
       "study"
     ],
     "amount": 699.72,
-    "date": "12.05.2023",
+    "date": Date.now(),
 "description": "ultrices posuere cubilia curae mauris viverra diam vitae quam",
     "type": "expense"
   },
@@ -757,7 +757,7 @@ export const testTransactions = [
       "beauty"
     ],
     "amount": 9.35,
-    "date": "12.05.2023",
+    "date": Date.now(),
 "description": "neque vestibulum eget vulputate ut ultrices vel augue vestibulum",
     "type": "income"
   },
@@ -775,7 +775,7 @@ export const testTransactions = [
       "beauty"
     ],
     "amount": 135.45,
-    "date": "12.05.2023",
+    "date": Date.now(),
 "description": "odio consequat varius integer ac leo pellentesque ultrices mattis",
     "type": "expense"
   },
@@ -791,7 +791,7 @@ export const testTransactions = [
       "transport"
     ],
     "amount": 211.61,
-    "date": "12.05.2023",
+    "date": Date.now(),
 "description": "elementum in hac habitasse platea",
     "type": "expense"
   },
@@ -807,7 +807,7 @@ export const testTransactions = [
       "study"
     ],
     "amount": 644.68,
-    "date": "12.05.2023",
+    "date": Date.now(),
 "description": "habitasse platea dictumst morbi vestibulum velit id pretium iaculis",
     "type": "income"
   },
@@ -821,7 +821,7 @@ export const testTransactions = [
       "clothing"
     ],
     "amount": 865.23,
-    "date": "12.05.2023",
+    "date": Date.now(),
 "description": "vestibulum sit amet cursus id",
     "type": "income"
   },
@@ -838,7 +838,7 @@ export const testTransactions = [
       "transport"
     ],
     "amount": 999.19,
-    "date": "12.05.2023",
+    "date": Date.now(),
 "description": "integer a nibh in quis justo maecenas rhoncus aliquam",
     "type": "income"
   },
@@ -855,7 +855,7 @@ export const testTransactions = [
       "food"
     ],
     "amount": 713.9,
-    "date": "12.05.2023",
+    "date": Date.now(),
 "description": "cubilia curae duis faucibus accumsan odio curabitur convallis",
     "type": "income"
   },
@@ -871,7 +871,7 @@ export const testTransactions = [
       "food"
     ],
     "amount": 429.05,
-    "date": "12.05.2023",
+    "date": Date.now(),
 "description": "nam congue risus semper porta volutpat quam pede lobortis",
     "type": "income"
   },
@@ -888,7 +888,7 @@ export const testTransactions = [
       "daily"
     ],
     "amount": 102.72,
-    "date": "12.05.2023",
+    "date": Date.now(),
 "description": "velit id pretium iaculis diam",
     "type": "expense"
   },
@@ -904,7 +904,7 @@ export const testTransactions = [
       "clothing"
     ],
     "amount": 238.42,
-    "date": "12.05.2023",
+    "date": Date.now(),
 "description": "id turpis integer aliquet massa id",
     "type": "income"
   },
@@ -921,7 +921,7 @@ export const testTransactions = [
       "study"
     ],
     "amount": 984.81,
-    "date": "12.05.2023",
+    "date": Date.now(),
 "description": "proin at turpis a pede posuere",
     "type": "expense"
   },
@@ -938,7 +938,7 @@ export const testTransactions = [
       "transport"
     ],
     "amount": 527.92,
-    "date": "12.05.2023",
+    "date": Date.now(),
 "description": "proin at turpis a pede",
     "type": "expense"
   },
@@ -954,7 +954,7 @@ export const testTransactions = [
       "food"
     ],
     "amount": 222.24,
-    "date": "12.05.2023",
+    "date": Date.now(),
 "description": "consectetuer eget rutrum at lorem integer tincidunt ante vel ipsum",
     "type": "income"
   },
@@ -972,7 +972,7 @@ export const testTransactions = [
       "beauty"
     ],
     "amount": 900.95,
-    "date": "12.05.2023",
+    "date": Date.now(),
 "description": "nunc nisl duis bibendum felis sed interdum",
     "type": "income"
   },
@@ -987,7 +987,7 @@ export const testTransactions = [
       "daily"
     ],
     "amount": 693.32,
-    "date": "12.05.2023",
+    "date": Date.now(),
 "description": "auctor gravida sem praesent id massa id",
     "type": "income"
   },
@@ -1003,7 +1003,7 @@ export const testTransactions = [
       "food"
     ],
     "amount": 672.28,
-    "date": "12.05.2023",
+    "date": Date.now(),
 "description": "cursus urna ut tellus nulla ut erat",
     "type": "expense"
   },
@@ -1018,7 +1018,7 @@ export const testTransactions = [
       "transport"
     ],
     "amount": 181.16,
-    "date": "12.05.2023",
+    "date": Date.now(),
 "description": "sit amet nulla quisque arcu libero rutrum ac lobortis",
     "type": "expense"
   },
@@ -1036,7 +1036,7 @@ export const testTransactions = [
       "study"
     ],
     "amount": 422.41,
-    "date": "12.05.2023",
+    "date": Date.now(),
 "description": "quis augue luctus tincidunt nulla mollis molestie",
     "type": "expense"
   },
@@ -1054,7 +1054,7 @@ export const testTransactions = [
       "beauty"
     ],
     "amount": 187.11,
-    "date": "12.05.2023",
+    "date": Date.now(),
 "description": "integer pede justo lacinia eget",
     "type": "income"
   },
@@ -1069,7 +1069,7 @@ export const testTransactions = [
       "beauty"
     ],
     "amount": 476.81,
-    "date": "12.05.2023",
+    "date": Date.now(),
 "description": "mauris morbi non lectus aliquam sit amet diam",
     "type": "income"
   },
@@ -1085,7 +1085,7 @@ export const testTransactions = [
       "transport"
     ],
     "amount": 982.46,
-    "date": "12.05.2023",
+    "date": Date.now(),
 "description": "donec ut dolor morbi vel lectus in quam fringilla",
     "type": "income"
   },
@@ -1101,7 +1101,7 @@ export const testTransactions = [
       "food"
     ],
     "amount": 908.28,
-    "date": "12.05.2023",
+    "date": Date.now(),
 "description": "lectus vestibulum quam sapien varius ut",
     "type": "expense"
   },
@@ -1115,7 +1115,7 @@ export const testTransactions = [
       "beauty"
     ],
     "amount": 374.61,
-    "date": "12.05.2023",
+    "date": Date.now(),
 "description": "eleifend donec ut dolor morbi vel lectus in quam",
     "type": "expense"
   },
@@ -1132,7 +1132,7 @@ export const testTransactions = [
       "food"
     ],
     "amount": 796.94,
-    "date": "12.05.2023",
+    "date": Date.now(),
 "description": "venenatis lacinia aenean sit amet justo morbi ut odio cras",
     "type": "expense"
   },
@@ -1147,7 +1147,7 @@ export const testTransactions = [
       "food"
     ],
     "amount": 145.48,
-    "date": "12.05.2023",
+    "date": Date.now(),
 "description": "eu massa donec dapibus duis at velit eu est congue",
     "type": "income"
   },
@@ -1162,7 +1162,7 @@ export const testTransactions = [
       "beauty"
     ],
     "amount": 437.29,
-    "date": "12.05.2023",
+    "date": Date.now(),
 "description": "nibh in quis justo maecenas rhoncus aliquam lacus morbi quis",
     "type": "expense"
   },
@@ -1180,7 +1180,7 @@ export const testTransactions = [
       "transport"
     ],
     "amount": 344.14,
-    "date": "12.05.2023",
+    "date": Date.now(),
 "description": "rutrum rutrum neque aenean auctor gravida sem praesent id",
     "type": "expense"
   },
@@ -1198,7 +1198,7 @@ export const testTransactions = [
       "transport"
     ],
     "amount": 515.83,
-    "date": "12.05.2023",
+    "date": Date.now(),
 "description": "metus sapien ut nunc vestibulum ante ipsum",
     "type": "income"
   },
@@ -1213,7 +1213,7 @@ export const testTransactions = [
       "healthy"
     ],
     "amount": 754.34,
-    "date": "12.05.2023",
+    "date": Date.now(),
 "description": "nullam orci pede venenatis non sodales sed tincidunt",
     "type": "income"
   },
@@ -1228,7 +1228,7 @@ export const testTransactions = [
       "food"
     ],
     "amount": 481.54,
-    "date": "12.05.2023",
+    "date": Date.now(),
 "description": "pede morbi porttitor lorem id ligula",
     "type": "income"
   },
@@ -1242,7 +1242,7 @@ export const testTransactions = [
       "beauty"
     ],
     "amount": 831.33,
-    "date": "12.05.2023",
+    "date": Date.now(),
 "description": "ut massa volutpat convallis morbi odio odio elementum eu",
     "type": "income"
   },
@@ -1258,7 +1258,7 @@ export const testTransactions = [
       "beauty"
     ],
     "amount": 770.93,
-    "date": "12.05.2023",
+    "date": Date.now(),
 "description": "quam pharetra magna ac consequat metus sapien ut nunc",
     "type": "income"
   },
@@ -1272,7 +1272,7 @@ export const testTransactions = [
       "healthy"
     ],
     "amount": 596.58,
-    "date": "12.05.2023",
+    "date": Date.now(),
 "description": "suscipit ligula in lacus curabitur at ipsum ac tellus",
     "type": "expense"
   },
@@ -1288,7 +1288,7 @@ export const testTransactions = [
       "food"
     ],
     "amount": 191.8,
-    "date": "12.05.2023",
+    "date": Date.now(),
 "description": "ligula vehicula consequat morbi a ipsum",
     "type": "expense"
   },
@@ -1303,7 +1303,7 @@ export const testTransactions = [
       "food"
     ],
     "amount": 39.78,
-    "date": "12.05.2023",
+    "date": Date.now(),
 "description": "erat id mauris vulputate elementum nullam varius nulla",
     "type": "income"
   },
@@ -1318,7 +1318,7 @@ export const testTransactions = [
       "clothing"
     ],
     "amount": 697.09,
-    "date": "12.05.2023",
+    "date": Date.now(),
 "description": "consectetuer adipiscing elit proin risus praesent",
     "type": "expense"
   },
@@ -1334,7 +1334,7 @@ export const testTransactions = [
       "beauty"
     ],
     "amount": 899.01,
-    "date": "12.05.2023",
+    "date": Date.now(),
 "description": "ut dolor morbi vel lectus in quam fringilla rhoncus",
     "type": "income"
   },
@@ -1349,7 +1349,7 @@ export const testTransactions = [
       "beauty"
     ],
     "amount": 932.7,
-    "date": "12.05.2023",
+    "date": Date.now(),
 "description": "dolor sit amet consectetuer adipiscing elit proin interdum mauris non",
     "type": "income"
   },
@@ -1365,7 +1365,7 @@ export const testTransactions = [
       "clothing"
     ],
     "amount": 920.95,
-    "date": "12.05.2023",
+    "date": Date.now(),
 "description": "risus dapibus augue vel accumsan tellus nisi",
     "type": "expense"
   },
@@ -1379,7 +1379,7 @@ export const testTransactions = [
       "transport"
     ],
     "amount": 652.54,
-    "date": "12.05.2023",
+    "date": Date.now(),
 "description": "dictumst morbi vestibulum velit id pretium iaculis diam erat fermentum",
     "type": "income"
   },
@@ -1394,7 +1394,7 @@ export const testTransactions = [
       "daily"
     ],
     "amount": 596.94,
-    "date": "12.05.2023",
+    "date": Date.now(),
 "description": "quis tortor id nulla ultrices aliquet maecenas leo odio",
     "type": "income"
   },
@@ -1411,7 +1411,7 @@ export const testTransactions = [
       "study"
     ],
     "amount": 162.16,
-    "date": "12.05.2023",
+    "date": Date.now(),
 "description": "fringilla rhoncus mauris enim leo",
     "type": "expense"
   },
@@ -1427,7 +1427,7 @@ export const testTransactions = [
       "transport"
     ],
     "amount": 464.44,
-    "date": "12.05.2023",
+    "date": Date.now(),
 "description": "sit amet consectetuer adipiscing elit proin interdum mauris non",
     "type": "expense"
   },
@@ -1445,7 +1445,7 @@ export const testTransactions = [
       "study"
     ],
     "amount": 824,
-    "date": "12.05.2023",
+    "date": Date.now(),
 "description": "dolor sit amet consectetuer adipiscing elit proin risus praesent",
     "type": "expense"
   },
@@ -1463,7 +1463,7 @@ export const testTransactions = [
       "healthy"
     ],
     "amount": 980.02,
-    "date": "12.05.2023",
+    "date": Date.now(),
 "description": "ridiculus mus etiam vel augue vestibulum rutrum rutrum",
     "type": "expense"
   },
@@ -1479,7 +1479,7 @@ export const testTransactions = [
       "daily"
     ],
     "amount": 835.96,
-    "date": "12.05.2023",
+    "date": Date.now(),
 "description": "eget eleifend luctus ultricies eu nibh quisque id justo sit",
     "type": "income"
   },
@@ -1496,7 +1496,7 @@ export const testTransactions = [
       "food"
     ],
     "amount": 828.38,
-    "date": "12.05.2023",
+    "date": Date.now(),
 "description": "in faucibus orci luctus et",
     "type": "expense"
   },
@@ -1513,7 +1513,7 @@ export const testTransactions = [
       "food"
     ],
     "amount": 373.01,
-    "date": "12.05.2023",
+    "date": Date.now(),
 "description": "lorem integer tincidunt ante vel ipsum praesent",
     "type": "income"
   },
@@ -1530,7 +1530,7 @@ export const testTransactions = [
       "daily"
     ],
     "amount": 474.95,
-    "date": "12.05.2023",
+    "date": Date.now(),
 "description": "non mauris morbi non lectus aliquam sit amet",
     "type": "income"
   },
@@ -1547,7 +1547,7 @@ export const testTransactions = [
       "daily"
     ],
     "amount": 922.55,
-    "date": "12.05.2023",
+    "date": Date.now(),
 "description": "varius ut blandit non interdum",
     "type": "expense"
   },
@@ -1565,7 +1565,7 @@ export const testTransactions = [
       "beauty"
     ],
     "amount": 816.61,
-    "date": "12.05.2023",
+    "date": Date.now(),
 "description": "primis in faucibus orci luctus et ultrices posuere",
     "type": "income"
   },
@@ -1582,7 +1582,7 @@ export const testTransactions = [
       "beauty"
     ],
     "amount": 803.33,
-    "date": "12.05.2023",
+    "date": Date.now(),
 "description": "risus auctor sed tristique in tempus sit amet",
     "type": "income"
   },
@@ -1598,7 +1598,7 @@ export const testTransactions = [
       "healthy"
     ],
     "amount": 130.5,
-    "date": "12.05.2023",
+    "date": Date.now(),
 "description": "in magna bibendum imperdiet nullam orci pede venenatis non sodales",
     "type": "income"
   },
@@ -1615,7 +1615,7 @@ export const testTransactions = [
       "daily"
     ],
     "amount": 254.23,
-    "date": "12.05.2023",
+    "date": Date.now(),
 "description": "suspendisse potenti nullam porttitor lacus at turpis donec posuere metus",
     "type": "income"
   }
