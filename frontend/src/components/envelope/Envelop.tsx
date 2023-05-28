@@ -17,8 +17,6 @@ const Envelope: FC<EnvelopesProps> = ({envelopes, setEnvelopes}) => {
   const [selectedEnvelopeId, setSelectedEnvelopeId] = useState<string>('');
   const [searchEnvelope, setSearchEnvelope] = useState<string>('');
   const [envelopeModal, setEnvelopeModal] = useState<boolean>(false);
-  const [newEnvelope, setNewEnvelope] = useState<string>('');
-  const [error, setError] = useState<boolean>(false);
   const envelopesByName = useFilter<EnvelopeItem>(searchEnvelope, envelopes, ['name']);
   const navigate = useNavigate();
 
@@ -32,27 +30,6 @@ const Envelope: FC<EnvelopesProps> = ({envelopes, setEnvelopes}) => {
 
   const searchEnvelopeHandleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchEnvelope(e.target.value);
-  };
-
-  const newEnvelopeHandleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (error) {
-      setError(false);
-    }
-
-    setNewEnvelope(e.target.value);
-  };
-
-  const createEnvelope = () => {
-    const envelope = newEnvelope.trim();
-
-    if (!envelope) {
-      setError(true);
-      return;
-    }
-
-    setEnvelopes([{'id': String(Math.random() * 1000), 'userId': 'test', 'name': envelope}, ...envelopes]);
-    setEnvelopeModal(false);
-    setNewEnvelope('');
   };
 
   return (
@@ -78,10 +55,9 @@ const Envelope: FC<EnvelopesProps> = ({envelopes, setEnvelopes}) => {
         setModal={setEnvelopeModal}
       >
         <EnvelopeForm
-          newItem={newEnvelope}
-          newItemHandleChange={newEnvelopeHandleChange}
-          createItem={createEnvelope}
-          error={error}
+          envelopes={envelopes}
+          setEnvelopes={setEnvelopes}
+          setEnvelopesModal={setEnvelopeModal}
         />
       </CustomModal>
     </Box>

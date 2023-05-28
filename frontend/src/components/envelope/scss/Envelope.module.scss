@@ -1,6 +1,6 @@
 .listItem {
   border: 1px solid var(--ba-palette-grey-300);
-  margin: .6rem 0;
+  margin: 0.6rem 0;
   border-radius: .3rem;
   background: var(--ba-palette-common-white);
 
@@ -13,6 +13,16 @@
   &.active {
     background-color: var(--ba-palette-grey-200);
     border-color: var(--ba-palette-primary-main);
+  }
+
+  .listItemStatus {
+    position: relative;
+    top: 0px;
+    left: 85%;
+
+    span {
+      min-width: 50px;
+    }
   }
 
   .listItemText {

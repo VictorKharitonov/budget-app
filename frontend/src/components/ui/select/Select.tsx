@@ -1,5 +1,5 @@
 import React, {FC} from 'react';
-import {BaseTextFieldProps, MenuItem, TextField, TextFieldProps} from '@mui/material';
+import {MenuItem, TextField, TextFieldProps} from '@mui/material';
 import {Controller, FieldError, Merge} from 'react-hook-form';
 
 interface Option {
@@ -34,7 +34,6 @@ const Select: FC<SelectProps> = (
           {...field}
           fullWidth
           sx={{mb: 2}}
-          label={name.replace(name[0], name[0].toUpperCase())}
           select
           SelectProps={{
             multiple: multiple,

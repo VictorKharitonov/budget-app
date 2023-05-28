@@ -1,38 +1,54 @@
 import React, {FC} from 'react';
-import TextField from '@mui/material/TextField';
 import {Box, Button, Typography} from '@mui/material';
+import {SubmitHandler, useForm} from 'react-hook-form';
+import {yupResolver} from '@hookform/resolvers/yup';
+import {EnvelopeItem} from '../../types';
+import {envelopeScheme} from '../../validations/envelopeValidation';
+import Input from '../ui/input/Input';
 
 interface EnvelopeFormProps {
-  newItem: string,
-  newItemHandleChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
-  createItem: () => void,
-  error: boolean
+  envelopes: EnvelopeItem[],
+  setEnvelopes: (val: EnvelopeItem[]) => void,
+  setEnvelopesModal: (val: boolean) => void,
 }
 
-const EnvelopeForm: FC<EnvelopeFormProps> = ({newItem, newItemHandleChange, createItem, error}) => {
-  const onSubmitHandle = (e: React.SyntheticEvent) => {
-    e.preventDefault();
-    createItem();
-  };
+const EnvelopeForm: FC<EnvelopeFormProps> = ({
+  envelopes,
+  setEnvelopes,
+  setEnvelopesModal,
+}) => {
+  let defaultValue: EnvelopeItem = {
+    id: String(Math.random() * 1000),
+    userId: 'test',
+    name: '',
+    status: 'open'
+  }
+  const {handleSubmit, control, reset, formState: {errors}} = useForm<EnvelopeItem>({
+    defaultValues: defaultValue,
+    resolver: yupResolver(envelopeScheme),
+  });
+
+  const createEnvelope: SubmitHandler<EnvelopeItem> = (data: EnvelopeItem) => {
+    setEnvelopes([data, ...envelopes]);
+    setEnvelopesModal(false);
+    reset();
+  }
 
   return (
-    <Box component="form" onSubmit={onSubmitHandle}>
-      <TextField
-        error={error}
-        helperText={error ? 'Field can not be empty' : ''}
-        id="envelopeField"
-        variant="outlined"
-        placeholder='Shopping'
-        fullWidth
-        sx={{mb: 1}}
-        value={newItem}
-        onChange={newItemHandleChange}
+    <Box component="form" onSubmit={handleSubmit(createEnvelope)}>
+      <Input
+        name="name"
+        control={control}
+        errors={errors.name}
         autoFocus={true}
+        placeholder="Shopping"
+        sx={{ mb: 1}}
+        autoComplete="off"
       />
       <Button
         fullWidth
         variant="contained"
-        onClick={createItem}
+        type="submit"
       >
         <Typography variant="body1">Create</Typography>
       </Button>
