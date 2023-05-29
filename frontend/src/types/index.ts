@@ -10,7 +10,13 @@ export interface TransactionsItem {
   userId: string,
   envelop: string[],
   amount: number,
-  date: string,
+  date: number,
   description: string,
   type: string,
+}
+
+export interface CategoryItem {
+  id: string,
+  userId: string,
+  name: string,
 }

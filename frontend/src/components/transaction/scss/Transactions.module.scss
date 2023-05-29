@@ -1,14 +1,16 @@
 .transactionsLayout {
-  width: 100%;
   overflow: hidden;
+  max-width: 100%;
 
   .transactionsContainer {
-    max-height: 39rem;
+    max-height: 40rem;
   }
 
   .transactionsTableCell {
     text-align: left;
-    min-width: 6.25rem;
+    padding: 0.77rem 0.8rem;
+    max-width: 10rem;
+
 
     &:hover {
       cursor: pointer;
@@ -20,6 +22,9 @@
 
     &:last-child {
       text-align: right;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
   }
 }
