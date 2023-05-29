@@ -1,19 +1,17 @@
-import React, {FC, useState} from 'react';
-import {
-  Box,
-  Button,
-  Divider,
-  Grid,
-  SelectChangeEvent,
-  Typography
-} from '@mui/material';
+import React, {FC, useEffect, useState} from 'react';
+import { Box, Button, Divider, Grid, Typography } from '@mui/material';
+
 import Icons from '../ui/Icons';
 import cl from './scss/DetailTransactions.module.scss';
 import {CategoryItem, EnvelopeItem, TransactionsItem} from '../../types';
 import DetailTransactionForm from './DetailTransactionForm';
+import {SubmitHandler, useForm} from "react-hook-form";
+import {yupResolver} from "@hookform/resolvers/yup";
+import {detailScheme} from "../../validations/detailValidation";
+import {getTransactionById} from "../../utils/transactionsHelper";
 
 interface DetailProps {
-  detailTransaction: TransactionsItem,
+  transaction: TransactionsItem | undefined,
   latestTransactions: TransactionsItem[],
   setLatestTransactions: (transactions: TransactionsItem[]) => void,
   envelopes: EnvelopeItem[],
@@ -22,7 +20,7 @@ interface DetailProps {
 
 const DetailTransaction: FC<DetailProps> = (
   {
-    detailTransaction,
+    transaction,
     latestTransactions,
     setLatestTransactions,
     envelopes,
@@ -31,18 +29,39 @@ const DetailTransaction: FC<DetailProps> = (
 ) => {
   const [isEditable, setIsEditable] = useState<boolean>(true);
 
+  const detailForm = useForm<TransactionsItem>({
+    defaultValues: transaction,
+    resolver: yupResolver(detailScheme),
+    mode: "onChange"
+  });
+
+  const {reset, formState: {isValid}} = detailForm;
+
   const handleEditClick = () => {
     setIsEditable(!isEditable);
   };
 
+  useEffect(() => {
+    reset(transaction);
+  }, [transaction, !isEditable]);
+
+  const updateTransaction: SubmitHandler<TransactionsItem> = (data: TransactionsItem) => {
+    data = {...data, date: data.date.valueOf()};
+
+    if (getTransactionById(data.id, latestTransactions)) {
+      setLatestTransactions(
+        [...latestTransactions].map(transaction => transaction.id === data.id ? data : transaction)
+      );
+    }
+  };
+
   return (
-    <Box className={cl.detailTransaction}>
-      <Grid
-        container
-        justifyContent="space-between"
-        alignItems="center"
-        className={cl.detailHeader}
-      >
+    <Box className={
+      !isEditable
+        ? [cl.detailTransaction, isValid ? cl.isValid : cl.isInvalid]
+        : cl.detailTransaction
+    }>
+      <Grid container className={cl.detailHeader}>
         <Grid item>
           <Typography variant="body1">Detail</Typography>
         </Grid>
@@ -58,9 +77,8 @@ const DetailTransaction: FC<DetailProps> = (
       </Grid>
       <Divider sx={{mb: 2}}/>
       <DetailTransactionForm
-        detailTransaction={detailTransaction}
-        latestTransactions={latestTransactions}
-        setLatestTransactions={setLatestTransactions}
+        detailForm={detailForm}
+        updateTransaction={updateTransaction}
         isEditable={isEditable}
         envelopes={envelopes}
         categories={categories}
