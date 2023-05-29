@@ -19,12 +19,11 @@ const Main: FC = () => {
   const selectedEnvelopeName: string = getEnvelopeNameById(envelopes, params.id);
   const filterTransactionsByEnvelopeName = useFilter<TransactionsItem>(selectedEnvelopeName, transactions, ['envelop']);
   const [latestTransactions, setLatestTransactions] = useState<TransactionsItem[]>(getLatestTransactions(filterTransactionsByEnvelopeName) || []);
-  const selectedTransaction = getTransactionById(selectedTransactionId, latestTransactions);
-  const [detailTransaction, setDetailTransaction] = useState<TransactionsItem | undefined>();
+  const [selectedTransaction, setSelectedTransaction] = useState<TransactionsItem | undefined>()
 
   useEffect(() => {
-    setDetailTransaction(selectedTransaction);
-  }, [selectedTransactionId]);
+    setSelectedTransaction(getTransactionById(selectedTransactionId, latestTransactions));
+  }, [selectedTransactionId, latestTransactions]);
 
   useEffect(() => {
     setLatestTransactions(getLatestTransactions(filterTransactionsByEnvelopeName));
@@ -32,25 +31,25 @@ const Main: FC = () => {
 
   return (
     <Container>
-      <Grid container spacing={1} mt={2}>
-        <Grid item xs={12} md={3}>
+      <Grid container sx={{justifyContent: "space-between"}} columnSpacing={2} rowSpacing={2} mt={2}>
+        <Grid item md={12} lg={3}>
           <Envelope
             envelopes={envelopes}
             setEnvelopes={setEnvelopes}
           />
         </Grid>
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12} md={8} lg={6}>
           <Transactions
             transactions={latestTransactions}
             selectedTransactionId={selectedTransactionId}
             setSelectedTransactionId={setSelectedTransactionId}
           />
         </Grid>
-        <Grid item xs={12} md={3}>
+        <Grid item xs={12} md={4} lg={3}>
           {
-            detailTransaction
+            selectedTransaction
             ? <DetailTransaction
-                detailTransaction={detailTransaction}
+                transaction={selectedTransaction}
                 latestTransactions={latestTransactions}
                 setLatestTransactions={setLatestTransactions}
                 envelopes={envelopes}
