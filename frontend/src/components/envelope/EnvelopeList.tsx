@@ -10,14 +10,8 @@ interface EnvelopesListProps {
   selectedEnvelopeId: string,
   setCurrentEnvelope: (e: React.MouseEvent<HTMLLIElement, MouseEvent>, envelopeId: string) => void
 }
-
-type color = "success" | "warning" | "primary" | "default" | "secondary" | "error" | "info";
-
-interface ColorStatus {
-  open: color,
-  closed: color,
-  frozen: color,
-}
+type Color = "success" | "warning" | "primary" | "default" | "secondary" | "error" | "info";
+type ColorStatus = Record<EnvelopeItem['status'], Color>
 
 const EnvelopeList: FC<EnvelopesListProps> = ({envelopes, selectedEnvelopeId, setCurrentEnvelope}) => {
   const colorStatus: ColorStatus = {
@@ -32,7 +26,7 @@ const EnvelopeList: FC<EnvelopesListProps> = ({envelopes, selectedEnvelopeId, se
         ? envelopes.map(envelope =>
           <ListItem
             secondaryAction={
-              <IconButton edge="end" aria-label="envelope" color="primary">
+              <IconButton edge="end" aria-label="envelope-modal" color="primary">
                 <Icons.FolderIcon/>
               </IconButton>
             }
@@ -40,7 +34,7 @@ const EnvelopeList: FC<EnvelopesListProps> = ({envelopes, selectedEnvelopeId, se
             key={envelope.id}
             onClick={(e) => setCurrentEnvelope(e, envelope.id)}
           >
-            <Badge badgeContent={fcLatter(envelope.status)} color={colorStatus[envelope.status as keyof ColorStatus]} className={cl.listItemStatus}/>
+            <Badge badgeContent={fcLatter(envelope.status)} color={colorStatus[envelope.status]} className={cl.listItemStatus}/>
             <ListItemText
               primary={
                 <Typography variant="body1" className={cl.listItemText}>{envelope.name}</Typography>

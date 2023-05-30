@@ -8,12 +8,12 @@ import CustomModal from '../ui/modal/CustomModal';
 import EnvelopeForm from './EnvelopeForm';
 import {useNavigate} from "react-router-dom"
 
-interface EnvelopesProps {
+interface EnvelopeSidebarProps {
   envelopes: EnvelopeItem[],
   setEnvelopes: (envelopes: EnvelopeItem[]) => void
 }
 
-const Envelope: FC<EnvelopesProps> = ({envelopes, setEnvelopes}) => {
+const EnvelopeSidebar: FC<EnvelopeSidebarProps> = ({envelopes, setEnvelopes}) => {
   const [selectedEnvelopeId, setSelectedEnvelopeId] = useState<string>('');
   const [searchEnvelope, setSearchEnvelope] = useState<string>('');
   const [envelopeModal, setEnvelopeModal] = useState<boolean>(false);
@@ -64,4 +64,4 @@ const Envelope: FC<EnvelopesProps> = ({envelopes, setEnvelopes}) => {
   );
 };
 
-export default Envelope;
+export default EnvelopeSidebar;

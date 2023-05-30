@@ -1,5 +1,5 @@
 import React, {FC, useEffect, useState} from 'react';
-import Envelope from '../components/envelope/Envelop';
+import EnvelopeSidebar from '../components/envelope/EnvelopeSidebar';
 import {Container, Grid, Paper, Typography} from '@mui/material';
 import Transactions from '../components/transaction/Transactions';
 import {CategoryItem, EnvelopeItem, TransactionsItem} from '../types';
@@ -33,7 +33,7 @@ const Main: FC = () => {
     <Container>
       <Grid container sx={{justifyContent: "space-between"}} columnSpacing={2} rowSpacing={2} mt={2}>
         <Grid item md={12} lg={3}>
-          <Envelope
+          <EnvelopeSidebar
             envelopes={envelopes}
             setEnvelopes={setEnvelopes}
           />

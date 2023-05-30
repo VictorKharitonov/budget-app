@@ -1,4 +1,6 @@
-export const testEnvelopes = [{"id":"a","userId":"test","name":"jopa","status":"open"},
+import { EnvelopeItem } from './types';
+
+export const testEnvelopes: EnvelopeItem[] = [{"id":"a","userId":"test","name":"jopa","status":"open"},
   {"id":"b","userId":"test","name":"salary","status":"closed"},
   {"id":"c","userId":"test","name":"bar","status":"frozen"},
   {"id":"d","userId":"test","name":"negr","status":"open"}];
