@@ -1,7 +1,7 @@
 import React, {FC} from 'react';
 import {Button, Box} from '@mui/material';
-import TextField from '@mui/material/TextField';
 import Icons from '../ui/Icons';
+import Input from "../ui/input/Input";
 
 interface ToolBarProps {
   setModal: (val: boolean) => void,
@@ -18,26 +18,21 @@ const ToolBar: FC<ToolBarProps> = ({
   return (
     <Box
       component="form"
-      noValidate
       sx={{
         mb: 1,
         display: 'flex',
         justifyContent: 'space-between'
       }}
-      autoComplete="off"
     >
-      <TextField
-        id="search-envelope"
-        variant="outlined"
-        placeholder='Search'
+      <Input
+        name="search"
+        placeholder="Search"
         onChange={searchHandleChange}
         value={search}
-        fullWidth
-        sx={{
-          mr: 1
-        }}
+        sx={{ mr: 1}}
+        autoComplete="off"
       />
-      <Button variant="contained" onClick={() => setModal(true)}>
+      <Button variant="contained" onClick={() => setModal(true)} size="small">
         <Icons.PostAddIcon/>
       </Button>
     </Box>

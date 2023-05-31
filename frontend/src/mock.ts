@@ -1,7 +1,9 @@
-export const testEnvelopes = [{"id":"a","userId":"test","name":"jopa"},
-  {"id":"b","userId":"test","name":"salary"},
-  {"id":"c","userId":"test","name":"bar"},
-  {"id":"d","userId":"test","name":"negr"}];
+import { EnvelopeItem } from './types';
+
+export const testEnvelopes: EnvelopeItem[] = [{"id":"a","userId":"test","name":"jopa","status":"open"},
+  {"id":"b","userId":"test","name":"salary","status":"closed"},
+  {"id":"c","userId":"test","name":"bar","status":"frozen"},
+  {"id":"d","userId":"test","name":"negr","status":"open"}];
 
 export const testCategories = [{"id":"q","userId":"test","name":"healthy"},
   {"id":"b","userId":"test","name":"beauty"},

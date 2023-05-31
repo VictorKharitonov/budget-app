@@ -29,6 +29,7 @@ const DetailTransactionForm: FC<DetailTransactionFormProps> = (
     <Box component="form" onSubmit={handleSubmit(updateTransaction)}>
       <Select
         name="envelop"
+        label="Envelope"
         control={control}
         multiple={true}
         errors={errors.envelop}
@@ -39,6 +40,7 @@ const DetailTransactionForm: FC<DetailTransactionFormProps> = (
       />
       <Select
         name="category"
+        label="Category"
         control={control}
         multiple={true}
         errors={errors.category}
@@ -48,6 +50,7 @@ const DetailTransactionForm: FC<DetailTransactionFormProps> = (
         }}      />
       <Input
         name="amount"
+        label="Amount"
         control={control}
         type="number"
         errors={errors.amount}
@@ -57,6 +60,7 @@ const DetailTransactionForm: FC<DetailTransactionFormProps> = (
       />
       <CustomDatePicker
         name="date"
+        label="Date"
         control={control}
         format="YYYY-MM-DD"
         errors={errors.date}
@@ -64,6 +68,7 @@ const DetailTransactionForm: FC<DetailTransactionFormProps> = (
      />
       <Input
         name="description"
+        label="Description"
         control={control}
         multiline maxRows={4}
         errors={errors.description}
@@ -73,6 +78,7 @@ const DetailTransactionForm: FC<DetailTransactionFormProps> = (
       />
       <Select
         name="type"
+        label="Type"
         control={control}
         errors={errors.type}
         options={[
