@@ -15,6 +15,16 @@
     border-color: var(--ba-palette-primary-main);
   }
 
+  .listItemStatus {
+    position: relative;
+    top: 0;
+    left: 85%;
+
+    span {
+      min-width: 3rem;
+    }
+  }
+
   .listItemText {
     word-break: break-word;
   }

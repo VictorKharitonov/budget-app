@@ -43,10 +43,11 @@ const DetailTransaction: FC<DetailProps> = (
 
   useEffect(() => {
     reset(transaction);
-  }, [transaction, !isEditable]);
+  }, [transaction, isEditable]);
 
   const updateTransaction: SubmitHandler<TransactionsItem> = (data: TransactionsItem) => {
     data = {...data, date: data.date.valueOf()};
+    setIsEditable(true);
 
     if (getTransactionById(data.id, latestTransactions)) {
       setLatestTransactions(
@@ -83,9 +84,11 @@ const DetailTransaction: FC<DetailProps> = (
         envelopes={envelopes}
         categories={categories}
       />
-      <Button variant="contained" color="primary" size="small" fullWidth>
-        <Typography variant="body1">Share</Typography>
-      </Button>
+      {isEditable &&
+        <Button variant="contained" color="primary" size="small" fullWidth>
+          <Typography variant="body1">Share</Typography>
+        </Button>
+      }
     </Box>
   );
 };

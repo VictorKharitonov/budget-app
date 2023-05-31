@@ -29,7 +29,6 @@ const CustomDatePicker: FC<CustomDatePickerProps> = ({name, control, format, err
             slotProps={{
               textField: {
                 fullWidth: true,
-                label: name.replace(name[0], name[0].toUpperCase()),
                 size: 'small',
                 error: !!errors,
                 helperText: errors?.message,

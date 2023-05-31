@@ -2,6 +2,7 @@ export interface EnvelopeItem {
   id: string,
   userId: string,
   name: string,
+  status: 'open' | 'closed' | 'frozen'
 }
 
 export interface TransactionsItem {
