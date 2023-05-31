@@ -38,7 +38,14 @@ const theme = extendTheme({
           color: "#ffffff",
         }
       }
-    }
+    },
+    MuiAppBar: {
+      styleOverrides: {
+        colorPrimary: {
+          backgroundColor: "#fff",
+        },
+      }
+    },
   },
   cssVarPrefix: 'ba',
   colorSchemes: {

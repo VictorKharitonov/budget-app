@@ -22,6 +22,6 @@
   "include": [
     "src",
     "Globals.d.ts",
-    "public/test_data"
+    "react-app-env.d.ts"
   ]
 }

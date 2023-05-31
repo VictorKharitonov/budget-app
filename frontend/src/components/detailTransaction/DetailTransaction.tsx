@@ -48,6 +48,8 @@ const DetailTransaction: FC<DetailProps> = (
   const updateTransaction: SubmitHandler<TransactionsItem> = (data: TransactionsItem) => {
     data = {...data, date: data.date.valueOf()};
 
+    setIsEditable(true);
+
     if (getTransactionById(data.id, latestTransactions)) {
       setLatestTransactions(
         [...latestTransactions].map(transaction => transaction.id === data.id ? data : transaction)
