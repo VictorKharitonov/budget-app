@@ -10,10 +10,12 @@ import {Button, IconButton, Menu, MenuItem} from "@mui/material";
 import {Link, useLocation} from "react-router-dom";
 import Logo from "../../../images/logo.png";
 import Icons from '../Icons';
+import {getPathNames} from "../../../utils/stringHelper";
+import {FC} from "react";
 
-function ResponsiveAppBar() {
+const NavBar: FC = () => {
   const location = useLocation();
-  const pathNames: string[] = location.pathname.split('/').filter((x) => x);
+  const pathNames: string[] = getPathNames(location);
 
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
 
@@ -69,8 +71,8 @@ function ResponsiveAppBar() {
               </MenuItem>
             </Menu>
           </Box>
-          <Box className={cl.logoContainer} component={Link} to="/">
-            <img src={Logo} height="60px" width="60px" alt=""/>
+          <Box className={cl.logoContainer} component={Link} to="/envelope">
+            <img src={Logo} height="60px" width="60px" alt="logo"/>
             <Typography variant="h4" className={cl.logoText}>
               Budget
             </Typography>
@@ -89,4 +91,4 @@ function ResponsiveAppBar() {
     </AppBar>
   );
 }
-export default ResponsiveAppBar;
+export default NavBar;

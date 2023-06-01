@@ -49,8 +49,6 @@ const DetailTransaction: FC<DetailProps> = (
     data = {...data, date: data.date.valueOf()};
     setIsEditable(true);
 
-    setIsEditable(true);
-
     if (getTransactionById(data.id, latestTransactions)) {
       setLatestTransactions(
         [...latestTransactions].map(transaction => transaction.id === data.id ? data : transaction)

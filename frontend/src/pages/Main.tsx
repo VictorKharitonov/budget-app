@@ -6,7 +6,7 @@ import {CategoryItem, EnvelopeItem, TransactionsItem} from '../types';
 import {testCategories, testEnvelopes, testTransactions} from '../mock';
 import useFilter from '../hooks/useFilter';
 import {getLatestTransactions, getTransactionById} from '../utils/transactionsHelper';
-import {useParams} from 'react-router-dom';
+import {useNavigate, useParams} from 'react-router-dom';
 import {getEnvelopeNameById} from '../utils/envelopesHelper';
 import DetailTransaction from '../components/detailTransaction/DetailTransaction';
 

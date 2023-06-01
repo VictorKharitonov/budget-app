@@ -8,7 +8,7 @@ const AppRouter: FC = () => {
     <Box component="main">
       <Routes>
           {routes.length &&
-            routes.map(route => <Route path={route.path} element={<route.element/>} key={route.path}/>)
+            routes.map(route => <Route path={route.path} element={route.element} key={route.path}/>)
           }
         </Routes>
     </Box>
