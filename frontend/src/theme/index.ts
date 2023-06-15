@@ -5,6 +5,11 @@ import {
 } from '@mui/material/styles';
 
 const theme = extendTheme({
+  typography: {
+    button: {
+      textTransform: 'none'
+    }
+  },
   components: {
     MuiOutlinedInput: {
       styleOverrides: {

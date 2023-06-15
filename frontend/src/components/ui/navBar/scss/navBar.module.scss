@@ -3,7 +3,7 @@
     display: none;
     flex-grow: 1;
 
-    @media(max-width: 600px) {
+    @media(max-width: 768px) {
       display: flex;
     }
   }
@@ -17,7 +17,7 @@
       margin-right: 4rem  ;
     }
 
-    @media (max-width: 600px) {
+    @media (max-width: 768px) {
       margin-right: 0;
     }
 
@@ -37,7 +37,19 @@
 
     display: flex;
 
-    @media(max-width: 600px) {
+    @media(max-width: 768px) {
+      display: none;
+    }
+  }
+
+  .transactionBtn {
+    margin-right: 1.5rem;
+
+    .transactionBtnText {
+      margin-right: 0.5rem;
+    }
+
+    @media(max-width: 768px) {
       display: none;
     }
   }
@@ -46,7 +58,7 @@
     display: flex;
     flex-grow: 1;
 
-    @media(max-width: 600px) {
+    @media(max-width: 768px) {
       display: none;
     }
   }
@@ -54,7 +66,7 @@
   .authContainer {
     display: flex;
 
-    @media(max-width: 600px) {
+    @media(max-width: 768px) {
       display: none;
     }
   }

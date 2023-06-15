@@ -1,5 +1,5 @@
 import React, {FC, useState} from 'react';
-import {TransactionsItem} from '../../types';
+import {CategoryItem, TransactionsItem} from '../../types';
 import cl from './scss/Transactions.module.scss';
 import {
   Chip,
@@ -11,8 +11,13 @@ import {
   TableCell,
   TableBody,
   Table,
-  Paper
+  Paper, TableSortLabel
 } from '@mui/material';
+import {TransactionFilter, Transactions as TransactionType} from "../../types/transactions";
+import TransactionsToolBar from "./TransactionsToolBar";
+import {SubmitHandler, useForm} from "react-hook-form";
+
+type Order = 'asc' | 'desc';
 
 interface Column {
   id: 'date' | 'amount' | 'type' | 'category';
@@ -50,10 +55,12 @@ const columns: readonly Column[] = [
 ];
 
 interface TransactionsProps {
-  transactions: TransactionsItem[],
+  transactions: TransactionType,
+  categories: CategoryItem[],
   selectedTransactionId: string,
   setSelectedTransactionId: (id: string) => void,
   isPagination?: boolean,
+  isFilter?: boolean,
   rowsPerPageOptions?: number[],
   perPage?: number
 }
@@ -61,15 +68,42 @@ interface TransactionsProps {
 const Transactions: FC<TransactionsProps> = (
   {
     transactions,
+    categories,
     selectedTransactionId,
     setSelectedTransactionId,
     isPagination = false,
+    isFilter = false,
     rowsPerPageOptions = [],
     perPage = 10
   }
 ) => {
   const [page, setPage] = useState<number>(0);
   const [rowsPerPage, setRowsPerPage] = useState<number>(perPage);
+  const [order, setOrder] = useState<Order>('asc');
+  const [orderBy, setOrderBy] = useState<keyof TransactionsItem>('date');
+  const { transactions: content } = transactions;
+  const filterForm = useForm<TransactionFilter>({
+    defaultValues: {
+      date: null,
+      categories: [],
+      type: '',
+    },
+  })
+
+  const handleRequestFilter: SubmitHandler<TransactionFilter> = (data: TransactionFilter) => {
+    let date = data.date === null ? null : data.date.valueOf();
+    data = {...data, date: date};
+    console.log(data);
+  }
+
+  const handleRequestSort = (
+    event: React.MouseEvent<unknown>,
+    property: keyof TransactionsItem,
+  ) => {
+    const isAsc = orderBy === property && order === 'asc';
+    setOrder(isAsc ? 'desc' : 'asc');
+    setOrderBy(property);
+  };
 
   const selectTransaction = (e: React.MouseEvent<HTMLTableRowElement>, id: string) => {
     setSelectedTransactionId(id);
@@ -89,6 +123,14 @@ const Transactions: FC<TransactionsProps> = (
   return (
     <Paper className={cl.transactionsLayout}>
       <TableContainer className={cl.transactionsContainer}>
+        {
+          isFilter &&
+          <TransactionsToolBar
+            categories={categories}
+            form={filterForm}
+            handleRequestFilter={handleRequestFilter}
+          />
+        }
         <Table stickyHeader aria-label="sticky table">
           <TableHead>
             <TableRow>
@@ -97,18 +139,28 @@ const Transactions: FC<TransactionsProps> = (
                   key={column.id}
                   className={cl.transactionsTableCell}
                 >
-                  {column.label}
+                  {
+                    isFilter
+                    ? <TableSortLabel
+                        active={orderBy === column.id}
+                        direction={orderBy === column.id ? order : 'asc'}
+                        onClick={(e) => handleRequestSort(e, column.id)}
+                      >
+                        {column.label}
+                      </TableSortLabel>
+                    : column.label
+                  }
+
                 </TableCell>
               ))}
             </TableRow>
           </TableHead>
           <TableBody>
-            {transactions.length > 0
-              ? transactions
+            {content.length > 0
+              ? content
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((transaction) => {
                   const isSelected: boolean = isSelectedTransaction(transaction.id);
-
                   return (
                     <TableRow
                       hover
@@ -122,9 +174,11 @@ const Transactions: FC<TransactionsProps> = (
                         const value = transaction[column.id];
                         return (
                           <TableCell key={column.id} className={cl.transactionsTableCell}>
-                            {column.format
+                            {
+                              column.format
                               ? column.format(value)
-                              : value}
+                              : value
+                            }
                           </TableCell>
                         );
                       })}
@@ -141,7 +195,7 @@ const Transactions: FC<TransactionsProps> = (
         <TablePagination
           rowsPerPageOptions={rowsPerPageOptions}
           component="div"
-          count={transactions.length}
+          count={content.length}
           rowsPerPage={rowsPerPage}
           page={page}
           onPageChange={handleChangePage}

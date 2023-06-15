@@ -8,12 +8,11 @@ import DetailTransactionForm from './DetailTransactionForm';
 import {SubmitHandler, useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
 import {detailScheme} from "../../validations/detailValidation";
-import {getTransactionById} from "../../utils/transactionsHelper";
+import { useTypedDispatch } from "../../hooks/useTypedDispatch";
+import { updateTransactionById, deleteTransactionById } from "../../store/reducers/transactionsSlice";
 
 interface DetailProps {
   transaction: TransactionsItem | undefined,
-  latestTransactions: TransactionsItem[],
-  setLatestTransactions: (transactions: TransactionsItem[]) => void,
   envelopes: EnvelopeItem[],
   categories: CategoryItem[],
 }
@@ -21,13 +20,12 @@ interface DetailProps {
 const DetailTransaction: FC<DetailProps> = (
   {
     transaction,
-    latestTransactions,
-    setLatestTransactions,
     envelopes,
     categories
   }
 ) => {
   const [isEditable, setIsEditable] = useState<boolean>(true);
+  const dispatch = useTypedDispatch();
 
   const detailForm = useForm<TransactionsItem>({
     defaultValues: transaction,
@@ -48,13 +46,13 @@ const DetailTransaction: FC<DetailProps> = (
   const updateTransaction: SubmitHandler<TransactionsItem> = (data: TransactionsItem) => {
     data = {...data, date: data.date.valueOf()};
     setIsEditable(true);
-
-    if (getTransactionById(data.id, latestTransactions)) {
-      setLatestTransactions(
-        [...latestTransactions].map(transaction => transaction.id === data.id ? data : transaction)
-      );
-    }
+    dispatch(updateTransactionById(data));
   };
+
+  const deleteTransaction: SubmitHandler<TransactionsItem> = (data: TransactionsItem) => {
+    data = {...data, date: data.date.valueOf()};
+    dispatch(deleteTransactionById(data));
+  }
 
   return (
     <Box className={
@@ -80,6 +78,7 @@ const DetailTransaction: FC<DetailProps> = (
       <DetailTransactionForm
         detailForm={detailForm}
         updateTransaction={updateTransaction}
+        deleteTransaction={deleteTransaction}
         isEditable={isEditable}
         envelopes={envelopes}
         categories={categories}

@@ -4,6 +4,7 @@ import {Badge, List, Typography, ListItemText, IconButton, ListItem} from '@mui/
 import cl from './scss/Envelope.module.scss';
 import {EnvelopeItem} from '../../types';
 import {fcLatter} from '../../utils/stringHelper';
+import {Link} from "react-router-dom";
 
 interface EnvelopesListProps {
   envelopes: EnvelopeItem[],
@@ -26,7 +27,12 @@ const EnvelopeList: FC<EnvelopesListProps> = ({envelopes, selectedEnvelopeId, se
         ? envelopes.map(envelope =>
           <ListItem
             secondaryAction={
-              <IconButton edge="end" aria-label="envelope-modal" color="primary">
+              <IconButton
+                onClick={(e) => e.stopPropagation()}
+                edge="end" aria-label="envelope-modal"
+                color="primary" component={Link}
+                to={`/envelope/${envelope.id}/detail`}
+              >
                 <Icons.FolderIcon/>
               </IconButton>
             }

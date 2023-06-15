@@ -9,10 +9,10 @@ interface Option {
 
 type SelectProps = TextFieldProps & {
   name: string,
-  control: any,
+  control?: any,
   multiple?: boolean,
   options: Option[]
-  errors: Merge<FieldError, (FieldError | undefined)[]> | undefined,
+  errors?: Merge<FieldError, (FieldError | undefined)[]> | undefined,
 }
 
 const Select: FC<SelectProps> = (
@@ -26,7 +26,8 @@ const Select: FC<SelectProps> = (
   }
 ) => {
   return (
-    <Controller
+    control
+    ? <Controller
       name={name}
       control={control}
       render={({field}) =>
@@ -54,6 +55,25 @@ const Select: FC<SelectProps> = (
         </TextField>
       }
     />
+    : <TextField
+        fullWidth
+        sx={{mb: 2}}
+        select
+        SelectProps={{
+          multiple: multiple,
+        }}
+        size="small"
+        {...props}
+      >
+        {options.map((option) => (
+          <MenuItem
+            key={option.id}
+            value={option.name}
+          >
+            {option.name}
+          </MenuItem>
+        ))}
+      </TextField>
   );
 };
 

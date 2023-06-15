@@ -1,37 +1,40 @@
 import React, {FC, useEffect, useState} from 'react';
+import "./scss/Main.scss";
 import EnvelopeSidebar from '../components/envelope/EnvelopeSidebar';
 import {Container, Grid, Paper, Typography} from '@mui/material';
 import Transactions from '../components/transaction/Transactions';
 import {CategoryItem, EnvelopeItem, TransactionsItem} from '../types';
-import {testCategories, testEnvelopes, testTransactions} from '../mock';
-import useFilter from '../hooks/useFilter';
-import {getLatestTransactions, getTransactionById} from '../utils/transactionsHelper';
-import {useNavigate, useParams} from 'react-router-dom';
+import {testCategories, testEnvelopes} from '../mock';
+import {getTransactionById} from '../utils/transactionsHelper';
+import {useParams} from 'react-router-dom';
 import {getEnvelopeNameById} from '../utils/envelopesHelper';
 import DetailTransaction from '../components/detailTransaction/DetailTransaction';
+import { useTypedSelector } from "../hooks/useTypedSelector";
+import { useTypedDispatch } from "../hooks/useTypedDispatch";
+import { getLatestTransactions } from "../store/reducers/transactionsSlice";
 
 const Main: FC = () => {
   const params = useParams();
-  const [transactions, setTransactions] = useState<TransactionsItem[]>(testTransactions);
+  const transactions = useTypedSelector(state => state.transactions);
+  const dispatch = useTypedDispatch();
+
   const [envelopes, setEnvelopes] = useState<EnvelopeItem[]>(testEnvelopes);
   const [categories, setCategories] = useState<CategoryItem[]>(testCategories);
   const [selectedTransactionId, setSelectedTransactionId] = useState<string>('');
   const selectedEnvelopeName: string = getEnvelopeNameById(envelopes, params.id);
-  const filterTransactionsByEnvelopeName = useFilter<TransactionsItem>(selectedEnvelopeName, transactions, ['envelop']);
-  const [latestTransactions, setLatestTransactions] = useState<TransactionsItem[]>(getLatestTransactions(filterTransactionsByEnvelopeName) || []);
-  const [selectedTransaction, setSelectedTransaction] = useState<TransactionsItem | undefined>()
+  const [selectedTransaction, setSelectedTransaction] = useState<TransactionsItem | undefined>();
 
   useEffect(() => {
-    setSelectedTransaction(getTransactionById(selectedTransactionId, latestTransactions));
-  }, [selectedTransactionId, latestTransactions]);
+    dispatch(getLatestTransactions(selectedEnvelopeName));
+  }, [selectedEnvelopeName]);
 
   useEffect(() => {
-    setLatestTransactions(getLatestTransactions(filterTransactionsByEnvelopeName));
-  }, [filterTransactionsByEnvelopeName])
+    setSelectedTransaction(getTransactionById(selectedTransactionId, transactions.transactions));
+  }, [selectedTransactionId, transactions.transactions]);
 
   return (
     <Container>
-      <Grid container sx={{justifyContent: "space-between"}} columnSpacing={2} rowSpacing={2} mt={2}>
+      <Grid container className="main-content" columnSpacing={2} rowSpacing={2} mt={2}>
         <Grid item md={12} lg={3}>
           <EnvelopeSidebar
             envelopes={envelopes}
@@ -40,7 +43,8 @@ const Main: FC = () => {
         </Grid>
         <Grid item xs={12} md={8} lg={6}>
           <Transactions
-            transactions={latestTransactions}
+            transactions={transactions}
+            categories={categories}
             selectedTransactionId={selectedTransactionId}
             setSelectedTransactionId={setSelectedTransactionId}
           />
@@ -50,13 +54,11 @@ const Main: FC = () => {
             selectedTransaction
             ? <DetailTransaction
                 transaction={selectedTransaction}
-                latestTransactions={latestTransactions}
-                setLatestTransactions={setLatestTransactions}
                 envelopes={envelopes}
                 categories={categories}
               />
             : <Paper>
-                <Typography variant="body1" sx={{p: 2}}>Select transaction from table to view details</Typography>
+                <Typography variant="body1" className="detail-transaction-empty">Select transaction from table to view details</Typography>
               </Paper>
           }
         </Grid>
