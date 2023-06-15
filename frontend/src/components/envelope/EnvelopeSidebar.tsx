@@ -1,4 +1,4 @@
-import React, {useState, FC} from 'react';
+import React, {useState, FC, useEffect} from 'react';
 import {Divider, Grid, Box} from '@mui/material';
 import {EnvelopeItem} from '../../types';
 import EnvelopeList from './EnvelopeList';
@@ -6,7 +6,8 @@ import useFilter from '../../hooks/useFilter';
 import ToolBar from '../toolBar/ToolBar';
 import CustomModal from '../ui/modal/CustomModal';
 import EnvelopeForm from './EnvelopeForm';
-import {useNavigate} from "react-router-dom"
+import {useNavigate, useLocation} from "react-router-dom"
+import {getPathNames} from "../../utils/stringHelper";
 
 interface EnvelopeSidebarProps {
   envelopes: EnvelopeItem[],
@@ -19,6 +20,16 @@ const EnvelopeSidebar: FC<EnvelopeSidebarProps> = ({envelopes, setEnvelopes}) =>
   const [envelopeModal, setEnvelopeModal] = useState<boolean>(false);
   const envelopesByName = useFilter<EnvelopeItem>(searchEnvelope, envelopes, ['name']);
   const navigate = useNavigate();
+  const location = useLocation();
+  const pathNames: string[] = getPathNames(location);
+
+  useEffect(() => {
+    if (pathNames.length > 1) {
+      setSelectedEnvelopeId(pathNames[1]);
+    } else {
+      setSelectedEnvelopeId('');
+    }
+  }, [pathNames.length]);
 
   const setCurrentEnvelope = (
     e: React.MouseEvent<HTMLLIElement, MouseEvent>,
