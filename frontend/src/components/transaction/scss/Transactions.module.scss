@@ -29,7 +29,23 @@
   }
 }
 
-
 .types {
   min-width: 4rem;
+}
+
+.toolBarContainer {
+  display: flex;
+  flex-direction: column;
+  padding: 0.85rem 1rem 0 1rem;
+
+  .toolBarHeader {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .toolBarForm {
+    width: 100%;
+    margin-top: 0.6rem;
+  }
 }

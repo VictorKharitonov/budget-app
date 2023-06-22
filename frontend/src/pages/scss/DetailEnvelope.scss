@@ -1,0 +1,17 @@
+.toggle-group {
+  margin-top: 2rem;
+  margin-bottom: 0.3rem;
+  background: var(--ba-palette-background-paper);
+
+  .toggle-group__btn {
+    border: none;
+  }
+}
+
+.detail-envelope-container {
+  justify-content: space-between;
+}
+
+.detail-transaction-empty {
+  padding: 1rem;
+}

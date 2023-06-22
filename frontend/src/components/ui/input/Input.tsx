@@ -1,11 +1,11 @@
 import React, {FC} from 'react';
 import {TextField, TextFieldProps} from '@mui/material';
-import {Controller, FieldError} from 'react-hook-form';
+import {Controller, FieldError, Merge} from 'react-hook-form';
 
 type InputProps = TextFieldProps & {
   name: string,
   control?: any | undefined,
-  errors?: FieldError | undefined
+  errors?: Merge<FieldError, (FieldError | undefined)[]> | undefined
 };
 
 const Input: FC<InputProps> = ({name, control, errors, ...props}) => {

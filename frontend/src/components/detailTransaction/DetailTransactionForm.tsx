@@ -1,5 +1,5 @@
 import React, {FC} from 'react';
-import {Box, Button, Typography} from '@mui/material';
+import {Box, Button, Grid, Typography} from '@mui/material';
 import {SubmitHandler, UseFormReturn} from 'react-hook-form';
 import {CategoryItem, EnvelopeItem, TransactionsItem} from '../../types';
 import Input from '../ui/input/Input';
@@ -9,6 +9,7 @@ import CustomDatePicker from '../ui/customDatePicker/CustomDatePicker';
 interface DetailTransactionFormProps {
   detailForm:  UseFormReturn<TransactionsItem, any>,
   updateTransaction: SubmitHandler<TransactionsItem>,
+  deleteTransaction: SubmitHandler<TransactionsItem>,
   isEditable: boolean,
   envelopes: EnvelopeItem[],
   categories: CategoryItem[]
@@ -18,6 +19,7 @@ const DetailTransactionForm: FC<DetailTransactionFormProps> = (
   {
     detailForm,
     updateTransaction,
+    deleteTransaction,
     isEditable,
     envelopes,
     categories
@@ -26,7 +28,7 @@ const DetailTransactionForm: FC<DetailTransactionFormProps> = (
   const {handleSubmit, control, formState: { errors }} = detailForm;
 
   return (
-    <Box component="form" onSubmit={handleSubmit(updateTransaction)}>
+    <Box component="form">
       <Select
         name="envelop"
         label="Envelope"
@@ -47,7 +49,8 @@ const DetailTransactionForm: FC<DetailTransactionFormProps> = (
         options={categories}
         InputProps={{
           readOnly: isEditable,
-        }}      />
+        }}
+      />
       <Input
         name="amount"
         label="Amount"
@@ -90,9 +93,18 @@ const DetailTransactionForm: FC<DetailTransactionFormProps> = (
         }}
       />
       {!isEditable &&
-      <Button type="submit" variant="contained" color="success" size="small" sx={{mb: .5}} fullWidth>
-        <Typography variant="body1">Save</Typography>
-      </Button>
+        <Grid container spacing={1}>
+          <Grid item md={6}>
+            <Button onClick={handleSubmit(updateTransaction)} type="submit" variant="contained" color="success" size="small" fullWidth>
+                <Typography variant="body1">Save</Typography>
+            </Button>
+          </Grid>
+            <Grid item md={6}>
+              <Button onClick={handleSubmit(deleteTransaction)} type="submit" variant="contained" color="error" size="small" fullWidth>
+                  <Typography variant="body1">Delete</Typography>
+              </Button>
+            </Grid>
+        </Grid>
       }
     </Box>
   );

@@ -22,12 +22,14 @@ const EnvelopeSidebar: FC<EnvelopeSidebarProps> = ({envelopes, setEnvelopes}) =>
   const navigate = useNavigate();
   const location = useLocation();
   const pathNames: string[] = getPathNames(location);
+  const currentEnvelopeId = pathNames.length > 1 ? pathNames[1] : null;
 
   useEffect(() => {
-    if (pathNames.length > 1) {
-      setSelectedEnvelopeId(pathNames[1]);
-    } else {
-      setSelectedEnvelopeId('');
+    if (currentEnvelopeId !== null) {
+      setSelectedEnvelopeId(currentEnvelopeId);
+    }
+    if (envelopes.length !== 0 && currentEnvelopeId === null) {
+      navigate(`/envelope/${envelopes[0].id}`);
     }
   }, [pathNames.length]);
 

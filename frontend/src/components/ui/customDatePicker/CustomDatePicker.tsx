@@ -6,14 +6,15 @@ import {Controller, FieldError} from 'react-hook-form';
 
 interface CustomDatePickerProps extends DatePickerProps<any> {
   name: string,
-  control: any,
+  control?: any,
   format: string,
-  errors: FieldError | undefined
+  errors?: FieldError | undefined
 }
 
 const CustomDatePicker: FC<CustomDatePickerProps> = ({name, control, format, errors, ...props}) => {
   return (
-    <Controller
+    control
+    ? <Controller
       name={name}
       control={control}
       render={({field}) => (
@@ -40,6 +41,19 @@ const CustomDatePicker: FC<CustomDatePickerProps> = ({name, control, format, err
       )
       }
     />
+    : <LocalizationProvider dateAdapter={AdapterDayjs}>
+        <DatePicker
+          format={format}
+          sx={{mb: 2}}
+          slotProps={{
+            textField: {
+              fullWidth: true,
+              size: 'small',
+            },
+          }}
+          {...props}
+        />
+      </LocalizationProvider>
   );
 };
 
