@@ -13,15 +13,6 @@ export const transactionsSlice = createSlice({
   name: 'transactions',
   initialState,
   reducers: {
-    // getTransactions(state) {
-    //   state.transactions = testTransactions;
-    // },
-    // getLatestTransactions(state, action: PayloadAction<string>) {
-    //   state.transactions = testTransactions.filter((transaction: TransactionsItem) => {
-    //     return transaction.envelopes.includes(action.payload)
-    //   });
-    //   state.transactions = latest(state.transactions);
-    // },
     updateTransactionById(state, action: PayloadAction<TransactionsItem>) {
       state.transactions = state.transactions.map((item: TransactionsItem) => {
         return item._id === action.payload._id ? action.payload : item;

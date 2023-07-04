@@ -18,7 +18,7 @@ const Main: FC = () => {
   const [categories, setCategories] = useState<CategoryItem[]>([]);//testCategories
   const [selectedTransactionId, setSelectedTransactionId] = useState<string>('');
   const [selectedTransaction, setSelectedTransaction] = useState<TransactionsItem | undefined>();
-  const selectedEnvelopeName = params.id as string;
+  const currentEnvelope = params.id as string;
 
   useEffect(() => {
     setSelectedTransaction(getTransactionById(selectedTransactionId, transactions.transactions));
@@ -39,7 +39,7 @@ const Main: FC = () => {
             transactions={transactions}
             categories={user.categories}
             userId={user._id}
-            currentEnvelope={selectedEnvelopeName}
+            currentEnvelope={currentEnvelope}
             selectedTransactionId={selectedTransactionId}
             setSelectedTransactionId={setSelectedTransactionId}
           />
