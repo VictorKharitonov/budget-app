@@ -1,10 +1,11 @@
 import React, {FC} from 'react';
 import {Box, Button, Grid, Typography} from '@mui/material';
 import {SubmitHandler, UseFormReturn} from 'react-hook-form';
-import {CategoryItem, EnvelopeItem, TransactionsItem} from '../../types';
+import {EnvelopeItem} from '../../types';
 import Input from '../ui/input/Input';
 import Select from '../ui/select/Select';
 import CustomDatePicker from '../ui/customDatePicker/CustomDatePicker';
+import {TransactionsItem} from "../../types/transactions";
 
 interface DetailTransactionFormProps {
   detailForm:  UseFormReturn<TransactionsItem, any>,
@@ -12,7 +13,7 @@ interface DetailTransactionFormProps {
   deleteTransaction: SubmitHandler<TransactionsItem>,
   isEditable: boolean,
   envelopes: EnvelopeItem[],
-  categories: CategoryItem[]
+  categories: string[]
 }
 
 const DetailTransactionForm: FC<DetailTransactionFormProps> = (
@@ -27,25 +28,27 @@ const DetailTransactionForm: FC<DetailTransactionFormProps> = (
 ) => {
   const {handleSubmit, control, formState: { errors }} = detailForm;
 
+  let envelopesArr: string[] = envelopes.map(envelope => envelope.name);
+
   return (
     <Box component="form">
       <Select
-        name="envelop"
+        name="envelopes"
         label="Envelope"
         control={control}
         multiple={true}
-        errors={errors.envelop}
-        options={envelopes}
+        errors={errors.envelopes}
+        options={envelopesArr}
         InputProps={{
           readOnly: isEditable,
         }}
       />
       <Select
-        name="category"
+        name="categories"
         label="Category"
         control={control}
         multiple={true}
-        errors={errors.category}
+        errors={errors.categories}
         options={categories}
         InputProps={{
           readOnly: isEditable,
@@ -84,10 +87,7 @@ const DetailTransactionForm: FC<DetailTransactionFormProps> = (
         label="Type"
         control={control}
         errors={errors.type}
-        options={[
-          {id: 'income', name: 'income'},
-          {id: 'expense', name: 'expense'}
-        ]}
+        options={['income', 'expense']}
         InputProps={{
           readOnly: isEditable,
         }}

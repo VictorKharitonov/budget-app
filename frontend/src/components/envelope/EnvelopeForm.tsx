@@ -18,8 +18,6 @@ const EnvelopeForm: FC<EnvelopeFormProps> = ({
   setEnvelopesModal,
 }) => {
   let defaultValue: EnvelopeItem = {
-    id: String(Math.random() * 1000),
-    userId: 'test',
     name: '',
     status: 'open'
   }

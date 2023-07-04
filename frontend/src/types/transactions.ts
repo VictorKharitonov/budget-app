@@ -1,9 +1,10 @@
 export interface TransactionsItem {
-  id: string,
-  category: string[],
+  _id: string,
   userId: string,
-  envelop: string[],
+  categories: string[],
+  envelopes: string[],
   amount: number,
+  currency: string,
   date: number,
   description: string,
   type: string,
@@ -11,8 +12,9 @@ export interface TransactionsItem {
 
 export interface Transactions {
   isLoading: boolean;
+  isSuccess: boolean,
   transactions: TransactionsItem[];
-  error: string | null;
+  error: string;
 }
 
 export interface TransactionFilter {

@@ -2,7 +2,7 @@ import React from 'react';
 import './App.scss';
 import {theme, CssVarsProvider} from './theme/index';
 import {BrowserRouter as Router} from "react-router-dom";
-import AppRouter from './components/AppRouter';
+import AppRouter from './components/appRouter/AppRouter';
 import NavBar from './components/ui/navBar/NavBar';
 import {Provider} from "react-redux";
 import {store} from "./store";

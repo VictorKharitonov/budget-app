@@ -11,25 +11,26 @@ import {getPathNames} from "../../utils/stringHelper";
 
 interface EnvelopeSidebarProps {
   envelopes: EnvelopeItem[],
-  setEnvelopes: (envelopes: EnvelopeItem[]) => void
+  setEnvelopes: (envelopes: EnvelopeItem[]) => void,
+  isTransactionsLoading: boolean
 }
 
-const EnvelopeSidebar: FC<EnvelopeSidebarProps> = ({envelopes, setEnvelopes}) => {
-  const [selectedEnvelopeId, setSelectedEnvelopeId] = useState<string>('');
+const EnvelopeSidebar: FC<EnvelopeSidebarProps> = ({envelopes, setEnvelopes, isTransactionsLoading}) => {
+  const [selectedEnvelopeName, setSelectedEnvelopeName] = useState<string>('');
   const [searchEnvelope, setSearchEnvelope] = useState<string>('');
   const [envelopeModal, setEnvelopeModal] = useState<boolean>(false);
   const envelopesByName = useFilter<EnvelopeItem>(searchEnvelope, envelopes, ['name']);
   const navigate = useNavigate();
   const location = useLocation();
   const pathNames: string[] = getPathNames(location);
-  const currentEnvelopeId = pathNames.length > 1 ? pathNames[1] : null;
+  const currentEnvelopeName = pathNames.length > 1 ? pathNames[1] : null;
 
   useEffect(() => {
-    if (currentEnvelopeId !== null) {
-      setSelectedEnvelopeId(currentEnvelopeId);
+    if (currentEnvelopeName !== null) {
+      setSelectedEnvelopeName(decodeURI(currentEnvelopeName));
     }
-    if (envelopes.length !== 0 && currentEnvelopeId === null) {
-      navigate(`/envelope/${envelopes[0].id}`);
+    if (envelopes.length !== 0 && currentEnvelopeName === null) {
+      navigate(`/envelope/${envelopes[0].name}`);
     }
   }, [pathNames.length]);
 
@@ -37,8 +38,10 @@ const EnvelopeSidebar: FC<EnvelopeSidebarProps> = ({envelopes, setEnvelopes}) =>
     e: React.MouseEvent<HTMLLIElement, MouseEvent>,
     envelopeId: string
   ) => {
-    setSelectedEnvelopeId(envelopeId);
-    navigate(`/envelope/${envelopeId}`);
+    if (!isTransactionsLoading) {
+      setSelectedEnvelopeName(envelopeId);
+      navigate(`/envelope/${envelopeId}`);
+    }
   };
 
   const searchEnvelopeHandleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -57,8 +60,9 @@ const EnvelopeSidebar: FC<EnvelopeSidebarProps> = ({envelopes, setEnvelopes}) =>
           <Divider/>
           <EnvelopeList
             envelopes={envelopesByName}
-            selectedEnvelopeId={selectedEnvelopeId}
+            selectedEnvelopeName={selectedEnvelopeName}
             setCurrentEnvelope={setCurrentEnvelope}
+            isTransactionsLoading={isTransactionsLoading}
           />
         </Grid>
       </Grid>
