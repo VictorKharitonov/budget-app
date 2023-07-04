@@ -9,7 +9,7 @@ import {useTypedSelector} from "../../hooks/useTypedSelector";
 
 const AppRouter: FC = () => {
   const dispatch = useTypedDispatch();
-  const {user, isSuccess, isLoading, error} = useTypedSelector(state => state.userInfo);
+  const {isSuccess, isLoading, error} = useTypedSelector(state => state.userInfo);
 
   useEffect(() => {
     dispatch(fetchUserByChatId(1472184514));
@@ -40,15 +40,13 @@ const AppRouter: FC = () => {
     );
   }
 
-  if (error) {
-    return (
-      <Box component="main">
-        <Container>
-          <div>{error}</div>
-        </Container>
-      </Box>
-    )
-  }
+  return (
+    <Box component="main">
+      <Container>
+        <div>{error}</div>
+      </Container>
+    </Box>
+  )
 };
 
 export default AppRouter;
