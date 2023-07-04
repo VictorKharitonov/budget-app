@@ -1,6 +1,6 @@
 import React, {FC} from 'react';
 import {Box, Button, Typography} from "@mui/material";
-import {EnvelopeItem, TransactionsItem} from "../../types";
+import {EnvelopeItem, TransactionsItem} from "../../types/envelopes";
 import {SubmitHandler, UseFormReturn} from "react-hook-form";
 import Select from "../ui/select/Select";
 import Input from "../ui/input/Input";

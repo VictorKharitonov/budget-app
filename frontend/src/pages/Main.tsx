@@ -3,7 +3,7 @@ import "./scss/Main.scss";
 import EnvelopeSidebar from '../components/envelope/EnvelopeSidebar';
 import {Container, Grid, Paper, Typography} from '@mui/material';
 import Transactions from '../components/transaction/Transactions';
-import {CategoryItem, EnvelopeItem} from '../types';
+import {EnvelopeItem} from '../types/envelopes';
 import {getTransactionById} from '../utils/transactionsHelper';
 import {useParams} from 'react-router-dom';
 import DetailTransaction from '../components/detailTransaction/DetailTransaction';
@@ -15,7 +15,7 @@ const Main: FC = () => {
   const transactions = useTypedSelector(state => state.transactions);
   const {user} = useTypedSelector(state => state.userInfo);
   const [envelopes, setEnvelopes] = useState<EnvelopeItem[]>([]);//testEnvelopes
-  const [categories, setCategories] = useState<CategoryItem[]>([]);//testCategories
+  const [categories, setCategories] = useState<string[]>([]);//testCategories
   const [selectedTransactionId, setSelectedTransactionId] = useState<string>('');
   const [selectedTransaction, setSelectedTransaction] = useState<TransactionsItem | undefined>();
   const currentEnvelope = params.id as string;

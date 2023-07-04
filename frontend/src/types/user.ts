@@ -1,4 +1,4 @@
-import {CategoryItem, EnvelopeItem} from "../types";
+import {EnvelopeItem} from "./envelopes";
 
 export interface UserInfo {
   isSuccess: boolean,

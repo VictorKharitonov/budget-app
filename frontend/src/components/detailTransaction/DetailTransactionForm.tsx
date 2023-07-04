@@ -1,7 +1,7 @@
 import React, {FC} from 'react';
 import {Box, Button, Grid, Typography} from '@mui/material';
 import {SubmitHandler, UseFormReturn} from 'react-hook-form';
-import {EnvelopeItem} from '../../types';
+import {EnvelopeItem} from '../../types/envelopes';
 import Input from '../ui/input/Input';
 import Select from '../ui/select/Select';
 import CustomDatePicker from '../ui/customDatePicker/CustomDatePicker';

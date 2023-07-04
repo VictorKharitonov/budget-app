@@ -1,6 +1,6 @@
 import React, {useState, FC, useEffect} from 'react';
 import {Divider, Grid, Box} from '@mui/material';
-import {EnvelopeItem} from '../../types';
+import {EnvelopeItem} from '../../types/envelopes';
 import EnvelopeList from './EnvelopeList';
 import useFilter from '../../hooks/useFilter';
 import ToolBar from '../toolBar/ToolBar';

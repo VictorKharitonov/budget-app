@@ -2,7 +2,7 @@ import React, {FC} from 'react';
 import Icons from '../ui/Icons';
 import {Badge, List, Typography, ListItemText, IconButton, ListItem} from '@mui/material';
 import cl from './scss/Envelope.module.scss';
-import {EnvelopeItem} from '../../types';
+import {EnvelopeItem} from '../../types/envelopes';
 import {fcLatter} from '../../utils/stringHelper';
 import {Link} from "react-router-dom";
 

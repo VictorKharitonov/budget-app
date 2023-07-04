@@ -3,7 +3,7 @@ import { Box, Button, Divider, Grid, Typography } from '@mui/material';
 
 import Icons from '../ui/Icons';
 import cl from './scss/DetailTransactions.module.scss';
-import {EnvelopeItem} from '../../types';
+import {EnvelopeItem} from '../../types/envelopes';
 import DetailTransactionForm from './DetailTransactionForm';
 import {SubmitHandler, useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
