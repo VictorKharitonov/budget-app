@@ -3,18 +3,19 @@ import { Box, Button, Divider, Grid, Typography } from '@mui/material';
 
 import Icons from '../ui/Icons';
 import cl from './scss/DetailTransactions.module.scss';
-import {CategoryItem, EnvelopeItem, TransactionsItem} from '../../types';
+import {EnvelopeItem} from '../../types/envelopes';
 import DetailTransactionForm from './DetailTransactionForm';
 import {SubmitHandler, useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
 import {detailScheme} from "../../validations/detailValidation";
 import { useTypedDispatch } from "../../hooks/useTypedDispatch";
 import { updateTransactionById, deleteTransactionById } from "../../store/reducers/transactionsSlice";
+import {TransactionsItem} from "../../types/transactions";
 
 interface DetailProps {
   transaction: TransactionsItem | undefined,
   envelopes: EnvelopeItem[],
-  categories: CategoryItem[],
+  categories: string[],
 }
 
 const DetailTransaction: FC<DetailProps> = (

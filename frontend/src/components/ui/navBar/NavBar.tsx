@@ -13,7 +13,7 @@ import Icons from '../Icons';
 import {getPathNames} from "../../../utils/stringHelper";
 import {FC, useEffect, useState} from "react";
 import CustomModal from "../modal/CustomModal";
-import {EnvelopeItem, TransactionsItem} from "../../../types";
+import {EnvelopeItem, TransactionsItem} from "../../../types/envelopes";
 import {testEnvelopes} from "../../../mock";
 import {SubmitHandler, useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";

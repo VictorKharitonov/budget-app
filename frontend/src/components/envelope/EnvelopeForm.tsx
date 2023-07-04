@@ -2,7 +2,7 @@ import React, {FC} from 'react';
 import {Box, Button, Typography} from '@mui/material';
 import {SubmitHandler, useForm} from 'react-hook-form';
 import {yupResolver} from '@hookform/resolvers/yup';
-import {EnvelopeItem} from '../../types';
+import {EnvelopeItem} from '../../types/envelopes';
 import {envelopeScheme} from '../../validations/envelopeValidation';
 import Input from '../ui/input/Input';
 
@@ -18,8 +18,6 @@ const EnvelopeForm: FC<EnvelopeFormProps> = ({
   setEnvelopesModal,
 }) => {
   let defaultValue: EnvelopeItem = {
-    id: String(Math.random() * 1000),
-    userId: 'test',
     name: '',
     status: 'open'
   }

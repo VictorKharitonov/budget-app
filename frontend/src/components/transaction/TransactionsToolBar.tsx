@@ -1,5 +1,4 @@
 import React, {FC, useState} from 'react';
-import {CategoryItem} from "../../types";
 import {Box, Button, Grid, IconButton, Toolbar, Typography} from "@mui/material";
 import Icons from "../ui/Icons";
 import CustomDatePicker from "../ui/customDatePicker/CustomDatePicker";
@@ -9,7 +8,7 @@ import {SubmitHandler, UseFormReturn} from "react-hook-form";
 import cl from "./scss/Transactions.module.scss";
 
 interface TransactionsToolBarProps {
-  categories: CategoryItem[]
+  categories: string[]
   form: UseFormReturn<TransactionFilter, any>,
   handleRequestFilter: SubmitHandler<TransactionFilter>
 }
@@ -59,10 +58,7 @@ const TransactionsToolBar: FC<TransactionsToolBarProps> = ({categories, form, ha
                 label="Type"
                 control={control}
                 onBlur={handleSubmit(handleRequestFilter)}
-                options={[
-                  {id: 'income', name: 'income'},
-                  {id: 'expense', name: 'expense'}
-                ]}
+                options={['income', 'expense']}
               />
             </Grid>
             <Grid item xs={12} sm={6} md={3}>

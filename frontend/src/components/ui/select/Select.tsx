@@ -2,16 +2,11 @@ import React, {FC} from 'react';
 import {MenuItem, TextField, TextFieldProps} from '@mui/material';
 import {Controller, FieldError, Merge} from 'react-hook-form';
 
-interface Option {
-  id: string | number,
-  name: string
-}
-
 type SelectProps = TextFieldProps & {
   name: string,
   control?: any,
   multiple?: boolean,
-  options: Option[]
+  options: string[]
   errors?: Merge<FieldError, (FieldError | undefined)[]> | undefined,
 }
 
@@ -46,10 +41,10 @@ const Select: FC<SelectProps> = (
         >
           {options.map((option) => (
             <MenuItem
-              key={option.id}
-              value={option.name}
+              key={option}
+              value={option}
             >
-              {option.name}
+              {option}
             </MenuItem>
           ))}
         </TextField>
@@ -67,10 +62,10 @@ const Select: FC<SelectProps> = (
       >
         {options.map((option) => (
           <MenuItem
-            key={option.id}
-            value={option.name}
+            key={name}
+            value={name}
           >
-            {option.name}
+            {name}
           </MenuItem>
         ))}
       </TextField>

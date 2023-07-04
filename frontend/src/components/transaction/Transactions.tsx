@@ -1,26 +1,30 @@
-import React, {FC, useState} from 'react';
-import {CategoryItem, TransactionsItem} from '../../types';
+import React, {FC, useEffect, useState} from 'react';
 import cl from './scss/Transactions.module.scss';
 import {
   Chip,
-  Typography,
   TableRow,
   TablePagination,
   TableHead,
   TableContainer,
   TableCell,
-  TableBody,
   Table,
-  Paper, TableSortLabel
+  Paper,
+  TableSortLabel
 } from '@mui/material';
-import {TransactionFilter, Transactions as TransactionType} from "../../types/transactions";
+import {TransactionFilter, Transactions as TransactionType, TransactionsItem} from "../../types/transactions";
 import TransactionsToolBar from "./TransactionsToolBar";
 import {SubmitHandler, useForm} from "react-hook-form";
+import TransactionBody from "./TransactionBody";
+import {useFetch} from "../../hooks/useFetch";
+import {getEnvelopeInfo} from "../../Api/budgetApi";
+import {EnvelopesInfo} from "../../types/envelopes";
+import {fetchEnvelopeTransactions} from "../../store/asyncActions/transaction/fetchEnvelopeTransactionsAction";
+import {useTypedDispatch} from "../../hooks/useTypedDispatch";
 
 type Order = 'asc' | 'desc';
 
-interface Column {
-  id: 'date' | 'amount' | 'type' | 'category';
+export interface Column {
+  id: 'date' | 'amount' | 'type' | 'categories';
   label: string;
   format?: (value: any) => string | React.ReactNode;
 }
@@ -48,7 +52,7 @@ const columns: readonly Column[] = [
       />
   },
   {
-    id: 'category',
+    id: 'categories',
     label: 'Categories',
     format: (value: string[]) => value.join(', '),
   }
@@ -56,8 +60,10 @@ const columns: readonly Column[] = [
 
 interface TransactionsProps {
   transactions: TransactionType,
-  categories: CategoryItem[],
+  categories: string[],
   selectedTransactionId: string,
+  userId: string,
+  currentEnvelope: string,
   setSelectedTransactionId: (id: string) => void,
   isPagination?: boolean,
   isFilter?: boolean,
@@ -65,30 +71,40 @@ interface TransactionsProps {
   perPage?: number
 }
 
-const Transactions: FC<TransactionsProps> = (
-  {
-    transactions,
-    categories,
-    selectedTransactionId,
-    setSelectedTransactionId,
-    isPagination = false,
-    isFilter = false,
-    rowsPerPageOptions = [],
-    perPage = 10
-  }
-) => {
+const Transactions: FC<TransactionsProps> = ({transactions, categories, selectedTransactionId, setSelectedTransactionId, isPagination = false, isFilter = false, rowsPerPageOptions = [], perPage = 10, userId, currentEnvelope}) => {
   const [page, setPage] = useState<number>(0);
   const [rowsPerPage, setRowsPerPage] = useState<number>(perPage);
   const [order, setOrder] = useState<Order>('asc');
   const [orderBy, setOrderBy] = useState<keyof TransactionsItem>('date');
-  const { transactions: content } = transactions;
-  const filterForm = useForm<TransactionFilter>({
-    defaultValues: {
-      date: null,
-      categories: [],
-      type: '',
-    },
-  })
+  const [envelopeInfo, setEnvelopeInfo] = useState<EnvelopesInfo | undefined>();
+  const [isLastPage, setIsLastPage] = useState<boolean>(false);
+  const dispatch = useTypedDispatch();
+  const {transactions: content, isSuccess, isLoading, error} = transactions;
+  const {fetch: requestEnvelopeInfo, error: envelopeInfoError, isLoading: isLoadingEnvelopeInfo} = useFetch(async () => {
+    const envelopeInfo = await getEnvelopeInfo(userId, currentEnvelope);
+    setEnvelopeInfo(envelopeInfo);
+  });
+
+  useEffect(() => {
+    if (envelopeInfo) {
+      setIsLastPage((page + 1) * rowsPerPage >= envelopeInfo.documentsCount);
+    }
+  }, [envelopeInfo]);
+
+  useEffect(() => {
+    if (isPagination) {
+      requestEnvelopeInfo();
+    }
+
+    if (!isLoading && currentEnvelope) {
+      dispatch(fetchEnvelopeTransactions({
+        userId: userId,
+        envelope: currentEnvelope,
+        limit: rowsPerPage,
+        offset: page * rowsPerPage
+      }));
+    }
+  }, [page, rowsPerPage, currentEnvelope]);
 
   const handleRequestFilter: SubmitHandler<TransactionFilter> = (data: TransactionFilter) => {
     let date = data.date === null ? null : data.date.valueOf();
@@ -104,6 +120,14 @@ const Transactions: FC<TransactionsProps> = (
     setOrder(isAsc ? 'desc' : 'asc');
     setOrderBy(property);
   };
+
+  const filterForm = useForm<TransactionFilter>({
+    defaultValues: {
+      date: null,
+      categories: [],
+      type: '',
+    },
+  })
 
   const selectTransaction = (e: React.MouseEvent<HTMLTableRowElement>, id: string) => {
     setSelectedTransactionId(id);
@@ -126,9 +150,9 @@ const Transactions: FC<TransactionsProps> = (
         {
           isFilter &&
           <TransactionsToolBar
-            categories={categories}
-            form={filterForm}
-            handleRequestFilter={handleRequestFilter}
+              categories={categories}
+              form={filterForm}
+              handleRequestFilter={handleRequestFilter}
           />
         }
         <Table stickyHeader aria-label="sticky table">
@@ -141,65 +165,42 @@ const Transactions: FC<TransactionsProps> = (
                 >
                   {
                     isFilter
-                    ? <TableSortLabel
+                      ? <TableSortLabel
                         active={orderBy === column.id}
                         direction={orderBy === column.id ? order : 'asc'}
                         onClick={(e) => handleRequestSort(e, column.id)}
                       >
                         {column.label}
                       </TableSortLabel>
-                    : column.label
+                      : column.label
                   }
-
                 </TableCell>
               ))}
             </TableRow>
           </TableHead>
-          <TableBody>
-            {content.length > 0
-              ? content
-                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map((transaction) => {
-                  const isSelected: boolean = isSelectedTransaction(transaction.id);
-                  return (
-                    <TableRow
-                      hover
-                      role="checkbox"
-                      tabIndex={-1}
-                      key={transaction.id}
-                      onClick={(e) => selectTransaction(e, transaction.id)}
-                      selected={isSelected}
-                    >
-                      {columns.map((column) => {
-                        const value = transaction[column.id];
-                        return (
-                          <TableCell key={column.id} className={cl.transactionsTableCell}>
-                            {
-                              column.format
-                              ? column.format(value)
-                              : value
-                            }
-                          </TableCell>
-                        );
-                      })}
-                    </TableRow>
-                  );
-                })
-              : <Typography variant="body1" sx={{mt: 1, p: 2}}>Transactions is empty</Typography>
-            }
-          </TableBody>
+          <TransactionBody
+            transactions={transactions}
+            page={page}
+            rowsPerPage={rowsPerPage}
+            isSelectedTransaction={isSelectedTransaction}
+            selectTransaction={selectTransaction}
+            columns={columns}
+          />
         </Table>
       </TableContainer>
       {
-        isPagination &&
+        isPagination && envelopeInfo &&
         <TablePagination
-          rowsPerPageOptions={rowsPerPageOptions}
-          component="div"
-          count={content.length}
-          rowsPerPage={rowsPerPage}
-          page={page}
-          onPageChange={handleChangePage}
-          onRowsPerPageChange={handleChangeRowsPerPage}
+            rowsPerPageOptions={rowsPerPageOptions}
+            component="div"
+            count={envelopeInfo.documentsCount}
+            rowsPerPage={rowsPerPage}
+            page={page}
+            onPageChange={handleChangePage}
+            onRowsPerPageChange={handleChangeRowsPerPage}
+            showFirstButton={true}
+            showLastButton={true}
+            nextIconButtonProps={{disabled: isLoading || isLastPage}}
         />
       }
     </Paper>

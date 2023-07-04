@@ -14,7 +14,7 @@ const CustomBreadCrumbs: FC<CustomBreadCrumbs> = ({ pathNames, ...props }) => {
       {pathNames.map((value, index) => {
         const isLast = index === pathNames.length - 1;
         const to = `/${pathNames.slice(0, index + 1).join('/')}`;
-        const label = `${pathNames.at(index)}`;
+        const label = `${decodeURI(pathNames.at(index) as string)}`;
 
         return isLast ? (
           <Typography color="text.secondary" key={to}>
