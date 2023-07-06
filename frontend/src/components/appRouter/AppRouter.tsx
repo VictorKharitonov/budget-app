@@ -1,19 +1,23 @@
-import React, {FC, useEffect} from 'react';
+import React, {FC, useContext, useEffect, useState} from 'react';
 import { Routes, Route } from 'react-router-dom';
 import cl from './AppRouter.module.scss';
-import {routes} from '../../router';
+import {privateRoutes, publicRoutes} from '../../router';
 import {Box, CircularProgress, Container} from "@mui/material";
 import {useTypedDispatch} from "../../hooks/useTypedDispatch";
 import {fetchUserByChatId} from "../../store/asyncActions/fetchUserByChatIdAction";
 import {useTypedSelector} from "../../hooks/useTypedSelector";
+import {AuthContext, IAuthContext} from "../../context";
 
 const AppRouter: FC = () => {
   const dispatch = useTypedDispatch();
-  const {isSuccess, isLoading, error} = useTypedSelector(state => state.userInfo);
+  const {user, isLoading, error} = useTypedSelector(state => state.userInfo);
+  const {isAuth} = useContext<IAuthContext>(AuthContext);
 
   useEffect(() => {
-    dispatch(fetchUserByChatId(1472184514));
-  }, []);
+    if (isAuth && !user.chatId) {
+      dispatch(fetchUserByChatId(Number(localStorage.getItem('chatId'))));
+    }
+  }, [isAuth]);
 
   if (isLoading) {
     return (
@@ -27,26 +31,27 @@ const AppRouter: FC = () => {
     );
   }
 
-  if (isSuccess) {
+  if (isAuth && error) {
     return (
       <Box component="main">
-        <Routes>
-          {
-            routes.length &&
-            routes.map(route => <Route path={route.path} element={route.element} key={route.path}/>)
-          }
-        </Routes>
+        <Container>
+          <div>{error}</div>
+        </Container>
       </Box>
-    );
+    )
   }
 
   return (
     <Box component="main">
-      <Container>
-        <div>{error}</div>
-      </Container>
+      <Routes>
+        {
+          isAuth
+            ? privateRoutes.map(route => <Route path={route.path} element={route.element} key={route.path}/>)
+            : publicRoutes.map(route => <Route path={route.path} element={route.element} key={route.path}/>)
+        }
+      </Routes>
     </Box>
-  )
+  );
 };
 
 export default AppRouter;
