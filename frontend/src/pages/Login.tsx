@@ -2,29 +2,31 @@ import React, {FC, useContext, useEffect, useState} from 'react';
 import {Box, Button, Container, Grid, Paper, Typography} from '@mui/material';
 import {SubmitHandler, useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
-import {Login as LoginT} from "../types/login";
+import {ILogin} from "../types/login";
 import {loginScheme} from "../validations/loginValidation";
 import Input from "../components/ui/input/Input";
 import {fetchUserByChatId} from "../store/asyncActions/fetchUserByChatIdAction";
 import {useTypedDispatch} from "../hooks/useTypedDispatch";
 import {useTypedSelector} from "../hooks/useTypedSelector";
 import {AuthContext, IAuthContext} from "../context";
+import {useNavigate} from "react-router-dom";
 
 const Login: FC = () => {
   const dispatch = useTypedDispatch();
-  const {setIsAuth} = useContext<IAuthContext>(AuthContext);
+  const navigate = useNavigate();
+  const {isAuth, setIsAuth} = useContext<IAuthContext>(AuthContext);
   const {user, error} = useTypedSelector(state => state.userInfo);
 
-  let defaultValue: LoginT = {
+  let defaultValue: ILogin = {
     chatId: '',
   };
 
-  const {handleSubmit, control,  formState: {errors}} = useForm<LoginT>({
+  const {handleSubmit, control,  formState: {errors}} = useForm<ILogin>({
     defaultValues: defaultValue,
     resolver: yupResolver(loginScheme),
   });
 
-  const fetchUser: SubmitHandler<LoginT> = (data: LoginT) => {
+  const fetchUser: SubmitHandler<ILogin> = (data: ILogin) => {
     const { chatId } = data;
 
     if (typeof chatId === 'number') {
@@ -34,7 +36,7 @@ const Login: FC = () => {
 
   useEffect(() => {
     if (user.chatId) {
-      localStorage.setItem('chatId', JSON.stringify(user.chatId));
+      localStorage.setItem('chatId', String(user.chatId));
       setIsAuth(true);
     }
   }, []);

@@ -96,7 +96,7 @@ const Transactions: FC<TransactionsProps> = ({transactions, categories, selected
       requestEnvelopeInfo();
     }
 
-    if (!isLoading && currentEnvelope) {
+    if (currentEnvelope && userId) {
       dispatch(fetchEnvelopeTransactions({
         userId: userId,
         envelope: currentEnvelope,

@@ -1,3 +1,3 @@
-export interface Login {
+export interface ILogin {
   chatId: number | string;
 }
