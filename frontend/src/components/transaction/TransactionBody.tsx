@@ -23,6 +23,12 @@ const TransactionBody: FC<TransactionBodyProps> = ({transactions, isSelectedTran
           <TableCell>
             <Typography variant="body2">Loading...</Typography>
           </TableCell>
+          <TableCell>
+          </TableCell>
+          <TableCell>
+          </TableCell>
+          <TableCell>
+          </TableCell>
         </TableRow>
       </TableBody>
     );

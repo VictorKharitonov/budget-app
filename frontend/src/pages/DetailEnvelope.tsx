@@ -7,6 +7,8 @@ import {getTransactionById} from "../utils/transactionsHelper";
 import {TransactionsItem} from "../types/transactions";
 import { useTypedSelector } from "../hooks/useTypedSelector";
 import './scss/DetailEnvelope.scss';
+import {EnvelopeItem} from "../types/envelopes";
+import useFilter from "../hooks/useFilter";
 
 
 const DetailEnvelope: FC = () => {
@@ -15,14 +17,20 @@ const DetailEnvelope: FC = () => {
   const { user } = useTypedSelector(state => state.userInfo);
   const [selectedTransactionId, setSelectedTransactionId] = useState<string>('');
   const [selectedTransaction, setSelectedTransaction] = useState<TransactionsItem | undefined>();
-  const [status, setStatus] = useState('open');
-  const currentEnvelope = params.id as string;
+  const currentEnvelope = useFilter<EnvelopeItem>(params.id as string, user.envelopes, ['name'])[0];
+  const [status, setStatus] = useState<string | null>(null);
 
   const handleChangeStatus = (event: React.MouseEvent<HTMLElement>, newStatus: string) => {
     if (newStatus !== null) {
       setStatus(newStatus);
     }
   };
+
+  useEffect(() => {
+    if (currentEnvelope) {
+      setStatus(currentEnvelope.status)
+    }
+  }, []);
 
   useEffect(() => {
     setSelectedTransaction(getTransactionById(selectedTransactionId, transactions.transactions));
@@ -48,12 +56,12 @@ const DetailEnvelope: FC = () => {
             transactions={transactions}
             categories={user.categories}
             userId={user._id}
-            currentEnvelope={currentEnvelope}
+            currentEnvelope={currentEnvelope?.name}
             selectedTransactionId={selectedTransactionId}
             setSelectedTransactionId={setSelectedTransactionId}
             isPagination={true}
             isFilter={true}
-            perPage={10}
+            perPage={25}
             rowsPerPageOptions={[25, 50, 100]}
           />
         </Grid>

@@ -11,9 +11,9 @@ import {Link, useLocation} from "react-router-dom";
 import Logo from "../../../images/logo.png";
 import Icons from '../Icons';
 import {getPathNames} from "../../../utils/stringHelper";
-import {FC, useEffect, useState} from "react";
+import {FC, useContext, useEffect, useState} from "react";
 import CustomModal from "../modal/CustomModal";
-import {EnvelopeItem, TransactionsItem} from "../../../types/envelopes";
+import {EnvelopeItem} from "../../../types/envelopes";
 import {testEnvelopes} from "../../../mock";
 import {SubmitHandler, useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
@@ -21,21 +21,28 @@ import {transactionScheme} from "../../../validations/transactionValidation";
 import TransactionForm from "../../transaction/TransactionForm";
 import {useTypedDispatch} from "../../../hooks/useTypedDispatch";
 import {_createTransaction} from "../../../store/reducers/transactionsSlice";
+import {TransactionsItem} from "../../../types/transactions";
+import {AuthContext, IAuthContext} from "../../../context";
+import {clearUserInfo} from "../../../store/reducers/userInfoSlice";
+import {useTypedSelector} from "../../../hooks/useTypedSelector";
 
 const NavBar: FC = () => {
   const location = useLocation();
   const pathNames: string[] = getPathNames(location);
   const dispatch = useTypedDispatch();
+  const {isAuth, setIsAuth} = useContext<IAuthContext>(AuthContext);
+  const {user, isLoading} = useTypedSelector(state => state.userInfo);
 
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
   const [modal, setModal] = useState(false);
   const [envelopes, setEnvelopes] = useState<EnvelopeItem[]>(testEnvelopes);
 
   let defaultTransaction: TransactionsItem = {
-    id: String(Math.random() * 1000),
+    _id: 'test',
     userId: 'test',
-    category: [],
-    envelop: [],
+    currency: 'dollar',
+    categories: [],
+    envelopes: [],
     amount: 0,
     date: Date.now(),
     description: '',
@@ -55,6 +62,12 @@ const NavBar: FC = () => {
     dispatch(_createTransaction(data));
     setModal(false);
   };
+
+  const handleLogout = () => {
+    setIsAuth(false);
+    localStorage.removeItem('chatId');
+    dispatch(clearUserInfo());
+  }
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
@@ -93,30 +106,44 @@ const NavBar: FC = () => {
               open={Boolean(anchorElNav)}
               onClose={handleCloseNavMenu}
             >
-              <MenuItem>
-                <Typography className={cl.userId} variant="h6">
-                  test
-                </Typography>
-              </MenuItem>
-              {pathNames.length > 0 &&
-                <MenuItem onClick={handleCloseNavMenu}>
-                    <CustomBreadCrumbs color="black" pathNames={pathNames}/>
+              {
+                isAuth &&
+                <MenuItem>
+                    <Typography className={cl.userId} variant="h6">
+                      {user.name}
+                    </Typography>
                 </MenuItem>
               }
-              <MenuItem>
-                <Button variant="contained" size="small" className={cl.transactionBtn} onClick={() => setModal(true)}>
-                  <Typography variant="body1" className={cl.transactionBtnText}>
-                    Transaction
-                  </Typography>
-                  <Icons.AddCircleIcon/>
-                </Button>
-              </MenuItem>
+              {pathNames.length > 0 &&
               <MenuItem onClick={handleCloseNavMenu}>
-                <Button component={Link} to="/Sign-up" variant="contained" size="small" fullWidth>
-                  <Typography variant="body1" className={cl.transactionBtnText}>
-                    Sign Up
-                  </Typography>
-                </Button>
+                  <CustomBreadCrumbs color="black" pathNames={pathNames}/>
+              </MenuItem>
+              }
+              {
+                isAuth &&
+                <MenuItem>
+                    <Button
+                        disabled={isLoading && !user.envelopes.length}
+                        variant="contained"
+                        size="small"
+                        className={cl.transactionBtn}
+                        onClick={() => setModal(true)}
+                    >
+                        <Typography variant="body1" className={cl.transactionBtnText}>
+                            Transaction
+                        </Typography>
+                        <Icons.AddCircleIcon/>
+                    </Button>
+                </MenuItem>
+              }
+              <MenuItem onClick={handleCloseNavMenu}>
+                <Box color="primary" className={cl.authContainer}>
+                  {
+                    isAuth
+                      ? <Button onClick={handleLogout} variant="contained" fullWidth={true}>Logout</Button>
+                      : <Button component={Link} to="/sign-in" variant="contained" fullWidth={true}>Login</Button>
+                  }
+                </Box>
               </MenuItem>
             </Menu>
           </Box>
@@ -127,25 +154,41 @@ const NavBar: FC = () => {
             </Typography>
           </Box>
           {/** desktop **/}
-          <Typography className={cl.userId} variant="h6">
-            test
-          </Typography>
-          <Button variant="contained" size="small" className={cl.transactionBtn} onClick={() => setModal(true)}>
-            <Typography variant="body1" className={cl.transactionBtnText}>
-              Transaction
+          {
+            isAuth &&
+            <Typography className={cl.userId} variant="h6">
+              {user.name}
             </Typography>
-            <Icons.AddCircleIcon/>
-          </Button>
+          }
+          {
+            isAuth &&
+            <Button
+                disabled={isLoading && !user.envelopes.length}
+                variant="contained" size="small"
+                className={cl.transactionBtn}
+                onClick={() => setModal(true)}
+            >
+                <Typography variant="body1" className={cl.transactionBtnText}>
+                    Transaction
+                </Typography>
+                <Icons.AddCircleIcon/>
+            </Button>
+          }
           <Box className={cl.breadCrumbsContainer}>
             <CustomBreadCrumbs color="black" pathNames={pathNames}/>
           </Box>
           <Box color="primary" className={cl.authContainer}>
-            <Button component={Link} to="/sign-in" variant="contained">Login</Button>
+            {
+              isAuth
+                ? <Button onClick={handleLogout} variant="contained">Logout</Button>
+                : <Button component={Link} to="/sign-in" variant="contained">Login</Button>
+            }
           </Box>
         </Toolbar>
       </Container>
       <CustomModal title="Transaction" modal={modal} setModal={setModal}>
-        <TransactionForm transactionForm={transactionForm} envelopes={envelopes} createTransaction={createTransaction}/>
+        <TransactionForm transactionForm={transactionForm} envelopes={user.envelopes}
+                         createTransaction={createTransaction}/>
       </CustomModal>
     </AppBar>
   );

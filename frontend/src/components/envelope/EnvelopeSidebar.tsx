@@ -32,7 +32,7 @@ const EnvelopeSidebar: FC<EnvelopeSidebarProps> = ({envelopes, setEnvelopes, isT
     if (envelopes.length !== 0 && currentEnvelopeName === null) {
       navigate(`/envelope/${envelopes[0].name}`);
     }
-  }, [pathNames.length]);
+  }, [currentEnvelopeName]);
 
   const setCurrentEnvelope = (
     e: React.MouseEvent<HTMLLIElement, MouseEvent>,

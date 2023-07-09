@@ -1,9 +1,10 @@
 import React, {FC} from 'react';
 import {Box, Button, Typography} from "@mui/material";
-import {EnvelopeItem, TransactionsItem} from "../../types/envelopes";
+import {EnvelopeItem} from "../../types/envelopes";
 import {SubmitHandler, UseFormReturn} from "react-hook-form";
 import Select from "../ui/select/Select";
 import Input from "../ui/input/Input";
+import {TransactionsItem} from "../../types/transactions";
 
 interface TransactionFormProps {
   transactionForm:  UseFormReturn<TransactionsItem, any>,
@@ -13,22 +14,23 @@ interface TransactionFormProps {
 
 const TransactionForm: FC<TransactionFormProps> = ({ transactionForm, envelopes, createTransaction}) => {
   const {handleSubmit, control, formState: {errors}} = transactionForm;
+  const envelopesArr = envelopes.map(envelope => envelope.name);
 
   return (
     <Box component="form" onSubmit={handleSubmit(createTransaction)}>
       <Select
-        name="envelop"
+        name="envelopes"
         label="Envelope"
         control={control}
         multiple={true}
-        errors={errors.envelop}
-        options={envelopes}
+        errors={errors.envelopes}
+        options={envelopesArr}
       />
       <Input
-        name="category"
+        name="categories"
         label="Category"
         control={control}
-        errors={errors.category}
+        errors={errors.categories}
       />
       <Input
         name="amount"
@@ -49,10 +51,7 @@ const TransactionForm: FC<TransactionFormProps> = ({ transactionForm, envelopes,
         label="Type"
         control={control}
         errors={errors.type}
-        options={[
-          {id: 'income', name: 'income'},
-          {id: 'expense', name: 'expense'}
-        ]}
+        options={['income', 'expense']}
       />
       <Button type="submit" variant="contained" color="success" size="small" fullWidth>
         <Typography variant="body1">Save</Typography>

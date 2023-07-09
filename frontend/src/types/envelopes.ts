@@ -4,7 +4,7 @@ export interface EnvelopeItem {
 }
 
 export interface EnvelopesInfo {
-  envelopes: string;
+  envelope: string;
   total: {
     dollar: {
       income: number
