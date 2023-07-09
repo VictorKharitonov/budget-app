@@ -8,12 +8,13 @@ import {SubmitHandler, UseFormReturn} from "react-hook-form";
 import cl from "./scss/Transactions.module.scss";
 
 interface TransactionsToolBarProps {
+  envelopeName: string,
   categories: string[]
   form: UseFormReturn<TransactionFilter, any>,
   handleRequestFilter: SubmitHandler<TransactionFilter>
 }
 
-const TransactionsToolBar: FC<TransactionsToolBarProps> = ({categories, form, handleRequestFilter}) => {
+const TransactionsToolBar: FC<TransactionsToolBarProps> = ({envelopeName, categories, form, handleRequestFilter}) => {
   const [isFilterShow, setIsFilterShow] = useState(false);
   const {handleSubmit, control, reset} = form;
 
@@ -24,7 +25,7 @@ const TransactionsToolBar: FC<TransactionsToolBarProps> = ({categories, form, ha
           variant="h6"
           component="h2"
         >
-          Salary
+          {envelopeName}
         </Typography>
         <IconButton onClick={() => setIsFilterShow(!isFilterShow)}>
           <Icons.FilterListIcon/>

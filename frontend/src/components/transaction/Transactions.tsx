@@ -92,7 +92,7 @@ const Transactions: FC<TransactionsProps> = ({transactions, categories, selected
   }, [envelopeInfo]);
 
   useEffect(() => {
-    if (isPagination) {
+    if (isPagination && isSuccess) {
       requestEnvelopeInfo();
     }
 
@@ -104,7 +104,7 @@ const Transactions: FC<TransactionsProps> = ({transactions, categories, selected
         offset: page * rowsPerPage
       }));
     }
-  }, [page, rowsPerPage, currentEnvelope]);
+  }, [page, rowsPerPage, currentEnvelope, isSuccess]);
 
   const handleRequestFilter: SubmitHandler<TransactionFilter> = (data: TransactionFilter) => {
     let date = data.date === null ? null : data.date.valueOf();
@@ -150,6 +150,7 @@ const Transactions: FC<TransactionsProps> = ({transactions, categories, selected
         {
           isFilter &&
           <TransactionsToolBar
+              envelopeName={currentEnvelope}
               categories={categories}
               form={filterForm}
               handleRequestFilter={handleRequestFilter}

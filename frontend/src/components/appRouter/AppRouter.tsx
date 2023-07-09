@@ -1,4 +1,4 @@
-import React, {FC, useContext, useEffect, useState} from 'react';
+import React, {FC, useContext, useEffect} from 'react';
 import { Routes, Route } from 'react-router-dom';
 import cl from './AppRouter.module.scss';
 import {privateRoutes, publicRoutes} from '../../router';

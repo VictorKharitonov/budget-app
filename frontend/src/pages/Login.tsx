@@ -1,5 +1,5 @@
-import React, {FC, useContext, useEffect, useState} from 'react';
-import {Box, Button, Container, Grid, Paper, Typography} from '@mui/material';
+import React, {FC, useContext, useEffect} from 'react';
+import {Box, Button, Container, Grid, Typography} from '@mui/material';
 import {SubmitHandler, useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
 import {ILogin} from "../types/login";
@@ -9,11 +9,9 @@ import {fetchUserByChatId} from "../store/asyncActions/fetchUserByChatIdAction";
 import {useTypedDispatch} from "../hooks/useTypedDispatch";
 import {useTypedSelector} from "../hooks/useTypedSelector";
 import {AuthContext, IAuthContext} from "../context";
-import {useNavigate} from "react-router-dom";
 
 const Login: FC = () => {
   const dispatch = useTypedDispatch();
-  const navigate = useNavigate();
   const {isAuth, setIsAuth} = useContext<IAuthContext>(AuthContext);
   const {user, error} = useTypedSelector(state => state.userInfo);
 
