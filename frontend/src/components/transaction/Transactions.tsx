@@ -17,9 +17,12 @@ import {SubmitHandler, useForm} from "react-hook-form";
 import TransactionBody from "./TransactionBody";
 import {useFetch} from "../../hooks/useFetch";
 import {getEnvelopeInfo} from "../../Api/budgetApi";
-import {EnvelopesInfo} from "../../types/envelopes";
+import {EnvelopeItem, EnvelopesInfo} from "../../types/envelopes";
 import {fetchEnvelopeTransactions} from "../../store/asyncActions/transaction/fetchEnvelopeTransactionsAction";
 import {useTypedDispatch} from "../../hooks/useTypedDispatch";
+import {yupResolver} from "@hookform/resolvers/yup";
+import {envelopeScheme} from "../../validations/envelopeValidation";
+import {User} from "../../types/user";
 
 type Order = 'asc' | 'desc';
 
@@ -60,10 +63,9 @@ const columns: readonly Column[] = [
 
 interface TransactionsProps {
   transactions: TransactionType,
-  categories: string[],
   selectedTransactionId: string,
-  userId: string,
-  currentEnvelope: string,
+  user: User,
+  currentEnvelope: EnvelopeItem | undefined,
   setSelectedTransactionId: (id: string) => void,
   isPagination?: boolean,
   isFilter?: boolean,
@@ -71,7 +73,7 @@ interface TransactionsProps {
   perPage?: number
 }
 
-const Transactions: FC<TransactionsProps> = ({transactions, categories, selectedTransactionId, setSelectedTransactionId, isPagination = false, isFilter = false, rowsPerPageOptions = [], perPage = 10, userId, currentEnvelope}) => {
+const Transactions: FC<TransactionsProps> = ({user, transactions, selectedTransactionId, setSelectedTransactionId, isPagination = false, isFilter = false, rowsPerPageOptions = [], perPage = 10, currentEnvelope}) => {
   const [page, setPage] = useState<number>(0);
   const [rowsPerPage, setRowsPerPage] = useState<number>(perPage);
   const [order, setOrder] = useState<Order>('asc');
@@ -81,8 +83,10 @@ const Transactions: FC<TransactionsProps> = ({transactions, categories, selected
   const dispatch = useTypedDispatch();
   const {transactions: content, isSuccess, isLoading, error} = transactions;
   const {fetch: requestEnvelopeInfo, error: envelopeInfoError, isLoading: isLoadingEnvelopeInfo} = useFetch(async () => {
-    const envelopeInfo = await getEnvelopeInfo(userId, currentEnvelope);
-    setEnvelopeInfo(envelopeInfo);
+    if (currentEnvelope) {
+      const envelopeInfo = await getEnvelopeInfo(user._id, currentEnvelope.name);
+      setEnvelopeInfo(envelopeInfo);
+    }
   });
 
   useEffect(() => {
@@ -96,10 +100,10 @@ const Transactions: FC<TransactionsProps> = ({transactions, categories, selected
       requestEnvelopeInfo();
     }
 
-    if (currentEnvelope && userId) {
+    if (currentEnvelope && user._id) {
       dispatch(fetchEnvelopeTransactions({
-        userId: userId,
-        envelope: currentEnvelope,
+        userId: user._id,
+        envelope: currentEnvelope.name,
         limit: rowsPerPage,
         offset: page * rowsPerPage
       }));
@@ -148,11 +152,11 @@ const Transactions: FC<TransactionsProps> = ({transactions, categories, selected
     <Paper className={cl.transactionsLayout}>
       <TableContainer className={cl.transactionsContainer}>
         {
-          isFilter &&
+          isFilter && currentEnvelope &&
           <TransactionsToolBar
-              envelopeName={currentEnvelope}
-              categories={categories}
-              form={filterForm}
+              user={user}
+              envelopeName={currentEnvelope.name}
+              filterForm={filterForm}
               handleRequestFilter={handleRequestFilter}
           />
         }

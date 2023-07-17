@@ -21,7 +21,7 @@ const TransactionBody: FC<TransactionBodyProps> = ({transactions, isSelectedTran
       <TableBody>
         <TableRow>
           <TableCell>
-            <Typography variant="body2">Loading...</Typography>
+            Loading...
           </TableCell>
           <TableCell>
           </TableCell>
@@ -67,7 +67,7 @@ const TransactionBody: FC<TransactionBodyProps> = ({transactions, isSelectedTran
               })
             : <TableRow>
                 <TableCell>
-                  <Typography variant="body2">Transactions is empty</Typography>
+                  Transactions is empty
                 </TableCell>
               </TableRow>
         }
@@ -79,7 +79,7 @@ const TransactionBody: FC<TransactionBodyProps> = ({transactions, isSelectedTran
     <TableBody>
       <TableRow>
         <TableCell>
-          <Typography variant="body2">{error}</Typography>
+          {error}
         </TableCell>
       </TableRow>
     </TableBody>

@@ -3,7 +3,7 @@
   margin-bottom: 0.3rem;
   background: var(--ba-palette-background-paper);
 
-  .toggle-group__btn {
+  .toggle-group__btn, .toggle-group__btn:disabled {
     border: none;
   }
 }

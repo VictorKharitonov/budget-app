@@ -3,26 +3,32 @@ import "./scss/Main.scss";
 import EnvelopeSidebar from '../components/envelope/EnvelopeSidebar';
 import {Container, Grid, Paper, Typography} from '@mui/material';
 import Transactions from '../components/transaction/Transactions';
-import {EnvelopeItem} from '../types/envelopes';
 import {getTransactionById} from '../utils/transactionsHelper';
 import {useParams} from 'react-router-dom';
 import DetailTransaction from '../components/detailTransaction/DetailTransaction';
 import { useTypedSelector } from "../hooks/useTypedSelector";
 import {TransactionsItem} from "../types/transactions";
+import useFilter from "../hooks/useFilter";
+import {EnvelopeItem} from "../types/envelopes";
+import {getCurrentEnvelope} from "../utils/envelopeHelper";
 
 const Main: FC = () => {
   const params = useParams();
   const transactions = useTypedSelector(state => state.transactions);
-  const {user} = useTypedSelector(state => state.userInfo);
-  const [envelopes, setEnvelopes] = useState<EnvelopeItem[]>([]);//testEnvelopes
-  const [categories, setCategories] = useState<string[]>([]);//testCategories
+  const userInfo = useTypedSelector(state => state.userInfo);
+  const {user} = userInfo;
   const [selectedTransactionId, setSelectedTransactionId] = useState<string>('');
   const [selectedTransaction, setSelectedTransaction] = useState<TransactionsItem | undefined>();
-  const currentEnvelope = params.id as string;
+  const currentEnvelopeName = params.id as string;
+  const [currentEnvelope, setCurrentEnvelope] = useState<EnvelopeItem | undefined>();
 
   useEffect(() => {
     setSelectedTransaction(getTransactionById(selectedTransactionId, transactions.transactions));
   }, [selectedTransactionId, transactions]);
+
+  useEffect(() => {
+    setCurrentEnvelope(getCurrentEnvelope(currentEnvelopeName, user.envelopes));
+  }, [currentEnvelopeName]);
 
   return (
     <Container>
@@ -30,15 +36,14 @@ const Main: FC = () => {
         <Grid item md={12} lg={3}>
           <EnvelopeSidebar
             envelopes={user.envelopes}
-            setEnvelopes={setEnvelopes}
+            userInfo={userInfo}
             isTransactionsLoading={transactions.isLoading}
           />
         </Grid>
         <Grid item xs={12} md={8} lg={6}>
           <Transactions
             transactions={transactions}
-            categories={user.categories}
-            userId={user._id}
+            user={user}
             currentEnvelope={currentEnvelope}
             selectedTransactionId={selectedTransactionId}
             setSelectedTransactionId={setSelectedTransactionId}
@@ -51,6 +56,7 @@ const Main: FC = () => {
                 transaction={selectedTransaction}
                 envelopes={user.envelopes}
                 categories={user.categories}
+                currentEnvelope={currentEnvelope}
               />
             : <Paper>
                 <Typography variant="body1" className="detail-transaction-empty">Select transaction from table to view details</Typography>

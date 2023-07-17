@@ -2,14 +2,14 @@ import {createAsyncThunk} from "@reduxjs/toolkit";
 import {TransactionsItem} from "../../../types/transactions";
 import {getEnvelopeTransactions} from "../../../Api/budgetApi";
 
-interface body {
+interface Body {
   userId: string,
   envelope: string,
   limit: number,
   offset: number
 }
 
-export const fetchEnvelopeTransactions = createAsyncThunk<TransactionsItem[], body, { rejectValue: string }>(
+export const fetchEnvelopeTransactions = createAsyncThunk<TransactionsItem[], Body, { rejectValue: string }>(
   'envelopeTransactions/fetchEnvelopeTransactions',
   async ({userId, envelope, limit, offset}, {rejectWithValue}) => {
     try {

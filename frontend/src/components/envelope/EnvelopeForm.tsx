@@ -1,36 +1,16 @@
 import React, {FC} from 'react';
 import {Box, Button, Typography} from '@mui/material';
-import {SubmitHandler, useForm} from 'react-hook-form';
-import {yupResolver} from '@hookform/resolvers/yup';
+import {SubmitHandler, UseFormReturn} from 'react-hook-form';
 import {EnvelopeItem} from '../../types/envelopes';
-import {envelopeScheme} from '../../validations/envelopeValidation';
 import Input from '../ui/input/Input';
 
 interface EnvelopeFormProps {
-  envelopes: EnvelopeItem[],
-  setEnvelopes: (val: EnvelopeItem[]) => void,
-  setEnvelopesModal: (val: boolean) => void,
+  envelopeCreateForm:  UseFormReturn<EnvelopeItem, any>,
+  createEnvelope: SubmitHandler<EnvelopeItem>,
 }
 
-const EnvelopeForm: FC<EnvelopeFormProps> = ({
-  envelopes,
-  setEnvelopes,
-  setEnvelopesModal,
-}) => {
-  let defaultValue: EnvelopeItem = {
-    name: '',
-    status: 'open'
-  }
-  const {handleSubmit, control, reset, formState: {errors}} = useForm<EnvelopeItem>({
-    defaultValues: defaultValue,
-    resolver: yupResolver(envelopeScheme),
-  });
-
-  const createEnvelope: SubmitHandler<EnvelopeItem> = (data: EnvelopeItem) => {
-    setEnvelopes([data, ...envelopes]);
-    setEnvelopesModal(false);
-    reset();
-  }
+const EnvelopeForm: FC<EnvelopeFormProps> = ({envelopeCreateForm, createEnvelope}) => {
+  const {handleSubmit, control, formState: {errors}} = envelopeCreateForm;
 
   return (
     <Box component="form" onSubmit={handleSubmit(createEnvelope)}>
