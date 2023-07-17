@@ -108,7 +108,7 @@ const Transactions: FC<TransactionsProps> = ({user, transactions, selectedTransa
         offset: page * rowsPerPage
       }));
     }
-  }, [page, rowsPerPage, currentEnvelope, isSuccess]);
+  }, [page, rowsPerPage, currentEnvelope?.name, isSuccess]);
 
   const handleRequestFilter: SubmitHandler<TransactionFilter> = (data: TransactionFilter) => {
     let date = data.date === null ? null : data.date.valueOf();
