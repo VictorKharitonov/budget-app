@@ -97,8 +97,9 @@ const DetailEnvelope: FC = () => {
 
   return (
     <Container>
-      {errorUpdate &&
-      <Alert severity="error" sx={{mt: 2}}>{errorUpdate}</Alert>
+      {
+        errorUpdate &&
+        <Alert severity="error" sx={{mt: 2}}>{errorUpdate}</Alert>
       }
       <Box>
         <ToggleButtonGroup
@@ -126,7 +127,6 @@ const DetailEnvelope: FC = () => {
         >
           Delete
         </Button>
-        {}
       </Box>
       <Grid container className="detail-envelope-container" columnSpacing={2} rowSpacing={2} mb={4}>
         <Grid item xs={12} md={8} lg={8}>
@@ -146,15 +146,14 @@ const DetailEnvelope: FC = () => {
           {
             selectedTransaction
               ? <DetailTransaction
-                transaction={selectedTransaction}
-                envelopes={user.envelopes}
-                categories={user.categories}
-                currentEnvelope={currentEnvelope}
-              />
+                  transaction={selectedTransaction}
+                  envelopes={user.envelopes}
+                  categories={user.categories}
+                  currentEnvelope={currentEnvelope}
+                />
               : <Paper>
-                <Typography variant="body1" className="detail-transaction-empty">Select transaction from table to view
-                  details</Typography>
-              </Paper>
+                  <Typography variant="body1" className="detail-transaction-empty">Select transaction from table to view details</Typography>
+                </Paper>
           }
         </Grid>
       </Grid>
