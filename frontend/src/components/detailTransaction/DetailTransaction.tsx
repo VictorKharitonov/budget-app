@@ -62,9 +62,10 @@ const DetailTransaction: FC<DetailProps> = ({transaction, envelopes, categories,
         <Grid item>
           <Button variant="contained" disabled={currentEnvelope?.status === 'closed'} color="secondary" size="small" onClick={handleEditClick}>
             <Icons.EditIcon fontSize="small"/>
-            {!isEditable
-              ? <Typography variant="body1">Cancel</Typography>
-              : <Typography variant="body1">Edit</Typography>
+            {
+              !isEditable
+                ? <Typography variant="body1">Cancel</Typography>
+                : <Typography variant="body1">Edit</Typography>
             }
           </Button>
         </Grid>
@@ -78,7 +79,8 @@ const DetailTransaction: FC<DetailProps> = ({transaction, envelopes, categories,
         envelopes={envelopes}
         categories={categories}
       />
-      {isEditable &&
+      {
+        isEditable &&
         <Button variant="contained" color="primary" size="small" fullWidth>
           <Typography variant="body1">Share</Typography>
         </Button>
