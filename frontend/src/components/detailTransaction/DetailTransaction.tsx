@@ -18,14 +18,7 @@ interface DetailProps {
   currentEnvelope: EnvelopeItem | undefined,
 }
 
-const DetailTransaction: FC<DetailProps> = (
-  {
-    transaction,
-    envelopes,
-    categories,
-    currentEnvelope
-  }
-) => {
+const DetailTransaction: FC<DetailProps> = ({transaction, envelopes, categories, currentEnvelope}) => {
   const [isEditable, setIsEditable] = useState<boolean>(true);
   const dispatch = useTypedDispatch();
 

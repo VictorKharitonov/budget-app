@@ -63,10 +63,7 @@ const DetailEnvelope: FC = () => {
       userId: user._id,
       envelopes: updatedEnvelopes,
       categories: user.categories
-    })).finally(() => {
-      setUpdateEnvelopeLoading(false);
-      console.log(currentEnvelope);
-    });
+    })).finally(() => setUpdateEnvelopeLoading(false));
   };
 
   const handleChangeStatus = (event: React.MouseEvent<HTMLElement>, newStatus: string) => {

@@ -20,8 +20,6 @@ import {getEnvelopeInfo} from "../../Api/budgetApi";
 import {EnvelopeItem, EnvelopesInfo} from "../../types/envelopes";
 import {fetchEnvelopeTransactions} from "../../store/asyncActions/transaction/fetchEnvelopeTransactionsAction";
 import {useTypedDispatch} from "../../hooks/useTypedDispatch";
-import {yupResolver} from "@hookform/resolvers/yup";
-import {envelopeScheme} from "../../validations/envelopeValidation";
 import {User} from "../../types/user";
 
 type Order = 'asc' | 'desc';

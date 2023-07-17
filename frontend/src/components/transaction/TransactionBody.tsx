@@ -1,5 +1,5 @@
 import React, {FC} from 'react';
-import {TableBody, TableCell, TableRow, Typography} from "@mui/material";
+import {TableBody, TableCell, TableRow} from "@mui/material";
 import cl from "./scss/Transactions.module.scss";
 import {Transactions} from "../../types/transactions";
 import {Column} from "./Transactions";
