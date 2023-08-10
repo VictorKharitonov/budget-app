@@ -6,24 +6,26 @@ import Select from "../ui/select/Select";
 import {TransactionFilter} from "../../types/transactions";
 import {SubmitHandler, UseFormReturn} from "react-hook-form";
 import cl from "./scss/Transactions.module.scss";
+import {User} from "../../types/user";
 
 interface TransactionsToolBarProps {
   envelopeName: string,
-  categories: string[]
-  form: UseFormReturn<TransactionFilter, any>,
+  user: User,
+  filterForm: UseFormReturn<TransactionFilter, any>,
   handleRequestFilter: SubmitHandler<TransactionFilter>
 }
 
-const TransactionsToolBar: FC<TransactionsToolBarProps> = ({envelopeName, categories, form, handleRequestFilter}) => {
+const TransactionsToolBar: FC<TransactionsToolBarProps> = ({envelopeName, user, filterForm, handleRequestFilter}) => {
   const [isFilterShow, setIsFilterShow] = useState(false);
-  const {handleSubmit, control, reset} = form;
+  const {handleSubmit, control, reset} = filterForm;
 
   return (
     <Toolbar className={cl.toolBarContainer}>
       <Box className={cl.toolBarHeader}>
-        <Typography
+       <Typography
           variant="h6"
           component="h2"
+          className={cl.toolBarTitle}
         >
           {envelopeName}
         </Typography>
@@ -48,7 +50,7 @@ const TransactionsToolBar: FC<TransactionsToolBarProps> = ({envelopeName, catego
                 name="categories"
                 label="Categories"
                 multiple={true}
-                options={categories}
+                options={user.categories}
                 control={control}
                 onBlur={handleSubmit(handleRequestFilter)}
               />

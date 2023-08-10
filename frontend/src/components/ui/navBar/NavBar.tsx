@@ -1,12 +1,7 @@
 import * as React from 'react';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
 import CustomBreadCrumbs from "../customBreadCrumbs/CustomBreadCrumbs";
 import cl from './scss/navBar.module.scss';
-import {Button, IconButton, Menu, MenuItem} from "@mui/material";
+import {AppBar, Box, Toolbar, Typography, Container, Button, IconButton, Menu, MenuItem} from "@mui/material";
 import {Link, useLocation} from "react-router-dom";
 import Logo from "../../../images/logo.png";
 import Icons from '../Icons';

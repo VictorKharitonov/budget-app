@@ -8,22 +8,54 @@ import CustomModal from '../ui/modal/CustomModal';
 import EnvelopeForm from './EnvelopeForm';
 import {useNavigate, useLocation} from "react-router-dom"
 import {getPathNames} from "../../utils/stringHelper";
+import {SubmitHandler, useForm} from "react-hook-form";
+import {yupResolver} from "@hookform/resolvers/yup";
+import {envelopeScheme} from "../../validations/envelopeValidation";
+import {User, UserInfo} from "../../types/user";
+import {useTypedDispatch} from "../../hooks/useTypedDispatch";
+import {updateUserInfo} from "../../store/asyncActions/updateUserInfoAction";
 
 interface EnvelopeSidebarProps {
-  envelopes: EnvelopeItem[],
-  setEnvelopes: (envelopes: EnvelopeItem[]) => void,
-  isTransactionsLoading: boolean
+  envelopes: EnvelopeItem[];
+  userInfo: UserInfo;
+  isTransactionsLoading: boolean;
 }
 
-const EnvelopeSidebar: FC<EnvelopeSidebarProps> = ({envelopes, setEnvelopes, isTransactionsLoading}) => {
+const EnvelopeSidebar: FC<EnvelopeSidebarProps> = ({envelopes, userInfo, isTransactionsLoading}) => {
   const [selectedEnvelopeName, setSelectedEnvelopeName] = useState<string>('');
   const [searchEnvelope, setSearchEnvelope] = useState<string>('');
   const [envelopeModal, setEnvelopeModal] = useState<boolean>(false);
+  const [createEnvelopeLoading, setCreateEnvelopeLoading] = useState<boolean>(false);
+  const {user} = userInfo;
+  const dispatch = useTypedDispatch();
   const envelopesByName = useFilter<EnvelopeItem>(searchEnvelope, envelopes, ['name']);
   const navigate = useNavigate();
   const location = useLocation();
   const pathNames: string[] = getPathNames(location);
   const currentEnvelopeName = pathNames.length > 1 ? pathNames[1] : null;
+  let defaultValue: EnvelopeItem = {
+    name: '',
+    status: 'open'
+  }
+
+  const envelopeCreateForm = useForm<EnvelopeItem>({
+    defaultValues: defaultValue,
+    resolver: yupResolver(envelopeScheme),
+    context: {
+      envelopes: [...user.envelopes].map(envelope => envelope.name)
+    }
+  });
+
+  const createEnvelope: SubmitHandler<EnvelopeItem> = (data: EnvelopeItem) => {
+    setCreateEnvelopeLoading(true);
+    setEnvelopeModal(false);
+    dispatch(updateUserInfo({
+      userId: user._id,
+      envelopes: [data, ...user.envelopes],
+      categories: user.categories
+    })).finally(() => setCreateEnvelopeLoading(false));
+    envelopeCreateForm.reset();
+  }
 
   useEffect(() => {
     if (currentEnvelopeName !== null) {
@@ -53,6 +85,7 @@ const EnvelopeSidebar: FC<EnvelopeSidebarProps> = ({envelopes, setEnvelopes, isT
       <Grid container spacing={2}>
         <Grid item>
           <ToolBar
+            createEnvelopeLoading={createEnvelopeLoading}
             setModal={setEnvelopeModal}
             searchHandleChange={searchEnvelopeHandleChange}
             search={searchEnvelope}
@@ -72,9 +105,8 @@ const EnvelopeSidebar: FC<EnvelopeSidebarProps> = ({envelopes, setEnvelopes, isT
         setModal={setEnvelopeModal}
       >
         <EnvelopeForm
-          envelopes={envelopes}
-          setEnvelopes={setEnvelopes}
-          setEnvelopesModal={setEnvelopeModal}
+          envelopeCreateForm={envelopeCreateForm}
+          createEnvelope={createEnvelope}
         />
       </CustomModal>
     </Box>

@@ -1,20 +1,16 @@
 import React, {FC} from 'react';
-import {Button, Box} from '@mui/material';
+import {Button, Box, CircularProgress} from '@mui/material';
 import Icons from '../ui/Icons';
 import Input from "../ui/input/Input";
 
 interface ToolBarProps {
+  createEnvelopeLoading: boolean,
   setModal: (val: boolean) => void,
   searchHandleChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
   search: string
 }
 
-const ToolBar: FC<ToolBarProps> = ({
-    setModal,
-    search,
-    searchHandleChange,
-  }) => {
-
+const ToolBar: FC<ToolBarProps> = ({createEnvelopeLoading, setModal, search, searchHandleChange}) => {
   return (
     <Box
       component="form"
@@ -32,8 +28,12 @@ const ToolBar: FC<ToolBarProps> = ({
         sx={{ mr: 1}}
         autoComplete="off"
       />
-      <Button variant="contained" onClick={() => setModal(true)} size="small">
-        <Icons.PostAddIcon/>
+      <Button variant="contained" disabled={createEnvelopeLoading} onClick={() => setModal(true)} size="small">
+        {
+          createEnvelopeLoading
+          ? <CircularProgress color="primary" size={24}/>
+          : <Icons.PostAddIcon/>
+        }
       </Button>
     </Box>
   );

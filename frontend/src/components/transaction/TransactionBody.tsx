@@ -1,5 +1,5 @@
 import React, {FC} from 'react';
-import {TableBody, TableCell, TableRow, Typography} from "@mui/material";
+import {TableBody, TableCell, TableRow} from "@mui/material";
 import cl from "./scss/Transactions.module.scss";
 import {Transactions} from "../../types/transactions";
 import {Column} from "./Transactions";
@@ -21,7 +21,7 @@ const TransactionBody: FC<TransactionBodyProps> = ({transactions, isSelectedTran
       <TableBody>
         <TableRow>
           <TableCell>
-            <Typography variant="body2">Loading...</Typography>
+            Loading...
           </TableCell>
           <TableCell>
           </TableCell>
@@ -67,7 +67,7 @@ const TransactionBody: FC<TransactionBodyProps> = ({transactions, isSelectedTran
               })
             : <TableRow>
                 <TableCell>
-                  <Typography variant="body2">Transactions is empty</Typography>
+                  Transactions is empty
                 </TableCell>
               </TableRow>
         }
@@ -79,7 +79,7 @@ const TransactionBody: FC<TransactionBodyProps> = ({transactions, isSelectedTran
     <TableBody>
       <TableRow>
         <TableCell>
-          <Typography variant="body2">{error}</Typography>
+          {error}
         </TableCell>
       </TableRow>
     </TableBody>

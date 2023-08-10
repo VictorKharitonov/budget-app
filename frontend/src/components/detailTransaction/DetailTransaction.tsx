@@ -1,6 +1,5 @@
 import React, {FC, useEffect, useState} from 'react';
 import { Box, Button, Divider, Grid, Typography } from '@mui/material';
-
 import Icons from '../ui/Icons';
 import cl from './scss/DetailTransactions.module.scss';
 import {EnvelopeItem} from '../../types/envelopes';
@@ -13,18 +12,13 @@ import { updateTransactionById, deleteTransactionById } from "../../store/reduce
 import {TransactionsItem} from "../../types/transactions";
 
 interface DetailProps {
-  transaction: TransactionsItem | undefined,
-  envelopes: EnvelopeItem[],
-  categories: string[],
+  transaction: TransactionsItem | undefined;
+  envelopes: EnvelopeItem[];
+  categories: string[];
+  currentEnvelope: EnvelopeItem | undefined,
 }
 
-const DetailTransaction: FC<DetailProps> = (
-  {
-    transaction,
-    envelopes,
-    categories
-  }
-) => {
+const DetailTransaction: FC<DetailProps> = ({transaction, envelopes, categories, currentEnvelope}) => {
   const [isEditable, setIsEditable] = useState<boolean>(true);
   const dispatch = useTypedDispatch();
 
@@ -66,11 +60,12 @@ const DetailTransaction: FC<DetailProps> = (
           <Typography variant="body1">Detail</Typography>
         </Grid>
         <Grid item>
-          <Button variant="contained" color="secondary" size="small" onClick={handleEditClick}>
+          <Button variant="contained" disabled={currentEnvelope?.status === 'closed'} color="secondary" size="small" onClick={handleEditClick}>
             <Icons.EditIcon fontSize="small"/>
-            {!isEditable
-              ? <Typography variant="body1">Cancel</Typography>
-              : <Typography variant="body1">Edit</Typography>
+            {
+              !isEditable
+                ? <Typography variant="body1">Cancel</Typography>
+                : <Typography variant="body1">Edit</Typography>
             }
           </Button>
         </Grid>
@@ -84,7 +79,8 @@ const DetailTransaction: FC<DetailProps> = (
         envelopes={envelopes}
         categories={categories}
       />
-      {isEditable &&
+      {
+        isEditable &&
         <Button variant="contained" color="primary" size="small" fullWidth>
           <Typography variant="body1">Share</Typography>
         </Button>

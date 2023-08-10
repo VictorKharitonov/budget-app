@@ -6,8 +6,7 @@ export const fetchUserByChatId = createAsyncThunk<User, number, { rejectValue: s
   'user/fetchUser',
   async (chatId, {rejectWithValue}) => {
     try {
-      let userInfo = await getUserInfoByChatId(chatId);
-      return userInfo;
+      return await getUserInfoByChatId(chatId);
     } catch (error) {
       return rejectWithValue(error.message);
     }

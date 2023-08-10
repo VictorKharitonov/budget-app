@@ -1,7 +1,7 @@
 import axios from "axios";
 import {User} from "../types/user";
 import {TransactionsItem} from "../types/transactions";
-import {EnvelopesInfo} from "../types/envelopes";
+import {EnvelopeItem, EnvelopesInfo} from "../types/envelopes";
 
 const budgetApi = axios.create({
   baseURL: 'https://cloud.uibakery.io/api/automation',
@@ -58,3 +58,19 @@ export const getEnvelopeInfo = async (userId: string, envelope: string) => {
 
   return response.data;
 }
+
+export const updateUser = async (envelopes: EnvelopeItem[], userId: string, categories: string[]) => {
+  return await budgetApi.post(
+    'EJnsqB3QJU',
+    {
+      envelopes,
+      userId,
+      categories
+    },
+    {
+      params: {
+        key: 'ae015b56-a2b8-473c-a0d1-c9e1c9004a08'
+      }
+    }
+  )
+};
