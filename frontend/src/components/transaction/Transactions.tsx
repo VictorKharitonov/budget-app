@@ -29,7 +29,7 @@ const columns: readonly Column[] = [
   {
     id: 'amount',
     label: 'Amount',
-    format: (value: number) => value?.toFixed(2),
+    format: (value: number) => value.toFixed(2),
   },
   {
     id: 'type',
@@ -102,6 +102,7 @@ const Transactions: FC<TransactionsProps> = ({user, transactions, selectedTransa
   const handleRequestFilter: SubmitHandler<TransactionFilter> = (data: TransactionFilter) => {
     let date = data.date === null ? null : data.date.valueOf();
     data = {...data, date: date};
+    console.log(data);
   }
 
   const handleRequestSort = (event: React.MouseEvent<unknown>, property: keyof TransactionsItem) => {

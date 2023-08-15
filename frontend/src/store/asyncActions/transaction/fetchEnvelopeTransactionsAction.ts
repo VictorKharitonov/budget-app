@@ -19,4 +19,4 @@ export const fetchEnvelopeTransactions = createAsyncThunk<TransactionsItem[], Bo
       return rejectWithValue(error.message);
     }
   }
-);
+)

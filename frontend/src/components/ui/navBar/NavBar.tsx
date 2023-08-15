@@ -25,7 +25,7 @@ const NavBar: FC = () => {
   const dispatch = useTypedDispatch();
   const {isAuth, setIsAuth} = useContext<IAuthContext>(AuthContext);
   const {user, isLoading} = useTypedSelector(state => state.userInfo);
-  const {isCreateSuccess ,isLoadingCreate, createError} = useTypedSelector(state => state.transactions);
+  const {isLoadingCreate, createError} = useTypedSelector(state => state.transactions);
 
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
   const [modal, setModal] = useState(false);
