@@ -6,8 +6,8 @@ import DetailEnvelope from "../pages/DetailEnvelope";
 import Login from "../pages/Login";
 
 interface Routes {
-  path: string,
-  element: React.ReactNode | null
+  path: string;
+  element: React.ReactNode | null;
 }
 
 export const privateRoutes: Routes[] = [
@@ -28,7 +28,7 @@ export const privateRoutes: Routes[] = [
     element: <DetailEnvelope/>
   },
   {
-    path: '*',
+    path: 'sign-in',
     element: <Navigate to="/envelope" replace/>
   },
 ];

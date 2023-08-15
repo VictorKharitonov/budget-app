@@ -74,3 +74,48 @@ export const updateUser = async (envelopes: EnvelopeItem[], userId: string, cate
     }
   )
 };
+
+export const createTransaction = async (transaction: Omit<TransactionsItem, "_id">) => {
+  let response = await budgetApi.post(
+    'HvIJOlwQbV',
+    transaction,
+    {
+      params: {
+        key: '046cbfba-ae51-4fab-9f8f-62c800f05504'
+      }
+    }
+  );
+
+  return response.data;
+}
+
+export const deleteTransaction = async (userId: string, _id: string) => {
+  let response = await budgetApi.post(
+  	'4zhiXYiKAF',
+	{
+	  userId,
+	  _id
+	},
+	{
+	  params: {
+	    key: "8f9f830f-9e51-4a09-b44b-c823b6e4b2e7"
+	  }
+	}
+  );
+
+  return response.data;
+};
+
+export const updateTransaction = async (transaction: TransactionsItem) => {
+  let response = await budgetApi.post(
+	  'p8lkrjpKlr',
+	  transaction,
+	  {
+		params: {
+		  key: "418773b7-5598-4143-985f-98901bef1dfd"
+		}
+	  }
+  );
+
+  return response.data;
+};

@@ -61,7 +61,7 @@ const TransactionsToolBar: FC<TransactionsToolBarProps> = ({envelopeName, user, 
                 label="Type"
                 control={control}
                 onBlur={handleSubmit(handleRequestFilter)}
-                options={['income', 'expense']}
+                options={['income', 'expenses']}
               />
             </Grid>
             <Grid item xs={12} sm={6} md={3}>

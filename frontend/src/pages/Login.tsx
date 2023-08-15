@@ -9,9 +9,11 @@ import {fetchUserByChatId} from "../store/asyncActions/fetchUserByChatIdAction";
 import {useTypedDispatch} from "../hooks/useTypedDispatch";
 import {useTypedSelector} from "../hooks/useTypedSelector";
 import {AuthContext, IAuthContext} from "../context";
+import {useNavigate} from "react-router-dom";
 
 const Login: FC = () => {
   const dispatch = useTypedDispatch();
+  const navigate = useNavigate();
   const {isAuth, setIsAuth} = useContext<IAuthContext>(AuthContext);
   const {user, error} = useTypedSelector(state => state.userInfo);
 

@@ -14,5 +14,5 @@ export const detailScheme = object({
     return ctx.isType(value) ? value : new Date(originalValue);
   }).typeError('Enter valid date').required().max(maxDate),
   description: string().max(256).required(),
-  type: string<'income' | 'expense'>().required()
+  type: string<'income' | 'expenses'>().required()
 });

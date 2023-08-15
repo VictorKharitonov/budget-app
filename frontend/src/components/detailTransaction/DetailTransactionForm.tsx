@@ -1,5 +1,5 @@
 import React, {FC} from 'react';
-import {Box, Button, Grid, Typography} from '@mui/material';
+import {Box, Button, CircularProgress, Grid, Typography} from '@mui/material';
 import {SubmitHandler, UseFormReturn} from 'react-hook-form';
 import {EnvelopeItem} from '../../types/envelopes';
 import Input from '../ui/input/Input';
@@ -13,7 +13,9 @@ interface DetailTransactionFormProps {
   deleteTransaction: SubmitHandler<TransactionsItem>,
   isEditable: boolean,
   envelopes: EnvelopeItem[],
-  categories: string[]
+  categories: string[],
+  isLoadingDelete: boolean,
+  isLoadingUpdate: boolean,
 }
 
 const DetailTransactionForm: FC<DetailTransactionFormProps> = (
@@ -23,7 +25,9 @@ const DetailTransactionForm: FC<DetailTransactionFormProps> = (
     deleteTransaction,
     isEditable,
     envelopes,
-    categories
+    categories,
+    isLoadingDelete,
+    isLoadingUpdate
   }
 ) => {
   const {handleSubmit, control, formState: { errors }} = detailForm;
@@ -87,7 +91,7 @@ const DetailTransactionForm: FC<DetailTransactionFormProps> = (
         label="Type"
         control={control}
         errors={errors.type}
-        options={['income', 'expense']}
+        options={['income', 'expenses']}
         InputProps={{
           readOnly: isEditable,
         }}
@@ -95,12 +99,34 @@ const DetailTransactionForm: FC<DetailTransactionFormProps> = (
       {!isEditable &&
         <Grid container spacing={1}>
           <Grid item md={6}>
-            <Button onClick={handleSubmit(updateTransaction)} type="submit" variant="contained" color="success" size="small" fullWidth>
+            <Button
+              onClick={handleSubmit(updateTransaction)}
+              disabled={isLoadingUpdate || isLoadingDelete}
+              type="submit"
+              variant="contained"
+              endIcon={
+                isLoadingUpdate && <CircularProgress color="primary" size={16}/>
+              }
+              color="success"
+              size="small"
+              fullWidth
+            >
                 <Typography variant="body1">Save</Typography>
             </Button>
           </Grid>
             <Grid item md={6}>
-              <Button onClick={handleSubmit(deleteTransaction)} type="submit" variant="contained" color="error" size="small" fullWidth>
+              <Button
+                onClick={handleSubmit(deleteTransaction)}
+                disabled={isLoadingDelete || isLoadingUpdate}
+                type="submit"
+                variant="contained"
+                endIcon={
+                  isLoadingDelete && <CircularProgress color="primary" size={16}/>
+                }
+                color="error"
+                size="small"
+                fullWidth
+              >
                   <Typography variant="body1">Delete</Typography>
               </Button>
             </Grid>
