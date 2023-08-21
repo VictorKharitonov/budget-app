@@ -1,4 +1,4 @@
-import React, {FC, useEffect, useState} from 'react';
+import React, {FC, useCallback, useEffect, useMemo, useState} from 'react';
 import cl from './scss/Transactions.module.scss';
 import {Chip, TableRow, TablePagination, TableHead, TableContainer, TableCell, Table, Paper, TableSortLabel} from '@mui/material';
 import {TransactionFilter, Transactions as TransactionType, TransactionsItem} from "../../types/transactions";
@@ -8,7 +8,7 @@ import TransactionBody from "./TransactionBody";
 import {useFetch} from "../../hooks/useFetch";
 import {getEnvelopeInfo} from "../../Api/budgetApi";
 import {EnvelopeItem, EnvelopesInfo} from "../../types/envelopes";
-import {fetchEnvelopeTransactions} from "../../store/asyncActions/transaction/fetchEnvelopeTransactionsAction";
+import {fetchEnvelopeTransactions, Filter} from "../../store/asyncActions/transaction/fetchEnvelopeTransactionsAction";
 import {useTypedDispatch} from "../../hooks/useTypedDispatch";
 import {User} from "../../types/user";
 
@@ -65,10 +65,11 @@ const Transactions: FC<TransactionsProps> = ({user, transactions, selectedTransa
   const dispatch = useTypedDispatch();
   const [page, setPage] = useState<number>(0);
   const [rowsPerPage, setRowsPerPage] = useState<number>(perPage);
-  const [order, setOrder] = useState<Order>('asc');
+  const [order, setOrder] = useState<Order>('desc');
   const [orderBy, setOrderBy] = useState<keyof TransactionsItem>('date');
   const [envelopeInfo, setEnvelopeInfo] = useState<EnvelopesInfo | undefined>();
   const [isLastPage, setIsLastPage] = useState<boolean>(false);
+  const [filterParams, setFilterParams] = useState<Filter[] | null>(null);
   const {transactions: content, isSuccess, isLoading, isDeleteSuccess, isCreateSuccess} = transactions;
 
   const {fetch: requestEnvelopeInfo} = useFetch(async () => {
@@ -78,46 +79,43 @@ const Transactions: FC<TransactionsProps> = ({user, transactions, selectedTransa
     }
   });
 
+  const defaultFilterValues: TransactionFilter = {
+    date: null,
+    categories: [],
+    type: '',
+  };
+
+  const filterForm = useForm<TransactionFilter>({
+    defaultValues: defaultFilterValues
+  })
+
   useEffect(() => {
     if (envelopeInfo) {
       setIsLastPage((page + 1) * rowsPerPage >= envelopeInfo.documentsCount);
     }
   }, [envelopeInfo]);
 
-  useEffect(() => {
-    if (isPagination && isSuccess) {
-      requestEnvelopeInfo();
-    }
-
-    if (currentEnvelope) {
-      dispatch(fetchEnvelopeTransactions({
-        userId: user._id,
-        envelope: currentEnvelope.name,
-        limit: rowsPerPage,
-        offset: page * rowsPerPage
-      }));
-    }
-  }, [page, rowsPerPage, currentEnvelope?.name, isSuccess, isDeleteSuccess, isCreateSuccess]);
-
   const handleRequestFilter: SubmitHandler<TransactionFilter> = (data: TransactionFilter) => {
     let date = data.date === null ? null : data.date.valueOf();
+    let modifyData: Filter[] = [];
     data = {...data, date: date};
-    console.log(data);
+
+    for (let filterParam in data) {
+      let filterField = filterParam as keyof TransactionFilter;
+      let filterValue = data[filterField];
+
+      if (filterValue) {
+        modifyData.push({ field: filterField, value: filterValue })
+      }
+    }
+    setFilterParams(modifyData);
   }
 
-  const handleRequestSort = (event: React.MouseEvent<unknown>, property: keyof TransactionsItem) => {
+  const handleRequestSort = useCallback((event: React.MouseEvent<unknown>, property: keyof TransactionsItem) => {
     const isAsc = orderBy === property && order === 'asc';
     setOrder(isAsc ? 'desc' : 'asc');
     setOrderBy(property);
-  };
-
-  const filterForm = useForm<TransactionFilter>({
-    defaultValues: {
-      date: null,
-      categories: [],
-      type: '',
-    },
-  })
+  }, [order, orderBy]);
 
   const selectTransaction = (e: React.MouseEvent<HTMLTableRowElement>, id: string) => {
     setSelectedTransactionId(id);
@@ -134,16 +132,38 @@ const Transactions: FC<TransactionsProps> = ({user, transactions, selectedTransa
     setPage(0);
   };
 
+  useEffect(() => {
+    if (isPagination && isSuccess) {
+      requestEnvelopeInfo();
+    }
+
+    if (currentEnvelope) {
+      dispatch(fetchEnvelopeTransactions({
+        userId: user._id,
+        envelope: currentEnvelope.name,
+        limit: rowsPerPage,
+        offset: page * rowsPerPage,
+        sort: {
+          field: orderBy,
+          value: order
+        },
+        filter: filterParams
+      }));
+    }
+  }, [page, rowsPerPage, currentEnvelope?.name, isSuccess, isDeleteSuccess, isCreateSuccess, handleRequestSort, filterParams]);
+
   return (
     <Paper className={cl.transactionsLayout}>
       <TableContainer className={cl.transactionsContainer}>
         {
           isFilter && currentEnvelope &&
           <TransactionsToolBar
-              user={user}
-              envelopeName={currentEnvelope.name}
-              filterForm={filterForm}
-              handleRequestFilter={handleRequestFilter}
+            user={user}
+            envelopeName={currentEnvelope.name}
+            filterForm={filterForm}
+            defaultValues={defaultFilterValues}
+            setFilterParams={setFilterParams}
+            handleRequestFilter={handleRequestFilter}
           />
         }
         <Table stickyHeader aria-label="sticky table">
