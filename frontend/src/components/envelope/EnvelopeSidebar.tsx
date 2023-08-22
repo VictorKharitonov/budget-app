@@ -1,5 +1,5 @@
 import React, {useState, FC, useEffect} from 'react';
-import {Divider, Grid, Box} from '@mui/material';
+import {Divider, Box} from '@mui/material';
 import {EnvelopeItem} from '../../types/envelopes';
 import EnvelopeList from './EnvelopeList';
 import useFilter from '../../hooks/useFilter';
@@ -11,9 +11,10 @@ import {getPathNames} from "../../utils/stringHelper";
 import {SubmitHandler, useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
 import {envelopeScheme} from "../../validations/envelopeValidation";
-import {User, UserInfo} from "../../types/user";
+import {UserInfo} from "../../types/user";
 import {useTypedDispatch} from "../../hooks/useTypedDispatch";
 import {updateUserInfo} from "../../store/asyncActions/updateUserInfoAction";
+import cl from "./scss/Envelope.module.scss";
 
 interface EnvelopeSidebarProps {
   envelopes: EnvelopeItem[];
@@ -81,24 +82,20 @@ const EnvelopeSidebar: FC<EnvelopeSidebarProps> = ({envelopes, userInfo, isTrans
   };
 
   return (
-    <Box sx={{flexGrow: 1, maxWidth: 'fit-content'}}>
-      <Grid container spacing={2}>
-        <Grid item>
-          <ToolBar
-            createEnvelopeLoading={createEnvelopeLoading}
-            setModal={setEnvelopeModal}
-            searchHandleChange={searchEnvelopeHandleChange}
-            search={searchEnvelope}
-          />
-          <Divider/>
-          <EnvelopeList
-            envelopes={envelopesByName}
-            selectedEnvelopeName={selectedEnvelopeName}
-            setCurrentEnvelope={setCurrentEnvelope}
-            isTransactionsLoading={isTransactionsLoading}
-          />
-        </Grid>
-      </Grid>
+    <Box className={cl.envelopeSideBar}>
+      <ToolBar
+        createEnvelopeLoading={createEnvelopeLoading}
+        setModal={setEnvelopeModal}
+        searchHandleChange={searchEnvelopeHandleChange}
+        search={searchEnvelope}
+      />
+      <Divider/>
+      <EnvelopeList
+        envelopes={envelopesByName}
+        selectedEnvelopeName={selectedEnvelopeName}
+        setCurrentEnvelope={setCurrentEnvelope}
+        isTransactionsLoading={isTransactionsLoading}
+      />
       <CustomModal
         title="Envelope"
         modal={envelopeModal}

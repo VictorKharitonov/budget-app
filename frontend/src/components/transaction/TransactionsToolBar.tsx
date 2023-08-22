@@ -1,4 +1,4 @@
-import React, {FC, useState} from 'react';
+import React, {FC, useEffect, useState} from 'react';
 import {Box, Button, Grid, IconButton, Toolbar, Typography} from "@mui/material";
 import Icons from "../ui/Icons";
 import CustomDatePicker from "../ui/customDatePicker/CustomDatePicker";
@@ -7,17 +7,25 @@ import {TransactionFilter} from "../../types/transactions";
 import {SubmitHandler, UseFormReturn} from "react-hook-form";
 import cl from "./scss/Transactions.module.scss";
 import {User} from "../../types/user";
+import {Filter} from "../../store/asyncActions/transaction/fetchEnvelopeTransactionsAction";
 
 interface TransactionsToolBarProps {
-  envelopeName: string,
-  user: User,
-  filterForm: UseFormReturn<TransactionFilter, any>,
-  handleRequestFilter: SubmitHandler<TransactionFilter>
+  envelopeName: string;
+  user: User;
+  filterForm: UseFormReturn<TransactionFilter, any>;
+  defaultValues: TransactionFilter;
+  setFilterParams: (params: Filter[] | null) => void;
+  handleRequestFilter: SubmitHandler<TransactionFilter>;
 }
 
-const TransactionsToolBar: FC<TransactionsToolBarProps> = ({envelopeName, user, filterForm, handleRequestFilter}) => {
+const TransactionsToolBar: FC<TransactionsToolBarProps> = ({envelopeName, user, filterForm, defaultValues, setFilterParams, handleRequestFilter}) => {
   const [isFilterShow, setIsFilterShow] = useState(false);
   const {handleSubmit, control, reset} = filterForm;
+
+  const handleResetFilterForm = () => {
+    reset(defaultValues);
+    setFilterParams(null);
+  };
 
   return (
     <Toolbar className={cl.toolBarContainer}>
@@ -34,13 +42,13 @@ const TransactionsToolBar: FC<TransactionsToolBarProps> = ({envelopeName, user, 
         </IconButton>
       </Box>
       {isFilterShow &&
-        <Box component="form" className={cl.toolBarForm}>
+        <Box component="form" className={cl.toolBarForm} >
           <Grid container columnSpacing={1}>
             <Grid item xs={12} sm={6} md={3}>
               <CustomDatePicker
                 name="date"
                 label="Date"
-                format="MM/DD/YYYY"
+                format="YYYY/MM/DD"
                 control={control}
                 onAccept={handleSubmit(handleRequestFilter)}
               />
@@ -65,7 +73,7 @@ const TransactionsToolBar: FC<TransactionsToolBarProps> = ({envelopeName, user, 
               />
             </Grid>
             <Grid item xs={12} sm={6} md={3}>
-              <Button onClick={reset} variant="contained" color="primary" size="large" fullWidth>
+              <Button onClick={handleResetFilterForm} variant="contained" color="primary" size="large" fullWidth>
                 <Typography variant="body1">Reset</Typography>
               </Button>
             </Grid>

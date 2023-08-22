@@ -23,7 +23,7 @@ const EnvelopeList: FC<EnvelopesListProps> = ({envelopes, selectedEnvelopeName, 
   }
 
   return (
-    <List>
+    <List className={cl.envelopeList}>
       {envelopes.length > 0
         ? envelopes.map(envelope =>
           <ListItem

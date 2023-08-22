@@ -32,14 +32,14 @@ const Main: FC = () => {
   return (
     <Container>
       <Grid container className="main-content" columnSpacing={2} rowSpacing={2} mt={2}>
-        <Grid item md={12} lg={3}>
+        <Grid item xs={12} sm={6} md={6} lg={3} order={{ sm: 1, lg: 1 }}>
           <EnvelopeSidebar
             envelopes={user.envelopes}
             userInfo={userInfo}
             isTransactionsLoading={transactions.isLoading}
           />
         </Grid>
-        <Grid item xs={12} md={8} lg={6}>
+        <Grid item xs={12} md={12} lg={6} order={{ sm: 3, lg: 2 }}>
           <Transactions
             transactions={transactions}
             user={user}
@@ -48,7 +48,7 @@ const Main: FC = () => {
             setSelectedTransactionId={setSelectedTransactionId}
           />
         </Grid>
-        <Grid item xs={12} md={4} lg={3}>
+        <Grid item xs={12} sm={6} md={6} lg={3} order={{ sm: 2, lg: 3 }}>
           {
             selectedTransaction
             ? <DetailTransaction

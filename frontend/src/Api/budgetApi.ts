@@ -2,6 +2,7 @@ import axios from "axios";
 import {User} from "../types/user";
 import {TransactionsItem} from "../types/transactions";
 import {EnvelopeItem, EnvelopesInfo} from "../types/envelopes";
+import { fetchTransactionsBody } from '../store/asyncActions/transaction/fetchEnvelopeTransactionsAction';
 
 const budgetApi = axios.create({
   baseURL: 'https://cloud.uibakery.io/api/automation',
@@ -23,15 +24,10 @@ export const getUserInfoByChatId = async (chatId: number) => {
   return response.data;
 }
 
-export const getEnvelopeTransactions = async (userId: string, envelope: string, limit: number, offset: number) => {
+export const getEnvelopeTransactions = async (body: fetchTransactionsBody) => {
   let response = await budgetApi.post<TransactionsItem[]>(
     '/uuE9s772t3',
-    {
-      userId: userId,
-      envelope: envelope,
-      limit: limit,
-      offset: offset
-    },
+    body,
     {
       params: {
         key: 'f045954a-c4ee-49d4-8e0c-b230f3592816'
@@ -111,9 +107,9 @@ export const updateTransaction = async (transaction: TransactionsItem) => {
 	  'p8lkrjpKlr',
 	  transaction,
 	  {
-		params: {
-		  key: "418773b7-5598-4143-985f-98901bef1dfd"
-		}
+      params: {
+        key: "418773b7-5598-4143-985f-98901bef1dfd"
+      }
 	  }
   );
 
