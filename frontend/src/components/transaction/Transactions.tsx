@@ -95,21 +95,6 @@ const Transactions: FC<TransactionsProps> = ({user, transactions, selectedTransa
     }
   }, [envelopeInfo]);
 
-  useEffect(() => {
-    if (isPagination && isSuccess) {
-      requestEnvelopeInfo();
-    }
-
-    if (currentEnvelope && user._id) {
-      dispatch(fetchEnvelopeTransactions({
-        userId: user._id,
-        envelope: currentEnvelope.name,
-        limit: rowsPerPage,
-        offset: page * rowsPerPage
-      }));
-    }
-  }, [page, rowsPerPage, currentEnvelope?.name, isSuccess]);
-
   const handleRequestFilter: SubmitHandler<TransactionFilter> = (data: TransactionFilter) => {
     let date = data.date === null ? null : data.date.valueOf();
     let modifyData: Filter[] = [];
