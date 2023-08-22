@@ -8,7 +8,6 @@ import {useParams} from 'react-router-dom';
 import DetailTransaction from '../components/detailTransaction/DetailTransaction';
 import { useTypedSelector } from "../hooks/useTypedSelector";
 import {TransactionsItem} from "../types/transactions";
-import useFilter from "../hooks/useFilter";
 import {EnvelopeItem} from "../types/envelopes";
 import {getCurrentEnvelope} from "../utils/envelopeHelper";
 

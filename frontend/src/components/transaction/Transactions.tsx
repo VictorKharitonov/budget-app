@@ -1,16 +1,6 @@
 import React, {FC, useEffect, useState} from 'react';
 import cl from './scss/Transactions.module.scss';
-import {
-  Chip,
-  TableRow,
-  TablePagination,
-  TableHead,
-  TableContainer,
-  TableCell,
-  Table,
-  Paper,
-  TableSortLabel
-} from '@mui/material';
+import {Chip, TableRow, TablePagination, TableHead, TableContainer, TableCell, Table, Paper, TableSortLabel} from '@mui/material';
 import {TransactionFilter, Transactions as TransactionType, TransactionsItem} from "../../types/transactions";
 import TransactionsToolBar from "./TransactionsToolBar";
 import {SubmitHandler, useForm} from "react-hook-form";
@@ -72,15 +62,16 @@ interface TransactionsProps {
 }
 
 const Transactions: FC<TransactionsProps> = ({user, transactions, selectedTransactionId, setSelectedTransactionId, isPagination = false, isFilter = false, rowsPerPageOptions = [], perPage = 10, currentEnvelope}) => {
+  const dispatch = useTypedDispatch();
   const [page, setPage] = useState<number>(0);
   const [rowsPerPage, setRowsPerPage] = useState<number>(perPage);
   const [order, setOrder] = useState<Order>('asc');
   const [orderBy, setOrderBy] = useState<keyof TransactionsItem>('date');
   const [envelopeInfo, setEnvelopeInfo] = useState<EnvelopesInfo | undefined>();
   const [isLastPage, setIsLastPage] = useState<boolean>(false);
-  const dispatch = useTypedDispatch();
-  const {transactions: content, isSuccess, isLoading, error} = transactions;
-  const {fetch: requestEnvelopeInfo, error: envelopeInfoError, isLoading: isLoadingEnvelopeInfo} = useFetch(async () => {
+  const {transactions: content, isSuccess, isLoading, isDeleteSuccess, isCreateSuccess} = transactions;
+
+  const {fetch: requestEnvelopeInfo} = useFetch(async () => {
     if (currentEnvelope) {
       const envelopeInfo = await getEnvelopeInfo(user._id, currentEnvelope.name);
       setEnvelopeInfo(envelopeInfo);
@@ -98,7 +89,7 @@ const Transactions: FC<TransactionsProps> = ({user, transactions, selectedTransa
       requestEnvelopeInfo();
     }
 
-    if (currentEnvelope && user._id) {
+    if (currentEnvelope) {
       dispatch(fetchEnvelopeTransactions({
         userId: user._id,
         envelope: currentEnvelope.name,
@@ -106,7 +97,7 @@ const Transactions: FC<TransactionsProps> = ({user, transactions, selectedTransa
         offset: page * rowsPerPage
       }));
     }
-  }, [page, rowsPerPage, currentEnvelope?.name, isSuccess]);
+  }, [page, rowsPerPage, currentEnvelope?.name, isSuccess, isDeleteSuccess, isCreateSuccess]);
 
   const handleRequestFilter: SubmitHandler<TransactionFilter> = (data: TransactionFilter) => {
     let date = data.date === null ? null : data.date.valueOf();
@@ -114,10 +105,7 @@ const Transactions: FC<TransactionsProps> = ({user, transactions, selectedTransa
     console.log(data);
   }
 
-  const handleRequestSort = (
-    event: React.MouseEvent<unknown>,
-    property: keyof TransactionsItem,
-  ) => {
+  const handleRequestSort = (event: React.MouseEvent<unknown>, property: keyof TransactionsItem) => {
     const isAsc = orderBy === property && order === 'asc';
     setOrder(isAsc ? 'desc' : 'asc');
     setOrderBy(property);

@@ -1,5 +1,5 @@
 import React, {FC, useEffect, useState} from 'react';
-import { Box, Button, Divider, Grid, Typography } from '@mui/material';
+import {Alert, Box, Button, Divider, Grid, Typography} from '@mui/material';
 import Icons from '../ui/Icons';
 import cl from './scss/DetailTransactions.module.scss';
 import {EnvelopeItem} from '../../types/envelopes';
@@ -8,8 +8,10 @@ import {SubmitHandler, useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
 import {detailScheme} from "../../validations/detailValidation";
 import { useTypedDispatch } from "../../hooks/useTypedDispatch";
-import { updateTransactionById, deleteTransactionById } from "../../store/reducers/transactionsSlice";
+import {deleteTransactionAction} from "../../store/asyncActions/transaction/deleteTransactionAction";
+import {updateTransactionAction} from "../../store/asyncActions/transaction/updateTransactionAction";
 import {TransactionsItem} from "../../types/transactions";
+import {useTypedSelector} from "../../hooks/useTypedSelector";
 
 interface DetailProps {
   transaction: TransactionsItem | undefined;
@@ -21,6 +23,7 @@ interface DetailProps {
 const DetailTransaction: FC<DetailProps> = ({transaction, envelopes, categories, currentEnvelope}) => {
   const [isEditable, setIsEditable] = useState<boolean>(true);
   const dispatch = useTypedDispatch();
+  const {isLoadingDelete, deleteError, isLoadingUpdate, updateError} = useTypedSelector(state => state.transactions);
 
   const detailForm = useForm<TransactionsItem>({
     defaultValues: transaction,
@@ -38,15 +41,17 @@ const DetailTransaction: FC<DetailProps> = ({transaction, envelopes, categories,
     reset(transaction);
   }, [transaction, isEditable]);
 
-  const updateTransaction: SubmitHandler<TransactionsItem> = (data: TransactionsItem) => {
+  const updateTransaction: SubmitHandler<TransactionsItem> = async (data: TransactionsItem) => {
     data = {...data, date: data.date.valueOf()};
+    await dispatch(updateTransactionAction(data));
     setIsEditable(true);
-    dispatch(updateTransactionById(data));
   };
 
   const deleteTransaction: SubmitHandler<TransactionsItem> = (data: TransactionsItem) => {
-    data = {...data, date: data.date.valueOf()};
-    dispatch(deleteTransactionById(data));
+    dispatch(deleteTransactionAction({
+      userId: data.userId,
+      _id: data._id
+    }));
   }
 
   return (
@@ -71,6 +76,14 @@ const DetailTransaction: FC<DetailProps> = ({transaction, envelopes, categories,
         </Grid>
       </Grid>
       <Divider sx={{mb: 2}}/>
+      {
+        deleteError &&
+        <Alert severity="error" sx={{ mb: 2}}>{deleteError}</Alert>
+      }
+      {
+        updateError &&
+        <Alert severity="error" sx={{ mb: 2}}>{updateError}</Alert>
+      }
       <DetailTransactionForm
         detailForm={detailForm}
         updateTransaction={updateTransaction}
@@ -78,6 +91,8 @@ const DetailTransaction: FC<DetailProps> = ({transaction, envelopes, categories,
         isEditable={isEditable}
         envelopes={envelopes}
         categories={categories}
+        isLoadingDelete={isLoadingDelete}
+        isLoadingUpdate={isLoadingUpdate}
       />
       {
         isEditable &&

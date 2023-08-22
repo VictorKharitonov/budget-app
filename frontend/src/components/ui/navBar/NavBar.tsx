@@ -1,21 +1,19 @@
 import * as React from 'react';
 import CustomBreadCrumbs from "../customBreadCrumbs/CustomBreadCrumbs";
 import cl from './scss/navBar.module.scss';
-import {AppBar, Box, Toolbar, Typography, Container, Button, IconButton, Menu, MenuItem} from "@mui/material";
+import {AppBar, Box, Toolbar, Typography, Container, Button, IconButton, Menu, MenuItem, Alert} from "@mui/material";
 import {Link, useLocation} from "react-router-dom";
 import Logo from "../../../images/logo.png";
 import Icons from '../Icons';
 import {getPathNames} from "../../../utils/stringHelper";
 import {FC, useContext, useEffect, useState} from "react";
 import CustomModal from "../modal/CustomModal";
-import {EnvelopeItem} from "../../../types/envelopes";
-import {testEnvelopes} from "../../../mock";
 import {SubmitHandler, useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
 import {transactionScheme} from "../../../validations/transactionValidation";
 import TransactionForm from "../../transaction/TransactionForm";
 import {useTypedDispatch} from "../../../hooks/useTypedDispatch";
-import {_createTransaction} from "../../../store/reducers/transactionsSlice";
+import {createTransactionAction} from "../../../store/asyncActions/transaction/createTransactionAction";
 import {TransactionsItem} from "../../../types/transactions";
 import {AuthContext, IAuthContext} from "../../../context";
 import {clearUserInfo} from "../../../store/reducers/userInfoSlice";
@@ -27,22 +25,21 @@ const NavBar: FC = () => {
   const dispatch = useTypedDispatch();
   const {isAuth, setIsAuth} = useContext<IAuthContext>(AuthContext);
   const {user, isLoading} = useTypedSelector(state => state.userInfo);
+  const {isLoadingCreate, createError} = useTypedSelector(state => state.transactions);
 
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
   const [modal, setModal] = useState(false);
-  const [envelopes, setEnvelopes] = useState<EnvelopeItem[]>(testEnvelopes);
 
-  let defaultTransaction: TransactionsItem = {
-    _id: 'test',
-    userId: 'test',
-    currency: 'dollar',
+  const defaultTransaction: Omit<TransactionsItem, "_id"> = {
+    userId: '',
     categories: [],
-    envelopes: [],
     amount: 0,
-    date: Date.now(),
+    currency: 'dollar',
     description: '',
-    type: 'income'
-  }
+    date: Date.now(),
+    type: 'income',
+    envelopes: [],
+  };
 
   const transactionForm = useForm<TransactionsItem>({
     defaultValues: defaultTransaction,
@@ -53,9 +50,10 @@ const NavBar: FC = () => {
     transactionForm.reset();
   }, [modal]);
 
-  const createTransaction: SubmitHandler<TransactionsItem> = (data: TransactionsItem) => {
-    dispatch(_createTransaction(data));
-    setModal(false);
+  const createTransaction: SubmitHandler<TransactionsItem> = async (data: TransactionsItem) => {
+    data = {...data, userId: user._id};
+    await dispatch(createTransactionAction(data));
+    transactionForm.reset();
   };
 
   const handleLogout = () => {
@@ -182,8 +180,16 @@ const NavBar: FC = () => {
         </Toolbar>
       </Container>
       <CustomModal title="Transaction" modal={modal} setModal={setModal}>
-        <TransactionForm transactionForm={transactionForm} envelopes={user.envelopes}
-                         createTransaction={createTransaction}/>
+        {
+          createError &&
+          <Alert severity="error" sx={{ mb: 2}}>Some thing went wrong</Alert>
+        }
+        <TransactionForm
+          transactionForm={transactionForm}
+          envelopes={user.envelopes}
+          createTransaction={createTransaction}
+          isLoading={isLoadingCreate}
+        />
       </CustomModal>
     </AppBar>
   );
