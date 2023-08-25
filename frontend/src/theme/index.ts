@@ -51,6 +51,20 @@ const theme = extendTheme({
         },
       }
     },
+    MuiBreadcrumbs: {
+      styleOverrides: {
+        li: {
+          maxWidth: '8rem',
+          overflow: 'hidden',
+          textOverflow: 'ellipsis',
+          p: {
+            maxWidth: 'inherit',
+            overflow: 'inherit',
+            textOverflow: 'inherit',
+          }
+        },
+      }
+    }
   },
   cssVarPrefix: 'ba',
   colorSchemes: {

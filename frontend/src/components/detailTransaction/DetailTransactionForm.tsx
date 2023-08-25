@@ -6,6 +6,7 @@ import Input from '../ui/input/Input';
 import Select from '../ui/select/Select';
 import CustomDatePicker from '../ui/customDatePicker/CustomDatePicker';
 import {TransactionsItem} from "../../types/transactions";
+import {currency, paymentTypes} from "../../constants";
 
 interface DetailTransactionFormProps {
   detailForm:  UseFormReturn<TransactionsItem, any>,
@@ -58,6 +59,16 @@ const DetailTransactionForm: FC<DetailTransactionFormProps> = (
           readOnly: isEditable,
         }}
       />
+      <Select
+        name="currency"
+        label="Currency"
+        control={control}
+        errors={errors.currency}
+        options={currency}
+        InputProps={{
+          readOnly: isEditable,
+        }}
+      />
       <Input
         name="amount"
         label="Amount"
@@ -91,7 +102,7 @@ const DetailTransactionForm: FC<DetailTransactionFormProps> = (
         label="Type"
         control={control}
         errors={errors.type}
-        options={['income', 'expenses']}
+        options={paymentTypes}
         InputProps={{
           readOnly: isEditable,
         }}

@@ -5,6 +5,7 @@ import {SubmitHandler, UseFormReturn} from "react-hook-form";
 import Select from "../ui/select/Select";
 import Input from "../ui/input/Input";
 import {TransactionsItem} from "../../types/transactions";
+import {currency, paymentTypes} from "../../constants";
 
 interface TransactionFormProps {
   transactionForm:  UseFormReturn<TransactionsItem, any>,
@@ -19,6 +20,13 @@ const TransactionForm: FC<TransactionFormProps> = ({ transactionForm, envelopes,
 
   return (
     <Box component="form" onSubmit={handleSubmit(createTransaction)}>
+      <Select
+        name="currency"
+        label="Currency"
+        control={control}
+        errors={errors.currency}
+        options={currency}
+      />
       <Select
         name="envelopes"
         label="Envelope"
@@ -52,7 +60,7 @@ const TransactionForm: FC<TransactionFormProps> = ({ transactionForm, envelopes,
         label="Type"
         control={control}
         errors={errors.type}
-        options={['income', 'expenses']}
+        options={paymentTypes}
       />
       <Button
         type="submit"

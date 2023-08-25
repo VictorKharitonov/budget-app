@@ -1,6 +1,16 @@
-import React, {FC, useCallback, useEffect, useMemo, useState} from 'react';
+import React, {FC, useCallback, useEffect, useState} from 'react';
 import cl from './scss/Transactions.module.scss';
-import {Chip, TableRow, TablePagination, TableHead, TableContainer, TableCell, Table, Paper, TableSortLabel} from '@mui/material';
+import {
+  Chip,
+  TableRow,
+  TablePagination,
+  TableHead,
+  TableContainer,
+  TableCell,
+  Table,
+  Paper,
+  TableSortLabel,
+} from '@mui/material';
 import {TransactionFilter, Transactions as TransactionType, TransactionsItem} from "../../types/transactions";
 import TransactionsToolBar from "./TransactionsToolBar";
 import {SubmitHandler, useForm} from "react-hook-form";
@@ -15,7 +25,7 @@ import {User} from "../../types/user";
 type Order = 'asc' | 'desc';
 
 export interface Column {
-  id: 'date' | 'amount' | 'type' | 'categories';
+  id: 'date' | 'amount' | 'type' | 'categories' | 'description' | 'currency';
   label: string;
   format?: (value: any) => string | React.ReactNode;
 }
@@ -46,6 +56,16 @@ const columns: readonly Column[] = [
     id: 'categories',
     label: 'Categories',
     format: (value: string[]) => value.join(', '),
+  },
+  {
+    id: 'currency',
+    label: 'Currency',
+    format: (value: string) => value,
+  },
+  {
+    id: 'description',
+    label: 'Description',
+    format: (value: string) => value,
   }
 ];
 
@@ -70,7 +90,7 @@ const Transactions: FC<TransactionsProps> = ({user, transactions, selectedTransa
   const [envelopeInfo, setEnvelopeInfo] = useState<EnvelopesInfo | undefined>();
   const [isLastPage, setIsLastPage] = useState<boolean>(false);
   const [filterParams, setFilterParams] = useState<Filter[] | null>(null);
-  const {transactions: content, isSuccess, isLoading, isDeleteSuccess, isCreateSuccess} = transactions;
+  const {isSuccess, isLoading, isDeleteSuccess, isCreateSuccess} = transactions;
 
   const {fetch: requestEnvelopeInfo} = useFetch(async () => {
     if (currentEnvelope) {
@@ -108,6 +128,7 @@ const Transactions: FC<TransactionsProps> = ({user, transactions, selectedTransa
         modifyData.push({ field: filterField, value: filterValue })
       }
     }
+
     setFilterParams(modifyData);
   }
 

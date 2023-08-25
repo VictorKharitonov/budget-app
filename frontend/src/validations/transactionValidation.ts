@@ -1,6 +1,7 @@
 import {array, number, object, string} from 'yup';
 
 export const transactionScheme = object({
+  currency: string().required(),
   categories: array(string()).transform((value, originalValue, ctx) => {
     if (value.length === 0) {
       return null;

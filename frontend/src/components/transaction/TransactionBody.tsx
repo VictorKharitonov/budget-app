@@ -1,5 +1,5 @@
 import React, {FC} from 'react';
-import {TableBody, TableCell, TableRow} from "@mui/material";
+import {Skeleton, TableBody, TableCell, TableRow} from "@mui/material";
 import cl from "./scss/Transactions.module.scss";
 import {Transactions} from "../../types/transactions";
 import {Column} from "./Transactions";
@@ -13,25 +13,31 @@ interface TransactionBodyProps {
   columns: readonly Column[];
 }
 
+const tableSkeletonCell = Array.from({ length: 6 }, (_, i) => {
+  return (
+    <TableCell key={i}>
+      <Skeleton variant="text" sx={{ fontSize: '1rem' }} />
+    </TableCell>
+  );
+})
+
+const tableSkeletonRow = Array.from({ length: 10 }, (_, i) => {
+  return (
+    <TableRow key={i}>
+      {tableSkeletonCell}
+    </TableRow>
+  );
+})
+
 const TransactionBody: FC<TransactionBodyProps> = ({transactions, isSelectedTransaction, page, rowsPerPage, selectTransaction, columns}) => {
   const {transactions: content, isSuccess, isLoading, error} = transactions;
 
   if (isLoading) {
     return (
       <TableBody>
-        <TableRow>
-          <TableCell>
-            Loading...
-          </TableCell>
-          <TableCell>
-          </TableCell>
-          <TableCell>
-          </TableCell>
-          <TableCell>
-          </TableCell>
-        </TableRow>
+        {tableSkeletonRow}
       </TableBody>
-    );
+    )
   }
 
   if (isSuccess) {

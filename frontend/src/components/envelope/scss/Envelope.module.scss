@@ -13,6 +13,24 @@
     border-radius: 0.3rem;
     background: var(--ba-palette-common-white);
 
+    .listItemTextContainer {
+      display: flex;
+      justify-content: space-between;
+
+      .listItemStatus {
+        position: relative;
+        margin: 12px 20px 0 30px;
+
+        span {
+          min-width: 3rem;
+        }
+      }
+
+      .listItemText {
+        word-break: break-word;
+      }
+    }
+
     &:hover {
       cursor: pointer;
       background: var(--ba-palette-grey-50);
@@ -22,20 +40,6 @@
     &.active {
       background-color: var(--ba-palette-grey-200);
       border-color: var(--ba-palette-primary-main);
-    }
-
-    .listItemStatus {
-      position: relative;
-      top: 0;
-      left: 85%;
-
-      span {
-        min-width: 3rem;
-      }
-    }
-
-    .listItemText {
-      word-break: break-word;
     }
   }
 }

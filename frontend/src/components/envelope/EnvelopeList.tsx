@@ -1,6 +1,6 @@
 import React, {FC} from 'react';
 import Icons from '../ui/Icons';
-import {Badge, List, Typography, ListItemText, IconButton, ListItem} from '@mui/material';
+import {Badge, List, Typography, ListItemText, IconButton, ListItem, Box} from '@mui/material';
 import cl from './scss/Envelope.module.scss';
 import {EnvelopeItem} from '../../types/envelopes';
 import {fcLatter} from '../../utils/stringHelper';
@@ -44,10 +44,12 @@ const EnvelopeList: FC<EnvelopesListProps> = ({envelopes, selectedEnvelopeName, 
             key={envelope.name}
             onClick={(e) => setCurrentEnvelope(e, envelope.name)}
           >
-            <Badge badgeContent={fcLatter(envelope.status)} color={colorStatus[envelope.status]} className={cl.listItemStatus}/>
             <ListItemText
               primary={
-                <Typography variant="body1" className={cl.listItemText}>{envelope.name}</Typography>
+                <Box className={cl.listItemTextContainer}>
+                  <Typography variant="body1" noWrap={true} className={cl.listItemText}>{envelope.name}</Typography>
+                  <Badge badgeContent={fcLatter(envelope.status)} color={colorStatus[envelope.status]} className={cl.listItemStatus}/>
+                </Box>
               }
             />
           </ListItem>

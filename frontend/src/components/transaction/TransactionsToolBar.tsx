@@ -1,4 +1,4 @@
-import React, {FC, useEffect, useState} from 'react';
+import React, {FC, useState} from 'react';
 import {Box, Button, Grid, IconButton, Toolbar, Typography} from "@mui/material";
 import Icons from "../ui/Icons";
 import CustomDatePicker from "../ui/customDatePicker/CustomDatePicker";
@@ -8,11 +8,12 @@ import {SubmitHandler, UseFormReturn} from "react-hook-form";
 import cl from "./scss/Transactions.module.scss";
 import {User} from "../../types/user";
 import {Filter} from "../../store/asyncActions/transaction/fetchEnvelopeTransactionsAction";
+import {paymentTypes} from "../../constants";
 
 interface TransactionsToolBarProps {
   envelopeName: string;
   user: User;
-  filterForm: UseFormReturn<TransactionFilter, any>;
+  filterForm: UseFormReturn<TransactionFilter>;
   defaultValues: TransactionFilter;
   setFilterParams: (params: Filter[] | null) => void;
   handleRequestFilter: SubmitHandler<TransactionFilter>;
@@ -20,12 +21,17 @@ interface TransactionsToolBarProps {
 
 const TransactionsToolBar: FC<TransactionsToolBarProps> = ({envelopeName, user, filterForm, defaultValues, setFilterParams, handleRequestFilter}) => {
   const [isFilterShow, setIsFilterShow] = useState(false);
-  const {handleSubmit, control, reset} = filterForm;
+  const {handleSubmit, control, reset, setValue, getValues} = filterForm;
 
   const handleResetFilterForm = () => {
     reset(defaultValues);
     setFilterParams(null);
   };
+
+  const handleFilterOnChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, handleSubmit: any) => {
+    setValue(e.target.name as keyof TransactionFilter, e.target.value);
+    handleSubmit();
+  }
 
   return (
     <Toolbar className={cl.toolBarContainer}>
@@ -60,7 +66,7 @@ const TransactionsToolBar: FC<TransactionsToolBarProps> = ({envelopeName, user, 
                 multiple={true}
                 options={user.categories}
                 control={control}
-                onBlur={handleSubmit(handleRequestFilter)}
+                onChange={(e) => handleFilterOnChange(e, handleSubmit(handleRequestFilter))}
               />
             </Grid>
             <Grid item xs={12} sm={6} md={3}>
@@ -68,8 +74,8 @@ const TransactionsToolBar: FC<TransactionsToolBarProps> = ({envelopeName, user, 
                 name="type"
                 label="Type"
                 control={control}
-                onBlur={handleSubmit(handleRequestFilter)}
-                options={['income', 'expenses']}
+                onChange={(e) => handleFilterOnChange(e, handleSubmit(handleRequestFilter))}
+                options={paymentTypes}
               />
             </Grid>
             <Grid item xs={12} sm={6} md={3}>
