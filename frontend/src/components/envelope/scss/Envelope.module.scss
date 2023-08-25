@@ -5,7 +5,11 @@
 
 .envelopeList {
   max-height: calc(3.8rem * 6);
-  overflow-y: scroll;
+  overflow-y: auto;
+
+  @media (max-width: 599px) {
+    max-height: calc(3.8rem * 3);
+  }
 
   .listItem {
     border: 1px solid var(--ba-palette-grey-300);
