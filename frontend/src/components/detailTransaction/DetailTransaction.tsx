@@ -12,6 +12,8 @@ import {deleteTransactionAction} from "../../store/asyncActions/transaction/dele
 import {updateTransactionAction} from "../../store/asyncActions/transaction/updateTransactionAction";
 import {TransactionsItem} from "../../types/transactions";
 import {useTypedSelector} from "../../hooks/useTypedSelector";
+import {Link, useLocation} from "react-router-dom";
+import TransactionCard from "../transaction/TransactionCard";
 
 interface DetailProps {
   transaction: TransactionsItem | undefined;
@@ -21,6 +23,7 @@ interface DetailProps {
 }
 
 const DetailTransaction: FC<DetailProps> = ({transaction, envelopes, categories, currentEnvelope}) => {
+  const {pathname} = useLocation();
   const [isEditable, setIsEditable] = useState<boolean>(true);
   const dispatch = useTypedDispatch();
   const {isLoadingDelete, deleteError, isLoadingUpdate, updateError} = useTypedSelector(state => state.transactions);
@@ -96,7 +99,7 @@ const DetailTransaction: FC<DetailProps> = ({transaction, envelopes, categories,
       />
       {
         isEditable &&
-        <Button variant="contained" color="primary" size="small" fullWidth>
+        <Button component={Link} to={`${pathname}/${transaction?._id}`} target="_blank" state={{transaction}} variant="contained" color="primary" size="small" fullWidth>
           <Typography variant="body1">Share</Typography>
         </Button>
       }

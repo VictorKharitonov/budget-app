@@ -4,6 +4,7 @@ import {Navigate} from "react-router-dom";
 import Main from '../pages/Main';
 import DetailEnvelope from "../pages/DetailEnvelope";
 import Login from "../pages/Login";
+import TransactionShare from "../pages/TransactionShare";
 
 interface Routes {
   path: string;
@@ -26,6 +27,14 @@ export const privateRoutes: Routes[] = [
   {
     path: '/envelope/:id/detail',
     element: <DetailEnvelope/>
+  },
+  {
+    path: 'envelope/:id/:transactionId',
+    element: <TransactionShare/>
+  },
+  {
+    path: 'envelope/:id/detail/:transactionId',
+    element: <TransactionShare/>
   },
   {
     path: 'sign-in',
