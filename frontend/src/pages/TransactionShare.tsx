@@ -6,6 +6,7 @@ import {fetchEnvelopeTransactions} from "../store/asyncActions/transaction/fetch
 import {useTypedDispatch} from "../hooks/useTypedDispatch";
 import cl from "./scss/TransactionShare.module.scss";
 import TransactionCard from "../components/transaction/TransactionCard";
+import {TransactionsItem} from "../types/transactions";
 
 const TransactionShare: FC = () => {
   const dispatch = useTypedDispatch();
