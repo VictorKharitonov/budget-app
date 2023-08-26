@@ -10,7 +10,7 @@ import TransactionCard from "../components/transaction/TransactionCard";
 const TransactionShare: FC = () => {
   const dispatch = useTypedDispatch();
   const { id, transactionId } = useParams();
-  const { transactions, isLoading, error } = useTypedSelector(state => state.transactions);
+  const { transactions, isLoading } = useTypedSelector(state => state.transactions);
   const { user } = useTypedSelector(state => state.userInfo);
 
   useEffect(() => {
