@@ -6,12 +6,11 @@ import {fetchEnvelopeTransactions} from "../store/asyncActions/transaction/fetch
 import {useTypedDispatch} from "../hooks/useTypedDispatch";
 import cl from "./scss/TransactionShare.module.scss";
 import TransactionCard from "../components/transaction/TransactionCard";
-import {TransactionsItem} from "../types/transactions";
 
 const TransactionShare: FC = () => {
   const dispatch = useTypedDispatch();
   const { id, transactionId } = useParams();
-  const { transactions, isLoading } = useTypedSelector(state => state.transactions);
+  const { transactions, isLoading, error } = useTypedSelector(state => state.transactions);
   const { user } = useTypedSelector(state => state.userInfo);
 
   useEffect(() => {
