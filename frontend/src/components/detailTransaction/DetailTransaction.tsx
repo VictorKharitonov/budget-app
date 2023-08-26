@@ -13,7 +13,6 @@ import {updateTransactionAction} from "../../store/asyncActions/transaction/upda
 import {TransactionsItem} from "../../types/transactions";
 import {useTypedSelector} from "../../hooks/useTypedSelector";
 import {Link, useLocation} from "react-router-dom";
-import TransactionCard from "../transaction/TransactionCard";
 
 interface DetailProps {
   transaction: TransactionsItem | undefined;
