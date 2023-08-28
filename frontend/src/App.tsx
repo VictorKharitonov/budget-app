@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import './App.scss';
 import {theme, CssVarsProvider} from './theme/index';
 import {BrowserRouter as Router} from "react-router-dom";

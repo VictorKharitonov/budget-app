@@ -1,16 +1,14 @@
 import React, {FC} from 'react';
-import {useLocation} from 'react-router-dom';
-import Typography from "@mui/material/Typography";
-import {Breadcrumbs, BreadcrumbsProps} from "@mui/material";
+import {Breadcrumbs, BreadcrumbsProps, Typography} from "@mui/material";
 import {LinkRouter} from "./LinkRouter";
 
-interface CustomBreadCrumbs extends BreadcrumbsProps{
-  pathNames: string[]
+interface CustomBreadCrumbs extends BreadcrumbsProps {
+  pathNames: string[];
 }
 
 const CustomBreadCrumbs: FC<CustomBreadCrumbs> = ({ pathNames, ...props }) => {
   return (
-    <Breadcrumbs aria-label="breadcrumb" color={props.color}>
+    <Breadcrumbs aria-label="breadcrumb" color={props.color} >
       {pathNames.map((value, index) => {
         const isLast = index === pathNames.length - 1;
         const to = `/${pathNames.slice(0, index + 1).join('/')}`;

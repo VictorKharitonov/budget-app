@@ -17,7 +17,7 @@ interface DetailProps {
   transaction: TransactionsItem | undefined;
   envelopes: EnvelopeItem[];
   categories: string[];
-  currentEnvelope: EnvelopeItem | undefined,
+  currentEnvelope: EnvelopeItem | undefined;
 }
 
 const DetailTransaction: FC<DetailProps> = ({transaction, envelopes, categories, currentEnvelope}) => {

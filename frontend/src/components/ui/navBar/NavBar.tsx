@@ -34,7 +34,7 @@ const NavBar: FC = () => {
     userId: '',
     categories: [],
     amount: 0,
-    currency: 'dollar',
+    currency: '',
     description: '',
     date: Date.now(),
     type: 'income',

@@ -1,13 +1,13 @@
 export interface TransactionsItem {
-  _id: string,
-  userId: string,
-  categories: string[],
-  envelopes: string[],
-  amount: number,
-  currency: string,
-  date: number,
-  description: string,
-  type: string,
+  _id: string;
+  userId: string;
+  categories: string[];
+  envelopes: string[];
+  amount: number;
+  currency: string;
+  date: number;
+  description: string;
+  type: string;
 }
 
 export interface Transactions {
