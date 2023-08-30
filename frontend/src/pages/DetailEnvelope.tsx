@@ -76,7 +76,7 @@ const DetailEnvelope: FC = () => {
   useEffect(() => {
     const changedEnvelope = getCurrentEnvelope(currentEnvelopeName, user.envelopes);
 
-    if (!changedEnvelope && user.envelopes.length) {
+    if (!changedEnvelope) {
       navigate('/envelope');
     }
 
