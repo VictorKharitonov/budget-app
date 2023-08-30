@@ -21,7 +21,7 @@ interface TransactionsToolBarProps {
 
 const TransactionsToolBar: FC<TransactionsToolBarProps> = ({envelopeName, user, filterForm, defaultValues, setFilterParams, handleRequestFilter}) => {
   const [isFilterShow, setIsFilterShow] = useState(false);
-  const {handleSubmit, control, reset, setValue, getValues} = filterForm;
+  const {handleSubmit, control, reset, setValue} = filterForm;
 
   const handleResetFilterForm = () => {
     reset(defaultValues);

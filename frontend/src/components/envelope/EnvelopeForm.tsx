@@ -5,8 +5,8 @@ import {EnvelopeItem} from '../../types/envelopes';
 import Input from '../ui/input/Input';
 
 interface EnvelopeFormProps {
-  envelopeCreateForm:  UseFormReturn<EnvelopeItem, any>,
-  createEnvelope: SubmitHandler<EnvelopeItem>,
+  envelopeCreateForm: UseFormReturn<EnvelopeItem, any>;
+  createEnvelope: SubmitHandler<EnvelopeItem>;
 }
 
 const EnvelopeForm: FC<EnvelopeFormProps> = ({envelopeCreateForm, createEnvelope}) => {

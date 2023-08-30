@@ -3,11 +3,11 @@ import {MenuItem, TextField, TextFieldProps} from '@mui/material';
 import {Controller, FieldError, Merge} from 'react-hook-form';
 
 type SelectProps = TextFieldProps & {
-  name: string,
-  control?: any,
-  multiple?: boolean,
-  options: string[]
-  errors?: Merge<FieldError, (FieldError | undefined)[]> | undefined,
+  name: string;
+  control?: any;
+  multiple?: boolean;
+  options: string[];
+  errors?: Merge<FieldError, (FieldError | undefined)[]> | undefined;
 }
 
 const Select: FC<SelectProps> = (

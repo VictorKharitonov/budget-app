@@ -22,11 +22,15 @@ const Main: FC = () => {
   const [currentEnvelope, setCurrentEnvelope] = useState<EnvelopeItem | undefined>();
 
   useEffect(() => {
-    setSelectedTransaction(getTransactionById(selectedTransactionId, transactions.transactions));
+    if (selectedTransactionId) {
+      setSelectedTransaction(getTransactionById(selectedTransactionId, transactions.transactions));
+    }
   }, [selectedTransactionId, transactions]);
 
   useEffect(() => {
-    setCurrentEnvelope(getCurrentEnvelope(currentEnvelopeName, user.envelopes));
+    if (user.envelopes.length > 0) {
+      setCurrentEnvelope(getCurrentEnvelope(currentEnvelopeName, user.envelopes));
+    }
   }, [currentEnvelopeName]);
 
   return (

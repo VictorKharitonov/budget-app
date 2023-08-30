@@ -30,7 +30,7 @@ const DetailEnvelope: FC = () => {
   const navigate = useNavigate();
   const dispatch = useTypedDispatch();
   const transactions = useTypedSelector(state => state.transactions);
-  const {user, isUpdateLoading, errorUpdate} = useTypedSelector(state => state.userInfo);
+  const {user, errorUpdate} = useTypedSelector(state => state.userInfo);
   const [selectedTransactionId, setSelectedTransactionId] = useState<string>('');
   const [selectedTransaction, setSelectedTransaction] = useState<TransactionsItem | undefined>();
   const currentEnvelopeName = params.id as string;
