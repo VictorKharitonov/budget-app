@@ -9,14 +9,14 @@ import {TransactionsItem} from "../../types/transactions";
 import {currency, paymentTypes} from "../../constants";
 
 interface DetailTransactionFormProps {
-  detailForm:  UseFormReturn<TransactionsItem, any>,
-  updateTransaction: SubmitHandler<TransactionsItem>,
-  deleteTransaction: SubmitHandler<TransactionsItem>,
-  isEditable: boolean,
-  envelopes: EnvelopeItem[],
-  categories: string[],
-  isLoadingDelete: boolean,
-  isLoadingUpdate: boolean,
+  detailForm:  UseFormReturn<TransactionsItem, any>;
+  updateTransaction: SubmitHandler<TransactionsItem>;
+  deleteTransaction: SubmitHandler<TransactionsItem>;
+  isEditable: boolean;
+  envelopes: EnvelopeItem[];
+  categories: string[];
+  isLoadingDelete: boolean;
+  isLoadingUpdate: boolean;
 }
 
 const DetailTransactionForm: FC<DetailTransactionFormProps> = (

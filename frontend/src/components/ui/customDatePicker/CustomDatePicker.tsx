@@ -5,10 +5,10 @@ import dayjs from 'dayjs';
 import {Controller, FieldError} from 'react-hook-form';
 
 interface CustomDatePickerProps extends DatePickerProps<any> {
-  name: string,
-  control?: any,
-  format: string,
-  errors?: FieldError | undefined
+  name: string;
+  control?: any;
+  format: string;
+  errors?: FieldError | undefined;
 }
 
 const CustomDatePicker: FC<CustomDatePickerProps> = ({name, control, format, errors, ...props}) => {

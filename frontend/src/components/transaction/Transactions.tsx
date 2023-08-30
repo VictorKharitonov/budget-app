@@ -70,15 +70,15 @@ const columns: readonly Column[] = [
 ];
 
 interface TransactionsProps {
-  transactions: TransactionType,
-  selectedTransactionId: string,
-  user: User,
-  currentEnvelope: EnvelopeItem | undefined,
-  setSelectedTransactionId: (id: string) => void,
-  isPagination?: boolean,
-  isFilter?: boolean,
-  rowsPerPageOptions?: number[],
-  perPage?: number
+  transactions: TransactionType;
+  selectedTransactionId: string;
+  user: User;
+  currentEnvelope: EnvelopeItem | undefined;
+  setSelectedTransactionId: (id: string) => void;
+  isPagination?: boolean;
+  isFilter?: boolean;
+  rowsPerPageOptions?: number[];
+  perPage?: number;
 }
 
 const Transactions: FC<TransactionsProps> = ({user, transactions, selectedTransactionId, setSelectedTransactionId, isPagination = false, isFilter = false, rowsPerPageOptions = [], perPage = 10, currentEnvelope}) => {
@@ -107,7 +107,7 @@ const Transactions: FC<TransactionsProps> = ({user, transactions, selectedTransa
 
   const filterForm = useForm<TransactionFilter>({
     defaultValues: defaultFilterValues
-  })
+  });
 
   useEffect(() => {
     if (envelopeInfo) {

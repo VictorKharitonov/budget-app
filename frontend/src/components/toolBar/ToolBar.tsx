@@ -4,10 +4,10 @@ import Icons from '../ui/Icons';
 import Input from "../ui/input/Input";
 
 interface ToolBarProps {
-  createEnvelopeLoading: boolean,
-  setModal: (val: boolean) => void,
-  searchHandleChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
-  search: string
+  createEnvelopeLoading: boolean;
+  setModal: (val: boolean) => void;
+  searchHandleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  search: string;
 }
 
 const ToolBar: FC<ToolBarProps> = ({createEnvelopeLoading, setModal, search, searchHandleChange}) => {

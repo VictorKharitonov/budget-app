@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React, {FC, memo} from 'react';
 import {Skeleton, TableBody, TableCell, TableRow} from "@mui/material";
 import cl from "./scss/Transactions.module.scss";
 import {Transactions} from "../../types/transactions";
@@ -92,4 +92,4 @@ const TransactionBody: FC<TransactionBodyProps> = ({transactions, isSelectedTran
   );
 };
 
-export default TransactionBody;
+export default memo(TransactionBody);
