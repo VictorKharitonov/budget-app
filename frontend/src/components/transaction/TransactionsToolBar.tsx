@@ -1,4 +1,4 @@
-import React, {FC, useState} from 'react';
+import React, {FC, useEffect, useState} from 'react';
 import {Box, Button, Grid, IconButton, Toolbar, Typography} from "@mui/material";
 import Icons from "../ui/Icons";
 import CustomDatePicker from "../ui/customDatePicker/CustomDatePicker";
@@ -21,7 +21,7 @@ interface TransactionsToolBarProps {
 
 const TransactionsToolBar: FC<TransactionsToolBarProps> = ({envelopeName, user, filterForm, defaultValues, setFilterParams, handleRequestFilter}) => {
   const [isFilterShow, setIsFilterShow] = useState(false);
-  const {handleSubmit, control, reset, setValue, getValues} = filterForm;
+  const {handleSubmit, control, reset, setValue} = filterForm;
 
   const handleResetFilterForm = () => {
     reset(defaultValues);

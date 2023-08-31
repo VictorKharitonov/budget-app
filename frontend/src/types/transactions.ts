@@ -12,22 +12,22 @@ export interface TransactionsItem {
 
 export interface Transactions {
   isLoading: boolean;
-  isSuccess: boolean,
-  isCreateSuccess: boolean,
-  isUpdateSuccess: boolean,
-  isDeleteSuccess: boolean,
-  isLoadingCreate: boolean,
-  isLoadingUpdate: boolean,
-  isLoadingDelete: boolean,
+  isSuccess: boolean;
+  isCreateSuccess: boolean;
+  isUpdateSuccess: boolean;
+  isDeleteSuccess: boolean;
+  isLoadingCreate: boolean;
+  isLoadingUpdate: boolean;
+  isLoadingDelete: boolean;
   error: string;
-  createError: string,
-  updateError: string,
-  deleteError: string,
+  createError: string;
+  updateError: string;
+  deleteError: string;
   transactions: TransactionsItem[];
 }
 
 export interface TransactionFilter {
-  date: number | null,
-  categories: string[],
-  type: string,
+  date: number | null;
+  categories: string[];
+  type: string;
 }

@@ -1,4 +1,4 @@
-import React, {useState, FC, useEffect} from 'react';
+import React, {useState, FC, useEffect, memo} from 'react';
 import {Divider, Box} from '@mui/material';
 import {EnvelopeItem} from '../../types/envelopes';
 import EnvelopeList from './EnvelopeList';
@@ -110,4 +110,4 @@ const EnvelopeSidebar: FC<EnvelopeSidebarProps> = ({envelopes, userInfo, isTrans
   );
 };
 
-export default EnvelopeSidebar;
+export default memo(EnvelopeSidebar);

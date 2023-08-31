@@ -7,10 +7,10 @@ import {fcLatter} from '../../utils/stringHelper';
 import {Link} from "react-router-dom";
 
 interface EnvelopesListProps {
-  envelopes: EnvelopeItem[],
-  selectedEnvelopeName: string,
-  setCurrentEnvelope: (e: React.MouseEvent<HTMLLIElement, MouseEvent>, envelopeId: string) => void,
-  isTransactionsLoading: boolean
+  envelopes: EnvelopeItem[];
+  selectedEnvelopeName: string;
+  setCurrentEnvelope: (e: React.MouseEvent<HTMLLIElement, MouseEvent>, envelopeId: string) => void;
+  isTransactionsLoading: boolean;
 }
 type Color = "success" | "warning" | "primary" | "default" | "secondary" | "error" | "info";
 type ColorStatus = Record<EnvelopeItem['status'], Color>

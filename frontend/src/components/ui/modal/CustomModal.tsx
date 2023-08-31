@@ -3,10 +3,10 @@ import {Backdrop, Box, Fade, Modal, Typography} from '@mui/material';
 import cl from './scss/CustomModal.module.scss';
 
 interface CustomModalProps extends PropsWithChildren{
-  title: string,
-  modal: boolean,
-  setModal: (val: boolean) => void,
-  children: React.ReactNode
+  title: string;
+  modal: boolean;
+  setModal: (val: boolean) => void;
+  children: React.ReactNode;
 }
 
 const CustomModal: FC<CustomModalProps> = ({title, modal, setModal, children}) => {
