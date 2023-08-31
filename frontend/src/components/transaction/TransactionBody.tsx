@@ -37,7 +37,7 @@ const TransactionBody: FC<TransactionBodyProps> = ({transactions, isSelectedTran
       <TableBody>
         {tableSkeletonRow}
       </TableBody>
-    )
+    );
   }
 
   if (isSuccess) {

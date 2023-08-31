@@ -39,7 +39,7 @@ const DetailTransactionForm: FC<DetailTransactionFormProps> = (
     <Box component="form">
       <Select
         name="envelopes"
-        label="Envelope"
+        label="Envelopes"
         control={control}
         multiple={true}
         errors={errors.envelopes}
@@ -50,7 +50,7 @@ const DetailTransactionForm: FC<DetailTransactionFormProps> = (
       />
       <Select
         name="categories"
-        label="Category"
+        label="Categories"
         control={control}
         multiple={true}
         errors={errors.categories}

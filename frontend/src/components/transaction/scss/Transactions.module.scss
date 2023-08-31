@@ -49,3 +49,14 @@
     margin-top: 0.6rem;
   }
 }
+
+.card {
+  max-width: 100%;
+
+  .cardContent {
+    .cardContentValue {
+      white-space: normal;
+      word-break: break-word;
+    }
+  }
+}
