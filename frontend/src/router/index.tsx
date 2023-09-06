@@ -5,7 +5,6 @@ import Main from '../pages/Main';
 import DetailEnvelope from '../pages/DetailEnvelope';
 import Login from '../pages/Login';
 import TransactionShare from '../pages/TransactionShare';
-import NotFound from '../pages/NotFound';
 
 interface Routes {
   path: string;
@@ -40,10 +39,6 @@ export const privateRoutes: Routes[] = [
   {
     path: 'sign-in',
     element: <Navigate to="/envelope" replace />
-  },
-  {
-    path: '*',
-    element: <NotFound />
   }
 ];
 

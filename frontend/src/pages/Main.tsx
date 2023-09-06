@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useState } from 'react';
-import cl from './scss/Main.module.scss';
+import './scss/Main.scss';
 import EnvelopeSidebar from '../components/envelope/EnvelopeSidebar';
 import { Container, Grid, Paper, Typography } from '@mui/material';
 import Transactions from '../components/transaction/Transactions';
@@ -35,7 +35,7 @@ const Main: FC = () => {
 
   return (
     <Container>
-      <Grid container className={cl.mainContent} columnSpacing={2} rowSpacing={2} mt={2}>
+      <Grid container className="main-content" columnSpacing={2} rowSpacing={2} mt={2}>
         <Grid item xs={12} sm={6} md={6} lg={3} order={{ sm: 1, lg: 1 }}>
           <EnvelopeSidebar
             envelopes={user.envelopes}
@@ -62,7 +62,7 @@ const Main: FC = () => {
             />
           ) : (
             <Paper>
-              <Typography variant="body1" className={cl.detailTransactionEmpty}>
+              <Typography variant="body1" className="detail-transaction-empty">
                 Select transaction from table to view details
               </Typography>
             </Paper>
