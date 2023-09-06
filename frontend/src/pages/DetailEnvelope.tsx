@@ -19,7 +19,7 @@ import { TransactionsItem } from '../types/transactions';
 import { useTypedSelector } from '../hooks/useTypedSelector';
 import { useTypedDispatch } from '../hooks/useTypedDispatch';
 import { useNavigate } from 'react-router-dom';
-import './scss/DetailEnvelope.scss';
+import cl from './scss/DetailEnvelope.module.scss';
 import { EnvelopeItem } from '../types/envelopes';
 import Icons from '../components/ui/Icons';
 import { updateUserInfo } from '../store/asyncActions/updateUserInfoAction';
@@ -116,16 +116,16 @@ const DetailEnvelope: FC = () => {
           exclusive
           onChange={handleChangeStatus}
           size="small"
-          className="toggle-group"
+          className={cl.toggleGroup}
           sx={{ mr: 1 }}
         >
-          <ToggleButton value="open" color="success" className="toggle-group__btn">
+          <ToggleButton value="open" color="success" className={cl.toggleGroup__btn}>
             Open
           </ToggleButton>
-          <ToggleButton value="closed" color="error" className="toggle-group__btn">
+          <ToggleButton value="closed" color="error" className={cl.toggleGroup__btn}>
             Closed
           </ToggleButton>
-          <ToggleButton value="frozen" color="info" className="toggle-group__btn">
+          <ToggleButton value="frozen" color="info" className={cl.toggleGroup__btn}>
             Frozen
           </ToggleButton>
         </ToggleButtonGroup>
@@ -137,7 +137,7 @@ const DetailEnvelope: FC = () => {
           Delete
         </Button>
       </Box>
-      <Grid container className="detail-envelope-container" columnSpacing={2} rowSpacing={2} mb={4}>
+      <Grid container className={cl.detailEnvelopeContainer} columnSpacing={2} rowSpacing={2} mb={4}>
         <Grid item xs={12} md={8} lg={8}>
           <Transactions
             transactions={transactions}
@@ -161,7 +161,7 @@ const DetailEnvelope: FC = () => {
             />
           ) : (
             <Paper>
-              <Typography variant="body1" className="detail-transaction-empty">
+              <Typography variant="body1" className={cl.detailTransactionEmpty}>
                 Select transaction from table to view details
               </Typography>
             </Paper>

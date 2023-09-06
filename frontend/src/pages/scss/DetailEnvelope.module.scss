@@ -1,18 +1,18 @@
-.toggle-group {
+.toggleGroup {
   margin-top: 2rem;
   margin-bottom: 0.3rem;
   background: var(--ba-palette-background-paper);
 
-  .toggle-group__btn,
-  .toggle-group__btn:disabled {
+  .toggleGroup__btn,
+  .toggleGroup__btn:disabled {
     border: none;
   }
 }
 
-.detail-envelope-container {
+.detailEnvelopeContainer {
   justify-content: space-between;
 }
 
-.detail-transaction-empty {
+.detailTransactionEmpty {
   padding: 1rem;
 }
