@@ -1,5 +1,5 @@
 import React, { FC, useEffect } from 'react';
-import { Box, Container } from '@mui/material';
+import { Box, Container, Typography } from '@mui/material';
 import { useParams } from 'react-router-dom';
 import { useTypedSelector } from '../hooks/useTypedSelector';
 import { fetchEnvelopeTransactions } from '../store/asyncActions/transaction/fetchEnvelopeTransactionsAction';
@@ -14,26 +14,40 @@ const TransactionShare: FC = () => {
   const { user } = useTypedSelector(state => state.userInfo);
 
   useEffect(() => {
-    dispatch(
-      fetchEnvelopeTransactions({
-        userId: user._id,
-        envelope: id!!,
-        limit: 1,
-        offset: 0,
-        filter: [
-          {
-            field: '_id',
-            value: transactionId!!
-          }
-        ]
-      })
-    );
+    if (user._id) {
+      dispatch(
+        fetchEnvelopeTransactions({
+          userId: user._id,
+          envelope: id!!,
+          limit: 1,
+          offset: 0,
+          filter: [
+            {
+              field: '_id',
+              value: transactionId!!
+            }
+          ]
+        })
+      );
+    }
   }, [dispatch, id, transactionId, user._id]);
+
+  if (isLoading) {
+    return (
+      <Container>
+        <Box className={cl.cardWrapper}>
+          <Typography variant="body1">Loading...</Typography>
+        </Box>
+      </Container>
+    );
+  }
 
   if (error) {
     return (
       <Container>
-        <Box className={cl.cardWrapper}>{error}</Box>
+        <Box className={cl.cardWrapper}>
+          <Typography variant="body1">{error}</Typography>
+        </Box>
       </Container>
     );
   }
