@@ -1,11 +1,11 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import './App.scss';
-import {theme, CssVarsProvider} from './theme/index';
-import {BrowserRouter as Router} from "react-router-dom";
+import { theme, CssVarsProvider } from './theme/index';
+import { BrowserRouter as Router } from 'react-router-dom';
 import AppRouter from './components/appRouter/AppRouter';
 import NavBar from './components/ui/navBar/NavBar';
-import {Provider} from "react-redux";
-import {store} from "./store";
+import { Provider } from 'react-redux';
+import { store } from './store';
 import { AuthContext } from './context/index';
 
 function App() {
@@ -13,14 +13,16 @@ function App() {
 
   return (
     <Provider store={store}>
-      <AuthContext.Provider value={{
-        isAuth,
-        setIsAuth,
-      }}>
+      <AuthContext.Provider
+        value={{
+          isAuth,
+          setIsAuth
+        }}
+      >
         <Router>
           <CssVarsProvider theme={theme}>
-            <NavBar/>
-            <AppRouter/>
+            <NavBar />
+            <AppRouter />
           </CssVarsProvider>
         </Router>
       </AuthContext.Provider>

@@ -15,7 +15,7 @@ const Icons = {
   MenuIcon,
   SettingsIcon,
   FilterListIcon,
-  AddCircleIcon,
-}
+  AddCircleIcon
+};
 
 export default Icons;

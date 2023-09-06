@@ -7,8 +7,8 @@ export interface EnvelopesInfo {
   envelope: string;
   total: {
     dollar: {
-      income: number
-    }
+      income: number;
+    };
   };
   documentsCount: number;
 }

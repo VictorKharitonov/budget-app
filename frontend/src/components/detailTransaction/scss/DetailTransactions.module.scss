@@ -5,11 +5,11 @@
   border: 1px solid var(--ba-palette-secondary-main);
 
   &.isValid {
-    border: 1px solid var(--ba-palette-success-main)
+    border: 1px solid var(--ba-palette-success-main);
   }
 
   &.isInvalid {
-    border: 1px solid var(--ba-palette-error-main)
+    border: 1px solid var(--ba-palette-error-main);
   }
 
   .detailHeader {

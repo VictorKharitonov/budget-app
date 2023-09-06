@@ -1,11 +1,7 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "skipLibCheck": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
@@ -20,9 +16,5 @@
     "jsx": "react",
     "types": "react-redux"
   },
-  "include": [
-    "src",
-    "Globals.d.ts",
-    "react-app-env.d.ts"
-  ]
+  "include": ["src", "Globals.d.ts", "react-app-env.d.ts"]
 }

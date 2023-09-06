@@ -1,18 +1,21 @@
-import {useMemo} from 'react';
+import { useMemo } from 'react';
 
 const useFilter = <T = Record<string, unknown>>(search: string, list: T[], keys: (keyof T)[]): T[] => {
-  return useMemo(() => {
-    search = search.toLowerCase();
+  search = search.toLowerCase();
 
+  return useMemo(() => {
     if (search) {
       return [...list].filter((item: T) => {
         for (const key of keys) {
-          return String(item[key]).toLowerCase().includes(search);
+          if (String(item[key]).toLowerCase().includes(search)) {
+            return true;
+          }
         }
+        return false;
       });
     }
     return list;
-  }, [search, list]);
+  }, [search, list, keys]);
 };
 
 export default useFilter;

@@ -12,17 +12,21 @@ export interface fetchTransactionsBody {
   envelope: string;
   limit: number;
   offset: number;
-  sort?: Filter,
-  filter?: Filter[] | null,
+  sort?: Filter;
+  filter?: Filter[] | null;
 }
 
-export const fetchEnvelopeTransactions = createAsyncThunk<TransactionsItem[], fetchTransactionsBody, { rejectValue: string }>(
+export const fetchEnvelopeTransactions = createAsyncThunk<
+  TransactionsItem[],
+  fetchTransactionsBody,
+  { rejectValue: string }
+>(
   'transactions/fetchEnvelopeTransactions',
-  async ({userId, envelope, limit, offset, sort, filter}, {rejectWithValue}) => {
+  async ({ userId, envelope, limit, offset, sort, filter }, { rejectWithValue }) => {
     try {
-	  return await getEnvelopeTransactions({ userId, envelope, limit, offset, sort, filter });
+      return await getEnvelopeTransactions({ userId, envelope, limit, offset, sort, filter });
     } catch (error) {
       return rejectWithValue(error.message);
     }
   }
-)
+);

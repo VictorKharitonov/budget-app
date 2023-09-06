@@ -1,11 +1,11 @@
-import axios from "axios";
-import {User} from "../types/user";
-import {TransactionsItem} from "../types/transactions";
-import {EnvelopeItem, EnvelopesInfo} from "../types/envelopes";
+import axios from 'axios';
+import { User } from '../types/user';
+import { TransactionsItem } from '../types/transactions';
+import { EnvelopeItem, EnvelopesInfo } from '../types/envelopes';
 import { fetchTransactionsBody } from '../store/asyncActions/transaction/fetchEnvelopeTransactionsAction';
 
 const budgetApi = axios.create({
-  baseURL: 'https://cloud.uibakery.io/api/automation',
+  baseURL: 'https://cloud.uibakery.io/api/automation'
 });
 
 export const getUserInfoByChatId = async (chatId: number) => {
@@ -22,28 +22,24 @@ export const getUserInfoByChatId = async (chatId: number) => {
   );
 
   return response.data;
-}
+};
 
 export const getEnvelopeTransactions = async (body: fetchTransactionsBody) => {
-  let response = await budgetApi.post<TransactionsItem[]>(
-    '/uuE9s772t3',
-    body,
-    {
-      params: {
-        key: 'f045954a-c4ee-49d4-8e0c-b230f3592816'
-      }
+  let response = await budgetApi.post<TransactionsItem[]>('/uuE9s772t3', body, {
+    params: {
+      key: 'f045954a-c4ee-49d4-8e0c-b230f3592816'
     }
-  );
+  });
 
   return response.data;
-}
+};
 
 export const getEnvelopeInfo = async (userId: string, envelope: string) => {
   let response = await budgetApi.post<EnvelopesInfo>(
     '/XTZvcfmtIR',
     {
       userId: userId,
-      envelope: envelope,
+      envelope: envelope
     },
     {
       params: {
@@ -53,7 +49,7 @@ export const getEnvelopeInfo = async (userId: string, envelope: string) => {
   );
 
   return response.data;
-}
+};
 
 export const updateUser = async (envelopes: EnvelopeItem[], userId: string, categories: string[]) => {
   return await budgetApi.post(
@@ -68,50 +64,42 @@ export const updateUser = async (envelopes: EnvelopeItem[], userId: string, cate
         key: 'ae015b56-a2b8-473c-a0d1-c9e1c9004a08'
       }
     }
-  )
+  );
 };
 
-export const createTransaction = async (transaction: Omit<TransactionsItem, "_id">) => {
-  let response = await budgetApi.post(
-    'HvIJOlwQbV',
-    transaction,
-    {
-      params: {
-        key: '046cbfba-ae51-4fab-9f8f-62c800f05504'
-      }
+export const createTransaction = async (transaction: Omit<TransactionsItem, '_id'>) => {
+  let response = await budgetApi.post('HvIJOlwQbV', transaction, {
+    params: {
+      key: '046cbfba-ae51-4fab-9f8f-62c800f05504'
     }
-  );
+  });
 
   return response.data;
-}
+};
 
 export const deleteTransaction = async (userId: string, _id: string) => {
   let response = await budgetApi.post(
-  	'4zhiXYiKAF',
-	{
-	  userId,
-	  _id
-	},
-	{
-	  params: {
-	    key: "8f9f830f-9e51-4a09-b44b-c823b6e4b2e7"
-	  }
-	}
+    '4zhiXYiKAF',
+    {
+      userId,
+      _id
+    },
+    {
+      params: {
+        key: '8f9f830f-9e51-4a09-b44b-c823b6e4b2e7'
+      }
+    }
   );
 
   return response.data;
 };
 
 export const updateTransaction = async (transaction: TransactionsItem) => {
-  let response = await budgetApi.post(
-	  'p8lkrjpKlr',
-	  transaction,
-	  {
-      params: {
-        key: "418773b7-5598-4143-985f-98901bef1dfd"
-      }
-	  }
-  );
+  let response = await budgetApi.post('p8lkrjpKlr', transaction, {
+    params: {
+      key: '418773b7-5598-4143-985f-98901bef1dfd'
+    }
+  });
 
   return response.data;
 };

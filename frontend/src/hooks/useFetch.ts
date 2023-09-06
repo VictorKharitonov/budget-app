@@ -12,7 +12,7 @@ export const useFetch = (callBack: Function) => {
     } finally {
       setIsLoading(false);
     }
-  }
+  };
 
   return { fetch, error, isLoading };
-}
+};

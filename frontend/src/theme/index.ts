@@ -14,17 +14,17 @@ const theme = extendTheme({
     MuiOutlinedInput: {
       styleOverrides: {
         input: {
-          padding: "8px 16px",
-          background: "#fff"
+          padding: '8px 16px',
+          background: '#fff'
         }
       }
     },
     MuiButton: {
       styleOverrides: {
         root: {
-          boxShadow: "none",
+          boxShadow: 'none',
           '&:hover': {
-            boxShadow: "none",
+            boxShadow: 'none'
           }
         }
       }
@@ -39,16 +39,16 @@ const theme = extendTheme({
     MuiTableCell: {
       styleOverrides: {
         head: {
-          background: "#2A5AEE",
-          color: "#ffffff",
+          background: '#2A5AEE',
+          color: '#ffffff'
         }
       }
     },
     MuiAppBar: {
       styleOverrides: {
         colorPrimary: {
-          backgroundColor: "#fff",
-        },
+          backgroundColor: '#fff'
+        }
       }
     },
     MuiBreadcrumbs: {
@@ -60,9 +60,9 @@ const theme = extendTheme({
           p: {
             maxWidth: 'inherit',
             overflow: 'inherit',
-            textOverflow: 'inherit',
+            textOverflow: 'inherit'
           }
-        },
+        }
       }
     }
   },
@@ -71,21 +71,21 @@ const theme = extendTheme({
     light: {
       palette: {
         primary: {
-          main: "#2A5AEE",
+          main: '#2A5AEE'
         },
         secondary: {
-          main: "#E6E9F0",
+          main: '#E6E9F0'
         },
         success: {
-          main: "#00c9a7",
-          contrastText: "#ffffff"
+          main: '#00c9a7',
+          contrastText: '#ffffff'
         },
         error: {
-          main: "#de4437"
+          main: '#de4437'
         }
-      },
+      }
     }
   }
 });
 
-export {theme, ThemeProvider, CssVarsProvider};
+export { theme, ThemeProvider, CssVarsProvider };
