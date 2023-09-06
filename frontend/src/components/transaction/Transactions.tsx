@@ -1,4 +1,4 @@
-import React, {FC, useCallback, useEffect, useState} from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import cl from './scss/Transactions.module.scss';
 import {
   Chip,
@@ -9,18 +9,21 @@ import {
   TableCell,
   Table,
   Paper,
-  TableSortLabel,
+  TableSortLabel
 } from '@mui/material';
-import {TransactionFilter, Transactions as TransactionType, TransactionsItem} from "../../types/transactions";
-import TransactionsToolBar from "./TransactionsToolBar";
-import {SubmitHandler, useForm} from "react-hook-form";
-import TransactionBody from "./TransactionBody";
-import {useFetch} from "../../hooks/useFetch";
-import {getEnvelopeInfo} from "../../Api/budgetApi";
-import {EnvelopeItem, EnvelopesInfo} from "../../types/envelopes";
-import {fetchEnvelopeTransactions, Filter} from "../../store/asyncActions/transaction/fetchEnvelopeTransactionsAction";
-import {useTypedDispatch} from "../../hooks/useTypedDispatch";
-import {User} from "../../types/user";
+import { TransactionFilter, Transactions as TransactionType, TransactionsItem } from '../../types/transactions';
+import TransactionsToolBar from './TransactionsToolBar';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import TransactionBody from './TransactionBody';
+import { useFetch } from '../../hooks/useFetch';
+import { getEnvelopeInfo } from '../../Api/budgetApi';
+import { EnvelopeItem, EnvelopesInfo } from '../../types/envelopes';
+import {
+  fetchEnvelopeTransactions,
+  Filter
+} from '../../store/asyncActions/transaction/fetchEnvelopeTransactionsAction';
+import { useTypedDispatch } from '../../hooks/useTypedDispatch';
+import { User } from '../../types/user';
 
 type Order = 'asc' | 'desc';
 
@@ -39,33 +42,29 @@ const columns: readonly Column[] = [
   {
     id: 'amount',
     label: 'Amount',
-    format: (value: number) => value.toFixed(2),
+    format: (value: number) => value.toFixed(2)
   },
   {
     id: 'type',
     label: 'Type',
-    format: (value: string) =>
-      <Chip
-        className={cl.types}
-        label={value}
-        color={value === 'income' ? 'success' : 'error'}
-        size="small"
-      />
+    format: (value: string) => (
+      <Chip className={cl.types} label={value} color={value === 'income' ? 'success' : 'error'} size="small" />
+    )
   },
   {
     id: 'categories',
     label: 'Categories',
-    format: (value: string[]) => value.join(', '),
+    format: (value: string[]) => value.join(', ')
   },
   {
     id: 'currency',
     label: 'Currency',
-    format: (value: string) => value,
+    format: (value: string) => value
   },
   {
     id: 'description',
     label: 'Description',
-    format: (value: string) => value,
+    format: (value: string) => value
   }
 ];
 
@@ -81,7 +80,17 @@ interface TransactionsProps {
   perPage?: number;
 }
 
-const Transactions: FC<TransactionsProps> = ({user, transactions, selectedTransactionId, setSelectedTransactionId, isPagination = false, isFilter = false, rowsPerPageOptions = [], perPage = 10, currentEnvelope}) => {
+const Transactions: FC<TransactionsProps> = ({
+  user,
+  transactions,
+  selectedTransactionId,
+  setSelectedTransactionId,
+  isPagination = false,
+  isFilter = false,
+  rowsPerPageOptions = [],
+  perPage = 10,
+  currentEnvelope
+}) => {
   const dispatch = useTypedDispatch();
   const [page, setPage] = useState<number>(0);
   const [rowsPerPage, setRowsPerPage] = useState<number>(perPage);
@@ -90,9 +99,9 @@ const Transactions: FC<TransactionsProps> = ({user, transactions, selectedTransa
   const [envelopeInfo, setEnvelopeInfo] = useState<EnvelopesInfo | undefined>();
   const [isLastPage, setIsLastPage] = useState<boolean>(false);
   const [filterParams, setFilterParams] = useState<Filter[] | null>(null);
-  const {isSuccess, isLoading, isDeleteSuccess, isCreateSuccess} = transactions;
+  const { isSuccess, isLoading, isDeleteSuccess, isCreateSuccess } = transactions;
 
-  const {fetch: requestEnvelopeInfo} = useFetch(async () => {
+  const { fetch: requestEnvelopeInfo } = useFetch(async () => {
     if (currentEnvelope) {
       const envelopeInfo = await getEnvelopeInfo(user._id, currentEnvelope.name);
       setEnvelopeInfo(envelopeInfo);
@@ -102,7 +111,7 @@ const Transactions: FC<TransactionsProps> = ({user, transactions, selectedTransa
   const defaultFilterValues: TransactionFilter = {
     date: null,
     categories: [],
-    type: '',
+    type: ''
   };
 
   const filterForm = useForm<TransactionFilter>({
@@ -113,30 +122,30 @@ const Transactions: FC<TransactionsProps> = ({user, transactions, selectedTransa
     if (envelopeInfo) {
       setIsLastPage((page + 1) * rowsPerPage >= envelopeInfo.documentsCount);
     }
-  }, [envelopeInfo]);
+  }, [envelopeInfo, page, rowsPerPage]);
 
   const handleRequestFilter: SubmitHandler<TransactionFilter> = (data: TransactionFilter) => {
     let date = data.date === null ? null : data.date.valueOf();
     let modifyData: Filter[] = [];
-    data = {...data, date: date};
+    data = { ...data, date: date };
 
     for (let filterParam in data) {
       let filterField = filterParam as keyof TransactionFilter;
       let filterValue = data[filterField];
 
       if (filterValue) {
-        modifyData.push({ field: filterField, value: filterValue })
+        modifyData.push({ field: filterField, value: filterValue });
       }
     }
 
     setFilterParams(modifyData);
-  }
+  };
 
-  const handleRequestSort = useCallback((event: React.MouseEvent<unknown>, property: keyof TransactionsItem) => {
+  const handleRequestSort = (event: React.MouseEvent<unknown>, property: keyof TransactionsItem) => {
     const isAsc = orderBy === property && order === 'asc';
     setOrder(isAsc ? 'desc' : 'asc');
     setOrderBy(property);
-  }, [order, orderBy]);
+  };
 
   const selectTransaction = (e: React.MouseEvent<HTMLTableRowElement>, id: string) => {
     setSelectedTransactionId(id);
@@ -159,25 +168,40 @@ const Transactions: FC<TransactionsProps> = ({user, transactions, selectedTransa
     }
 
     if (currentEnvelope) {
-      dispatch(fetchEnvelopeTransactions({
-        userId: user._id,
-        envelope: currentEnvelope.name,
-        limit: rowsPerPage,
-        offset: page * rowsPerPage,
-        sort: {
-          field: orderBy,
-          value: order
-        },
-        filter: filterParams
-      }));
+      dispatch(
+        fetchEnvelopeTransactions({
+          userId: user._id,
+          envelope: currentEnvelope.name,
+          limit: rowsPerPage,
+          offset: page * rowsPerPage,
+          sort: {
+            field: orderBy,
+            value: order
+          },
+          filter: filterParams
+        })
+      );
     }
-  }, [page, rowsPerPage, currentEnvelope?.name, isSuccess, isDeleteSuccess, isCreateSuccess, handleRequestSort, filterParams]);
+    // eslint-disable-next-line
+  }, [
+    page,
+    rowsPerPage,
+    currentEnvelope?.name,
+    isSuccess,
+    isDeleteSuccess,
+    isCreateSuccess,
+    filterParams,
+    isPagination,
+    dispatch,
+    user._id,
+    orderBy,
+    order
+  ]);
 
   return (
     <Paper className={cl.transactionsLayout}>
       <TableContainer className={cl.transactionsContainer}>
-        {
-          isFilter && currentEnvelope &&
+        {isFilter && currentEnvelope && (
           <TransactionsToolBar
             user={user}
             envelopeName={currentEnvelope.name}
@@ -186,55 +210,49 @@ const Transactions: FC<TransactionsProps> = ({user, transactions, selectedTransa
             setFilterParams={setFilterParams}
             handleRequestFilter={handleRequestFilter}
           />
-        }
+        )}
         <Table stickyHeader aria-label="sticky table">
           <TableHead>
             <TableRow>
-              {columns.map((column) => (
-                <TableCell
-                  key={column.id}
-                  className={cl.transactionsTableCell}
-                >
-                  {
-                    isFilter
-                      ? <TableSortLabel
-                        active={orderBy === column.id}
-                        direction={orderBy === column.id ? order : 'asc'}
-                        onClick={(e) => handleRequestSort(e, column.id)}
-                      >
-                        {column.label}
-                      </TableSortLabel>
-                      : column.label
-                  }
+              {columns.map(column => (
+                <TableCell key={column.id} className={cl.transactionsTableCell}>
+                  {isFilter ? (
+                    <TableSortLabel
+                      active={orderBy === column.id}
+                      direction={orderBy === column.id ? order : 'asc'}
+                      onClick={e => handleRequestSort(e, column.id)}
+                    >
+                      {column.label}
+                    </TableSortLabel>
+                  ) : (
+                    column.label
+                  )}
                 </TableCell>
               ))}
             </TableRow>
           </TableHead>
           <TransactionBody
             transactions={transactions}
-            page={page}
-            rowsPerPage={rowsPerPage}
             isSelectedTransaction={isSelectedTransaction}
             selectTransaction={selectTransaction}
             columns={columns}
           />
         </Table>
       </TableContainer>
-      {
-        isPagination && envelopeInfo &&
+      {isPagination && envelopeInfo && (
         <TablePagination
-            rowsPerPageOptions={rowsPerPageOptions}
-            component="div"
-            count={envelopeInfo.documentsCount}
-            rowsPerPage={rowsPerPage}
-            page={page}
-            onPageChange={handleChangePage}
-            onRowsPerPageChange={handleChangeRowsPerPage}
-            showFirstButton={true}
-            showLastButton={true}
-            nextIconButtonProps={{disabled: isLoading || isLastPage}}
+          rowsPerPageOptions={rowsPerPageOptions}
+          component="div"
+          count={envelopeInfo.documentsCount}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onPageChange={handleChangePage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+          showFirstButton={true}
+          showLastButton={true}
+          nextIconButtonProps={{ disabled: isLoading || isLastPage }}
         />
-      }
+      )}
     </Paper>
   );
 };

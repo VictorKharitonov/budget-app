@@ -1,10 +1,10 @@
-import * as React from "react";
-import {Navigate} from "react-router-dom";
+import * as React from 'react';
+import { Navigate } from 'react-router-dom';
 
 import Main from '../pages/Main';
-import DetailEnvelope from "../pages/DetailEnvelope";
-import Login from "../pages/Login";
-import TransactionShare from "../pages/TransactionShare";
+import DetailEnvelope from '../pages/DetailEnvelope';
+import Login from '../pages/Login';
+import TransactionShare from '../pages/TransactionShare';
 
 interface Routes {
   path: string;
@@ -14,41 +14,41 @@ interface Routes {
 export const privateRoutes: Routes[] = [
   {
     path: '/',
-    element: <Navigate to="/envelope" replace/>
+    element: <Navigate to="/envelope" replace />
   },
   {
     path: '/envelope',
-    element: <Main/>
+    element: <Main />
   },
   {
     path: '/envelope/:id',
-    element: <Main/>
+    element: <Main />
   },
   {
     path: '/envelope/:id/detail',
-    element: <DetailEnvelope/>
+    element: <DetailEnvelope />
   },
   {
     path: 'envelope/:id/:transactionId',
-    element: <TransactionShare/>
+    element: <TransactionShare />
   },
   {
     path: 'envelope/:id/detail/:transactionId',
-    element: <TransactionShare/>
+    element: <TransactionShare />
   },
   {
     path: 'sign-in',
-    element: <Navigate to="/envelope" replace/>
-  },
+    element: <Navigate to="/envelope" replace />
+  }
 ];
 
 export const publicRoutes: Routes[] = [
   {
     path: '*',
-    element: <Navigate to="/sign-in" replace/>
+    element: <Navigate to="/sign-in" replace />
   },
   {
     path: '/sign-in',
-    element: <Login/>
-  },
+    element: <Login />
+  }
 ];

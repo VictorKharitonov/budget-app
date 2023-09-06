@@ -1,7 +1,7 @@
-import {createContext} from "react";
+import { createContext } from 'react';
 
 export interface IAuthContext {
-  isAuth: boolean,
+  isAuth: boolean;
   setIsAuth: (val: boolean) => void;
 }
 
