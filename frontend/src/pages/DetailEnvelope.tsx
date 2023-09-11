@@ -24,6 +24,7 @@ import { EnvelopeItem } from '../types/envelopes';
 import Icons from '../components/ui/Icons';
 import { updateUserInfo } from '../store/asyncActions/updateUserInfoAction';
 import { getCurrentEnvelope } from '../utils/envelopeHelper';
+import { clearTransactions } from '../store/reducers/transactionsSlice';
 
 const DetailEnvelope: FC = () => {
   const params = useParams();
@@ -41,19 +42,21 @@ const DetailEnvelope: FC = () => {
   const [updateEnvelopeLoading, setUpdateEnvelopeLoading] = useState<boolean>(false);
   const [deleteEnvelopeLoading, setDeleteEnvelopeLoading] = useState<boolean>(false);
 
-  const removeEnvelope = () => {
+  const removeEnvelope = async () => {
     setDeleteEnvelopeLoading(true);
     const envelopesAfterRemove = [...user.envelopes].filter(envelope => envelope.name !== currentEnvelope?.name);
-    dispatch(
+    await dispatch(
       updateUserInfo({
         userId: user._id,
         envelopes: envelopesAfterRemove,
         categories: user.categories
       })
-    ).finally(() => setDeleteEnvelopeLoading(false));
+    );
+    dispatch(clearTransactions());
+    setDeleteEnvelopeLoading(false);
   };
 
-  const updateEnvelopeStatus = (status: string) => {
+  const updateEnvelopeStatus = async (status: string) => {
     setUpdateEnvelopeLoading(true);
     const updatedEnvelopes: EnvelopeItem[] = [...user.envelopes].map(envelope =>
       envelope.name === currentEnvelopeName
@@ -63,13 +66,14 @@ const DetailEnvelope: FC = () => {
           } as EnvelopeItem)
         : envelope
     );
-    dispatch(
+    await dispatch(
       updateUserInfo({
         userId: user._id,
         envelopes: updatedEnvelopes,
         categories: user.categories
       })
-    ).finally(() => setUpdateEnvelopeLoading(false));
+    );
+    setUpdateEnvelopeLoading(false);
   };
 
   const handleChangeStatus = (event: React.MouseEvent<HTMLElement>, newStatus: string) => {
