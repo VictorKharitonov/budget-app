@@ -24,7 +24,11 @@ const initialState: Transactions = {
 export const transactionsSlice = createSlice({
   name: 'transactions',
   initialState,
-  reducers: {},
+  reducers: {
+    clearTransactions(state) {
+      state.transactions = [];
+    }
+  },
   extraReducers: builder => {
     builder.addCase(fetchEnvelopeTransactions.pending, state => {
       state.isLoading = true;
@@ -85,3 +89,5 @@ export const transactionsSlice = createSlice({
     });
   }
 });
+
+export const { clearTransactions } = transactionsSlice.actions;
