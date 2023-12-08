@@ -145,7 +145,7 @@ const NavBar: FC = () => {
           <Box className={cl.logoContainer} component={Link} to="/envelope">
             <img src={Logo} height="60px" width="60px" alt="logo" />
             <Typography variant="h4" className={cl.logoText}>
-              Budget test
+              Budget
             </Typography>
           </Box>
           {/** desktop **/}
