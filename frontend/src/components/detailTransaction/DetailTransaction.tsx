@@ -7,11 +7,9 @@ import DetailTransactionForm from './DetailTransactionForm';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { detailScheme } from '../../validations/detailValidation';
-import { useTypedDispatch } from '../../hooks/useTypedDispatch';
-import { deleteTransactionAction } from '../../store/asyncActions/transaction/deleteTransactionAction';
-import { updateTransactionAction } from '../../store/asyncActions/transaction/updateTransactionAction';
+import { deleteTransactionAction, updateTransactionAction } from '../../store/asyncActions/transaction';
 import { TransactionsItem } from '../../types/transactions';
-import { useTypedSelector } from '../../hooks/useTypedSelector';
+import { useTypedSelector, useTypedDispatch } from '../../hooks/index';
 import { Link, useLocation } from 'react-router-dom';
 
 interface DetailProps {

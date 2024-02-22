@@ -3,10 +3,9 @@ import { Routes, Route } from 'react-router-dom';
 import cl from './AppRouter.module.scss';
 import { privateRoutes, publicRoutes } from '../../router';
 import { Box, CircularProgress, Container } from '@mui/material';
-import { useTypedDispatch } from '../../hooks/useTypedDispatch';
-import { fetchUserByChatId } from '../../store/asyncActions/fetchUserByChatIdAction';
-import { useTypedSelector } from '../../hooks/useTypedSelector';
+import { fetchUserByChatIdAction } from '../../store/asyncActions';
 import { AuthContext, IAuthContext } from '../../context';
+import { useTypedSelector, useTypedDispatch } from '../../hooks/index';
 
 const AppRouter: FC = () => {
   const dispatch = useTypedDispatch();
@@ -15,7 +14,7 @@ const AppRouter: FC = () => {
 
   useEffect(() => {
     if (isAuth && !user.chatId) {
-      dispatch(fetchUserByChatId(Number(localStorage.getItem('chatId'))));
+      dispatch(fetchUserByChatIdAction(Number(localStorage.getItem('chatId'))));
     }
   }, [dispatch, isAuth, user.chatId]);
 

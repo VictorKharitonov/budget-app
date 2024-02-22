@@ -1,7 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { UserInfo } from '../../types/user';
-import { fetchUserByChatId } from '../asyncActions/fetchUserByChatIdAction';
-import { updateUserInfo } from '../asyncActions/updateUserInfoAction';
+import { fetchUserByChatIdAction, updateUserInfoAction } from '../asyncActions';
 
 const initialUser: UserInfo = {
   isSuccess: false,
@@ -23,7 +22,7 @@ export const userInfoSlice = createSlice({
   name: 'userInfo',
   initialState: initialUser,
   reducers: {
-    clearUserInfo(state) {
+    clearUserInfoAction(state) {
       state.user = {
         name: '',
         chatId: 0,
@@ -34,11 +33,11 @@ export const userInfoSlice = createSlice({
     }
   },
   extraReducers: builder => {
-    builder.addCase(fetchUserByChatId.pending, state => {
+    builder.addCase(fetchUserByChatIdAction.pending, state => {
       state.isLoading = true;
       state.isSuccess = false;
     });
-    builder.addCase(fetchUserByChatId.fulfilled, (state, action) => {
+    builder.addCase(fetchUserByChatIdAction.fulfilled, (state, action) => {
       state.isSuccess = true;
       state.isLoading = false;
       if (action.payload) {
@@ -48,15 +47,15 @@ export const userInfoSlice = createSlice({
         state.error = 'user not found';
       }
     });
-    builder.addCase(fetchUserByChatId.rejected, (state, action) => {
+    builder.addCase(fetchUserByChatIdAction.rejected, (state, action) => {
       state.isLoading = false;
       state.error = action.payload || '';
     });
-    builder.addCase(updateUserInfo.pending, state => {
+    builder.addCase(updateUserInfoAction.pending, state => {
       state.isUpdateLoading = true;
       state.isUpdateSuccess = false;
     });
-    builder.addCase(updateUserInfo.fulfilled, (state, action) => {
+    builder.addCase(updateUserInfoAction.fulfilled, (state, action) => {
       state.isUpdateSuccess = true;
       state.isUpdateLoading = false;
       state.user = {
@@ -65,7 +64,7 @@ export const userInfoSlice = createSlice({
         envelopes: action.payload.envelopes
       };
     });
-    builder.addCase(updateUserInfo.rejected, (state, action) => {
+    builder.addCase(updateUserInfoAction.rejected, (state, action) => {
       state.isUpdateLoading = false;
       state.isUpdateSuccess = false;
       state.errorUpdate = action.payload || '';
@@ -73,4 +72,4 @@ export const userInfoSlice = createSlice({
   }
 });
 
-export const { clearUserInfo } = userInfoSlice.actions;
+export const { clearUserInfoAction } = userInfoSlice.actions;

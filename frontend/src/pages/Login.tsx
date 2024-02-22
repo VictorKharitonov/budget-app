@@ -5,9 +5,9 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { ILogin } from '../types/login';
 import { loginScheme } from '../validations/loginValidation';
 import Input from '../components/ui/input/Input';
-import { fetchUserByChatId } from '../store/asyncActions/fetchUserByChatIdAction';
-import { useTypedDispatch } from '../hooks/useTypedDispatch';
-import { useTypedSelector } from '../hooks/useTypedSelector';
+import { fetchUserByChatIdAction } from '../store/asyncActions';
+import { useTypedSelector, useTypedDispatch } from '../hooks/index';
+
 import { AuthContext, IAuthContext } from '../context';
 import Link from '@mui/material/Link';
 
@@ -33,7 +33,7 @@ const Login: FC = () => {
     const { chatId } = data;
 
     if (typeof chatId === 'number') {
-      dispatch(fetchUserByChatId(chatId));
+      dispatch(fetchUserByChatIdAction(chatId));
     }
   };
 

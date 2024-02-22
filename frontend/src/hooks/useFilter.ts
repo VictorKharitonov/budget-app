@@ -5,7 +5,7 @@ const useFilter = <T = Record<string, unknown>>(search: string, list: T[], keys:
 
   return useMemo(() => {
     if (search) {
-      return [...list].filter((item: T) => {
+      return list.filter((item: T) => {
         for (const key of keys) {
           if (String(item[key]).toLowerCase().includes(search)) {
             return true;

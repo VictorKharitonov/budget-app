@@ -13,7 +13,7 @@ interface Response {
   categories: string[];
 }
 
-export const updateUserInfo = createAsyncThunk<Response, Body, { rejectValue: string }>(
+export const updateUserInfoAction = createAsyncThunk<Response, Body, { rejectValue: string }>(
   'user/updateUser',
   async ({ envelopes, userId, categories }, { rejectWithValue }) => {
     try {

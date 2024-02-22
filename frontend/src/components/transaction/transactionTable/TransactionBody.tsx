@@ -1,13 +1,12 @@
-import React, { FC, memo } from 'react';
+import React, { FC, memo, useCallback } from 'react';
 import { Skeleton, TableBody, TableCell, TableRow } from '@mui/material';
-import cl from './scss/Transactions.module.scss';
-import { Transactions } from '../../types/transactions';
-import { Column } from './Transactions';
+import { Column, Transactions } from '../../../types/transactions';
+import { selectTransactionAction } from '../../../store/asyncActions/transaction';
+import { useTypedDispatch } from '../../../hooks';
+import { TransactionRow } from '../index';
 
 interface TransactionBodyProps {
   transactions: Transactions;
-  isSelectedTransaction: (id: string) => boolean;
-  selectTransaction: (e: React.MouseEvent<HTMLTableRowElement>, id: string) => void;
   columns: readonly Column[];
 }
 
@@ -23,13 +22,18 @@ const tableSkeletonRow = Array.from({ length: 10 }, (_, i) => {
   return <TableRow key={i}>{tableSkeletonCell}</TableRow>;
 });
 
-const TransactionBody: FC<TransactionBodyProps> = ({
-  transactions,
-  isSelectedTransaction,
-  selectTransaction,
-  columns
-}) => {
-  const { transactions: content, isSuccess, isLoading, error } = transactions;
+const TransactionBody: FC<TransactionBodyProps> = ({ transactions, columns }) => {
+  const dispatch = useTypedDispatch();
+  const { transactions: content, isSuccess, isLoading, error, selectedTransaction } = transactions;
+
+  const isSelectedTransaction = (id: string): boolean => (selectedTransaction ? selectedTransaction._id === id : false);
+
+  const selectTransaction = useCallback(
+    (id: string) => {
+      dispatch(selectTransactionAction(id));
+    },
+    [dispatch]
+  );
 
   if (isLoading) {
     return <TableBody>{tableSkeletonRow}</TableBody>;
@@ -42,23 +46,13 @@ const TransactionBody: FC<TransactionBodyProps> = ({
           content.map(transaction => {
             const isSelected: boolean = isSelectedTransaction(transaction._id);
             return (
-              <TableRow
-                hover
-                role="checkbox"
-                tabIndex={-1}
+              <TransactionRow
                 key={transaction._id}
-                onClick={e => selectTransaction(e, transaction._id)}
-                selected={isSelected}
-              >
-                {columns.map(column => {
-                  const value = transaction[column.id];
-                  return (
-                    <TableCell key={column.id} className={cl.transactionsTableCell}>
-                      {column.format ? column.format(value) : value}
-                    </TableCell>
-                  );
-                })}
-              </TableRow>
+                onClick={selectTransaction}
+                transaction={transaction}
+                isSelected={isSelected}
+                columns={columns}
+              />
             );
           })
         ) : (

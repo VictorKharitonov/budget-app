@@ -53,3 +53,14 @@
     padding: 0.5rem 1rem;
   }
 }
+
+.toggleGroup {
+  margin-top: 2rem;
+  margin-bottom: 0.3rem;
+  background: var(--ba-palette-background-paper);
+
+  .toggleGroup__btn,
+  .toggleGroup__btn:disabled {
+    border: none;
+  }
+}

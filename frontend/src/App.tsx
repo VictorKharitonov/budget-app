@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import './App.scss';
-import { theme, CssVarsProvider } from './theme/index';
+import { theme, CssVarsProvider } from './theme';
 import { BrowserRouter as Router } from 'react-router-dom';
 import AppRouter from './components/appRouter/AppRouter';
-import NavBar from './components/ui/navBar/NavBar';
+import NavBar from './components/navBar/NavBar';
 import { Provider } from 'react-redux';
 import { store } from './store';
-import { AuthContext } from './context/index';
+import { AuthContext } from './context';
 
 function App() {
   const [isAuth, setIsAuth] = useState(Boolean(localStorage.getItem('chatId')));

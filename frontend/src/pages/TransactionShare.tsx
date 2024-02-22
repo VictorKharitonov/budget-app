@@ -1,10 +1,9 @@
 import React, { FC, useEffect } from 'react';
 import { Box, Container, Typography } from '@mui/material';
 import { useParams } from 'react-router-dom';
-import { useTypedSelector } from '../hooks/useTypedSelector';
-import { fetchEnvelopeTransactions } from '../store/asyncActions/transaction/fetchEnvelopeTransactionsAction';
-import { useTypedDispatch } from '../hooks/useTypedDispatch';
+import { fetchEnvelopeTransactionsAction } from '../store/asyncActions/transaction';
 import cl from './scss/TransactionShare.module.scss';
+import { useTypedSelector, useTypedDispatch } from '../hooks/index';
 import TransactionCard from '../components/transaction/TransactionCard';
 
 const TransactionShare: FC = () => {
@@ -16,7 +15,7 @@ const TransactionShare: FC = () => {
   useEffect(() => {
     if (user._id) {
       dispatch(
-        fetchEnvelopeTransactions({
+        fetchEnvelopeTransactionsAction({
           userId: user._id,
           envelope: id!!,
           limit: 1,

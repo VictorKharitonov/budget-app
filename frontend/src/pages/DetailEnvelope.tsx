@@ -1,44 +1,23 @@
-import React, { FC, useEffect, useState } from 'react';
-import {
-  Alert,
-  Box,
-  Button,
-  CircularProgress,
-  Container,
-  Grid,
-  Paper,
-  ToggleButton,
-  ToggleButtonGroup,
-  Typography
-} from '@mui/material';
-import { useParams } from 'react-router-dom';
+import React, { FC, useCallback, useEffect, useState } from 'react';
+import { Alert, Box, Button, CircularProgress, Container, Grid, Paper, Typography } from '@mui/material';
 import Transactions from '../components/transaction/Transactions';
 import DetailTransaction from '../components/detailTransaction/DetailTransaction';
-import { getTransactionById } from '../utils/transactionsHelper';
-import { TransactionsItem } from '../types/transactions';
-import { useTypedSelector } from '../hooks/useTypedSelector';
-import { useTypedDispatch } from '../hooks/useTypedDispatch';
+import { useTypedSelector, useTypedDispatch, useEnvelope } from '../hooks/index';
 import { useNavigate } from 'react-router-dom';
 import cl from './scss/DetailEnvelope.module.scss';
 import { EnvelopeItem } from '../types/envelopes';
 import Icons from '../components/ui/Icons';
-import { updateUserInfo } from '../store/asyncActions/updateUserInfoAction';
+import { updateUserInfoAction } from '../store/asyncActions';
 import { getCurrentEnvelope } from '../utils/envelopeHelper';
-import { clearTransactions } from '../store/reducers/transactionsSlice';
+import { clearTransactionsAction } from '../store/reducers/transactionsSlice';
+import EnvelopeStatusBar from '../components/envelope/envelopeStatusBar';
 
 const DetailEnvelope: FC = () => {
-  const params = useParams();
   const navigate = useNavigate();
   const dispatch = useTypedDispatch();
   const transactions = useTypedSelector(state => state.transactions);
   const { user, errorUpdate } = useTypedSelector(state => state.userInfo);
-  const [selectedTransactionId, setSelectedTransactionId] = useState<string>('');
-  const [selectedTransaction, setSelectedTransaction] = useState<TransactionsItem | undefined>();
-  const currentEnvelopeName = params.id as string;
-  const [currentEnvelope, setCurrentEnvelope] = useState<EnvelopeItem | undefined>(
-    getCurrentEnvelope(currentEnvelopeName, user.envelopes)
-  );
-  const [status, setStatus] = useState<string>('');
+  const { currentEnvelope, setCurrentEnvelope } = useEnvelope(user);
   const [updateEnvelopeLoading, setUpdateEnvelopeLoading] = useState<boolean>(false);
   const [deleteEnvelopeLoading, setDeleteEnvelopeLoading] = useState<boolean>(false);
 
@@ -46,64 +25,54 @@ const DetailEnvelope: FC = () => {
     setDeleteEnvelopeLoading(true);
     const envelopesAfterRemove = [...user.envelopes].filter(envelope => envelope.name !== currentEnvelope?.name);
     await dispatch(
-      updateUserInfo({
+      updateUserInfoAction({
         userId: user._id,
         envelopes: envelopesAfterRemove,
         categories: user.categories
       })
     );
-    dispatch(clearTransactions());
+    dispatch(clearTransactionsAction());
     setDeleteEnvelopeLoading(false);
   };
 
-  const updateEnvelopeStatus = async (status: string) => {
-    setUpdateEnvelopeLoading(true);
-    const updatedEnvelopes: EnvelopeItem[] = [...user.envelopes].map(envelope =>
-      envelope.name === currentEnvelopeName
-        ? ({
-            ...envelope,
-            status
-          } as EnvelopeItem)
-        : envelope
-    );
-    await dispatch(
-      updateUserInfo({
-        userId: user._id,
-        envelopes: updatedEnvelopes,
-        categories: user.categories
-      })
-    );
-    setUpdateEnvelopeLoading(false);
-  };
-
-  const handleChangeStatus = (event: React.MouseEvent<HTMLElement>, newStatus: string) => {
-    if (newStatus !== null) {
-      setStatus(newStatus);
-      updateEnvelopeStatus(newStatus);
-    }
-  };
+  const updateEnvelopeStatus = useCallback(
+    async (status: string) => {
+      setUpdateEnvelopeLoading(true);
+      const updatedEnvelopes: EnvelopeItem[] = user.envelopes.map(envelope =>
+        envelope.name === currentEnvelope?.name
+          ? ({
+              ...envelope,
+              status
+            } as EnvelopeItem)
+          : envelope
+      );
+      await dispatch(
+        updateUserInfoAction({
+          userId: user._id,
+          envelopes: updatedEnvelopes,
+          categories: user.categories
+        })
+      );
+      setUpdateEnvelopeLoading(false);
+    },
+    [currentEnvelope?.name, dispatch, user._id, user.categories, user.envelopes]
+  );
 
   useEffect(() => {
-    const changedEnvelope = getCurrentEnvelope(currentEnvelopeName, user.envelopes);
+    if (!currentEnvelope) {
+      return;
+    }
+
+    const changedEnvelope = getCurrentEnvelope(currentEnvelope.name, user.envelopes);
 
     if (!changedEnvelope) {
       navigate('/envelope');
     }
 
-    if (changedEnvelope?.status !== currentEnvelope?.status) {
+    if (changedEnvelope?.status !== currentEnvelope.status) {
       setCurrentEnvelope(changedEnvelope);
     }
-  }, [currentEnvelope?.status, currentEnvelopeName, navigate, user.envelopes]);
-
-  useEffect(() => {
-    if (currentEnvelope) {
-      setStatus(currentEnvelope.status);
-    }
-  }, [currentEnvelope]);
-
-  useEffect(() => {
-    setSelectedTransaction(getTransactionById(selectedTransactionId, transactions.transactions));
-  }, [selectedTransactionId, transactions]);
+  }, [currentEnvelope, navigate, setCurrentEnvelope, user.envelopes]);
 
   return (
     <Container>
@@ -113,26 +82,11 @@ const DetailEnvelope: FC = () => {
         </Alert>
       )}
       <Box>
-        <ToggleButtonGroup
-          disabled={updateEnvelopeLoading}
-          color="primary"
-          value={status}
-          exclusive
-          onChange={handleChangeStatus}
-          size="small"
-          className={cl.toggleGroup}
-          sx={{ mr: 1 }}
-        >
-          <ToggleButton value="open" color="success" className={cl.toggleGroup__btn}>
-            Open
-          </ToggleButton>
-          <ToggleButton value="closed" color="error" className={cl.toggleGroup__btn}>
-            Closed
-          </ToggleButton>
-          <ToggleButton value="frozen" color="info" className={cl.toggleGroup__btn}>
-            Frozen
-          </ToggleButton>
-        </ToggleButtonGroup>
+        <EnvelopeStatusBar
+          isLoading={updateEnvelopeLoading}
+          onChange={updateEnvelopeStatus}
+          currentEnvelope={currentEnvelope}
+        />
         <Button
           variant="outlined"
           startIcon={deleteEnvelopeLoading ? <CircularProgress color="primary" size={20} /> : <Icons.DeleteIcon />}
@@ -147,8 +101,6 @@ const DetailEnvelope: FC = () => {
             transactions={transactions}
             user={user}
             currentEnvelope={currentEnvelope}
-            selectedTransactionId={selectedTransactionId}
-            setSelectedTransactionId={setSelectedTransactionId}
             isPagination={true}
             isFilter={true}
             perPage={25}
@@ -156,9 +108,9 @@ const DetailEnvelope: FC = () => {
           />
         </Grid>
         <Grid item xs={12} md={4} lg={4}>
-          {selectedTransaction ? (
+          {transactions.selectedTransaction ? (
             <DetailTransaction
-              transaction={selectedTransaction}
+              transaction={transactions.selectedTransaction}
               envelopes={user.envelopes}
               categories={user.categories}
               currentEnvelope={currentEnvelope}
