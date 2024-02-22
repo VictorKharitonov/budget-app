@@ -9,8 +9,8 @@ import { EnvelopeItem } from '../types/envelopes';
 import Icons from '../components/ui/Icons';
 import { updateUserInfoAction } from '../store/asyncActions';
 import { getCurrentEnvelope } from '../utils/envelopeHelper';
-import { clearTransactionsAction } from '../store/reducers/transactionsSlice';
 import EnvelopeStatusBar from '../components/envelope/envelopeStatusBar';
+import { clearTransactionsAction } from '../store/reducers/transactionsSlice';
 
 const DetailEnvelope: FC = () => {
   const navigate = useNavigate();

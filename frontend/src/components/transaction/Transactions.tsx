@@ -4,11 +4,10 @@ import { TableContainer, Table, Paper } from '@mui/material';
 import { IFilter, TOderBy, TOrder, Transactions as TransactionType } from '../../types/transactions';
 import { EnvelopeItem } from '../../types/envelopes';
 import { User } from '../../types/user';
-import { clearTransactionsAction } from '../../store/reducers/transactionsSlice';
 import { useTypedSelector, useTypedDispatch, usePagination } from '../../hooks';
 import { columns, TransactionBody, TransactionHead, TransactionPagination, TransactionsToolBar } from './index';
 import { envelopeInfoAction } from '../../store/asyncActions';
-import { fetchEnvelopeTransactionsAction } from '../../store/asyncActions/transaction';
+import { fetchEnvelopeTransactionsAction, clearTransactionsAction } from '../../store/asyncActions/transaction';
 
 interface TransactionsProps {
   transactions: TransactionType;
