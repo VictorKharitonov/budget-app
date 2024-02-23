@@ -1,56 +1,37 @@
-import React, { FC, useEffect, useState } from 'react';
-import { Alert, Box, Button, Divider, Grid, Typography } from '@mui/material';
+import React, { FC, useState } from 'react';
+import { Box, Button, Divider, Grid, Typography } from '@mui/material';
 import Icons from '../ui/Icons';
 import cl from './scss/DetailTransactions.module.scss';
 import { EnvelopeItem } from '../../types/envelopes';
 import DetailTransactionForm from './DetailTransactionForm';
-import { SubmitHandler, useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { detailScheme } from '../../validations/detailValidation';
 import { deleteTransactionAction, updateTransactionAction } from '../../store/asyncActions/transaction';
 import { TransactionsItem } from '../../types/transactions';
-import { useTypedSelector, useTypedDispatch } from '../../hooks/index';
+import { useTypedDispatch } from '../../hooks/index';
 import { Link, useLocation } from 'react-router-dom';
 
-interface DetailProps {
+interface DetailTransactionProps {
   transaction: TransactionsItem | undefined;
   envelopes: EnvelopeItem[];
   categories: string[];
   currentEnvelope: EnvelopeItem | undefined;
 }
 
-const DetailTransaction: FC<DetailProps> = ({ transaction, envelopes, categories, currentEnvelope }) => {
+const DetailTransaction: FC<DetailTransactionProps> = ({ transaction, envelopes, categories, currentEnvelope }) => {
   const { pathname } = useLocation();
   const [isEditable, setIsEditable] = useState<boolean>(true);
   const dispatch = useTypedDispatch();
-  const { isLoadingDelete, deleteError, isLoadingUpdate, updateError } = useTypedSelector(state => state.transactions);
-
-  const detailForm = useForm<TransactionsItem>({
-    defaultValues: transaction,
-    resolver: yupResolver(detailScheme),
-    mode: 'onChange'
-  });
-
-  const {
-    reset,
-    formState: { isValid }
-  } = detailForm;
+  const [isValidTransaction, setIsValidTransaction] = useState(true);
 
   const handleEditClick = () => {
     setIsEditable(!isEditable);
   };
 
-  useEffect(() => {
-    reset(transaction);
-  }, [transaction, isEditable, reset]);
-
-  const updateTransaction: SubmitHandler<TransactionsItem> = async (data: TransactionsItem) => {
-    data = { ...data, date: data.date.valueOf() };
+  const updateTransaction = async (data: TransactionsItem) => {
     await dispatch(updateTransactionAction(data));
     setIsEditable(true);
   };
 
-  const deleteTransaction: SubmitHandler<TransactionsItem> = (data: TransactionsItem) => {
+  const deleteTransaction = (data: TransactionsItem) => {
     dispatch(
       deleteTransactionAction({
         userId: data.userId,
@@ -60,7 +41,11 @@ const DetailTransaction: FC<DetailProps> = ({ transaction, envelopes, categories
   };
 
   return (
-    <Box className={!isEditable ? [cl.detailTransaction, isValid ? cl.isValid : cl.isInvalid] : cl.detailTransaction}>
+    <Box
+      className={
+        !isEditable ? [cl.detailTransaction, isValidTransaction ? cl.isValid : cl.isInvalid] : cl.detailTransaction
+      }
+    >
       <Grid container className={cl.detailHeader}>
         <Grid item>
           <Typography variant="body1">Detail</Typography>
@@ -83,25 +68,14 @@ const DetailTransaction: FC<DetailProps> = ({ transaction, envelopes, categories
         </Grid>
       </Grid>
       <Divider sx={{ mb: 2 }} />
-      {deleteError && (
-        <Alert severity="error" sx={{ mb: 2 }}>
-          {deleteError}
-        </Alert>
-      )}
-      {updateError && (
-        <Alert severity="error" sx={{ mb: 2 }}>
-          {updateError}
-        </Alert>
-      )}
       <DetailTransactionForm
-        detailForm={detailForm}
-        updateTransaction={updateTransaction}
-        deleteTransaction={deleteTransaction}
+        transaction={transaction}
+        onUpdate={updateTransaction}
+        onDelete={deleteTransaction}
+        setIsValidTransaction={setIsValidTransaction}
         isEditable={isEditable}
         envelopes={envelopes}
         categories={categories}
-        isLoadingDelete={isLoadingDelete}
-        isLoadingUpdate={isLoadingUpdate}
       />
       {isEditable && (
         <Button
