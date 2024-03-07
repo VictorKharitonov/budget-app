@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, memo } from 'react';
 import { MenuItem, TextField, TextFieldProps } from '@mui/material';
 import { Controller, FieldError, Merge } from 'react-hook-form';
 
@@ -57,4 +57,4 @@ const Select: FC<SelectProps> = ({ name, control, multiple = false, errors, opti
   );
 };
 
-export default Select;
+export default memo(Select);

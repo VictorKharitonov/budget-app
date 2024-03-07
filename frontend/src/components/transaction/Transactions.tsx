@@ -8,6 +8,7 @@ import { useTypedSelector, useTypedDispatch, usePagination } from '../../hooks';
 import { columns, TransactionBody, TransactionHead, TransactionPagination, TransactionsToolBar } from './index';
 import { envelopeInfoAction } from '../../store/asyncActions';
 import { fetchEnvelopeTransactionsAction, clearTransactionsAction } from '../../store/asyncActions/transaction';
+import { useParams } from 'react-router-dom';
 
 interface TransactionsProps {
   transactions: TransactionType;
@@ -29,7 +30,7 @@ const Transactions: FC<TransactionsProps> = ({
   currentEnvelope
 }) => {
   const dispatch = useTypedDispatch();
-  const { envelopeInfo } = useTypedSelector(state => state.envelopeInfo);
+  const { envelopeInfo, isLoading: paginationLoading } = useTypedSelector(state => state.envelopeInfo);
   const { page, rowsPerPage, isLastPage, handleChangeRowsPerPage, handleChangePage, count } = usePagination(
     perPage,
     envelopeInfo?.documentsCount || 0
@@ -39,34 +40,49 @@ const Transactions: FC<TransactionsProps> = ({
   const [filterParams, setFilterParams] = useState<IFilter[] | null>(null);
   const { isLoading, isDeleteSuccess, isCreateSuccess } = transactions;
   const rowsPerPageOptionsRef = useRef<number[]>(rowsPerPageOptions);
+  const params = useParams<string>();
 
   useEffect(() => {
-    dispatch(clearTransactionsAction());
-
-    if (isPagination && currentEnvelope) {
-      dispatch(
-        envelopeInfoAction({
-          userId: user._id,
-          envelopeName: currentEnvelope.name
-        })
-      );
+    if (!isPagination || !currentEnvelope) {
+      return;
     }
 
-    if (currentEnvelope) {
-      dispatch(
-        fetchEnvelopeTransactionsAction({
-          userId: user._id,
-          envelope: currentEnvelope.name,
-          limit: rowsPerPage,
-          offset: page * rowsPerPage,
-          sort: {
-            field: orderBy,
-            value: order
-          },
-          filter: filterParams
-        })
-      );
+    const fetchEnvelopeInfo = dispatch(
+      envelopeInfoAction({
+        userId: user._id,
+        envelopeName: currentEnvelope.name
+      })
+    );
+
+    return () => {
+      fetchEnvelopeInfo.abort();
+    };
+  }, [dispatch, isPagination, currentEnvelope, user._id]);
+
+  useEffect(() => {
+    dispatch(clearTransactionsAction(user.envelopes.length));
+
+    if (!currentEnvelope || !params.id) {
+      return;
     }
+
+    const fetchEnvelopeTransactions = dispatch(
+      fetchEnvelopeTransactionsAction({
+        userId: user._id,
+        envelope: currentEnvelope.name || params.id,
+        limit: rowsPerPage,
+        offset: page * rowsPerPage,
+        sort: {
+          field: orderBy,
+          value: order
+        },
+        filter: filterParams
+      })
+    );
+
+    return () => {
+      fetchEnvelopeTransactions.abort();
+    };
     // eslint-disable-next-line
   }, [
     page,
@@ -100,7 +116,7 @@ const Transactions: FC<TransactionsProps> = ({
           <TransactionBody transactions={transactions} columns={columns} />
         </Table>
       </TableContainer>
-      {isPagination && (
+      {isPagination && !paginationLoading && (
         <TransactionPagination
           page={page}
           rowsPerPageOptions={rowsPerPageOptionsRef.current}

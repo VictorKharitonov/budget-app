@@ -9,9 +9,9 @@ interface Body {
 
 export const envelopeInfoAction = createAsyncThunk<EnvelopesInfo, Body, { rejectValue: string }>(
   'envelopeInfo',
-  async ({ userId, envelopeName }, { rejectWithValue }) => {
+  async ({ userId, envelopeName }, { rejectWithValue, signal }) => {
     try {
-      return await getEnvelopeInfo(userId, envelopeName);
+      return await getEnvelopeInfo(userId, envelopeName, signal);
     } catch (error) {
       return rejectWithValue(error.message);
     }

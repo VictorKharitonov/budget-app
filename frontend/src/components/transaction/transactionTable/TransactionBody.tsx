@@ -24,7 +24,7 @@ const tableSkeletonRow = Array.from({ length: 10 }, (_, i) => {
 
 const TransactionBody: FC<TransactionBodyProps> = ({ transactions, columns }) => {
   const dispatch = useTypedDispatch();
-  const { transactions: content, isSuccess, isLoading, error, selectedTransaction } = transactions;
+  const { transactions: content, isLoading, error, selectedTransaction } = transactions;
 
   const isSelectedTransaction = (id: string): boolean => (selectedTransaction ? selectedTransaction._id === id : false);
 
@@ -39,36 +39,36 @@ const TransactionBody: FC<TransactionBodyProps> = ({ transactions, columns }) =>
     return <TableBody>{tableSkeletonRow}</TableBody>;
   }
 
-  if (isSuccess) {
+  if (error) {
     return (
       <TableBody>
-        {content.length > 0 ? (
-          content.map(transaction => {
-            const isSelected: boolean = isSelectedTransaction(transaction._id);
-            return (
-              <TransactionRow
-                key={transaction._id}
-                onClick={selectTransaction}
-                transaction={transaction}
-                isSelected={isSelected}
-                columns={columns}
-              />
-            );
-          })
-        ) : (
-          <TableRow>
-            <TableCell>Transactions is empty</TableCell>
-          </TableRow>
-        )}
+        <TableRow>
+          <TableCell>{error}</TableCell>
+        </TableRow>
       </TableBody>
     );
   }
 
   return (
     <TableBody>
-      <TableRow>
-        <TableCell>{error}</TableCell>
-      </TableRow>
+      {content.length > 0 ? (
+        content.map(transaction => {
+          const isSelected: boolean = isSelectedTransaction(transaction._id);
+          return (
+            <TransactionRow
+              key={transaction._id}
+              onClick={selectTransaction}
+              transaction={transaction}
+              isSelected={isSelected}
+              columns={columns}
+            />
+          );
+        })
+      ) : (
+        <TableRow>
+          <TableCell>Transactions is empty</TableCell>
+        </TableRow>
+      )}
     </TableBody>
   );
 };

@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Transactions } from '../../types/transactions';
 import {
   fetchEnvelopeTransactionsAction,
@@ -32,11 +32,11 @@ export const transactionsSlice = createSlice({
     selectTransactionAction(state, action) {
       state.selectedTransaction = getTransactionById(action.payload, state.transactions);
     },
-    clearTransactionsAction(state) {
+    clearTransactionsAction(state, action: PayloadAction<number>) {
       state.transactions = [];
       state.isSuccess = false;
       state.selectedTransaction = undefined;
-      state.isLoading = true;
+      state.isLoading = action.payload > 0;
     }
   },
   extraReducers: builder => {
@@ -52,8 +52,12 @@ export const transactionsSlice = createSlice({
       state.transactions = action.payload;
     });
     builder.addCase(fetchEnvelopeTransactionsAction.rejected, (state, action) => {
-      state.isLoading = false;
-      state.error = action.payload || 'Something went wrong, try it`s later';
+      if (action.payload) {
+        state.error = action.payload;
+        state.isLoading = false;
+      } else {
+        state.error = action.error.message || 'Something went wrong, try it`s later';
+      }
     });
     builder.addCase(createTransactionAction.pending, state => {
       state.isLoadingCreate = true;

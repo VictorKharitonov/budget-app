@@ -4,7 +4,7 @@ import { getEnvelopeTransactions } from '../../../Api/budgetApi';
 
 export interface fetchTransactionsBody {
   userId: string;
-  envelope: string;
+  envelope: string | undefined;
   limit: number;
   offset: number;
   sort?: IFilter;
@@ -17,9 +17,9 @@ export const fetchEnvelopeTransactionsAction = createAsyncThunk<
   { rejectValue: string }
 >(
   'transactions/fetchEnvelopeTransactions',
-  async ({ userId, envelope, limit, offset, sort, filter }, { rejectWithValue }) => {
+  async ({ userId, envelope, limit, offset, sort, filter }, { rejectWithValue, signal }) => {
     try {
-      return await getEnvelopeTransactions({ userId, envelope, limit, offset, sort, filter });
+      return await getEnvelopeTransactions({ userId, envelope, limit, offset, sort, filter }, signal);
     } catch (error) {
       return rejectWithValue(error.message);
     }

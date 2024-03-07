@@ -11,10 +11,9 @@ import { useRoutePath, useTypedDispatch, useFilter } from '../../hooks/index';
 
 interface EnvelopeSidebarProps {
   user: User;
-  isTransactionsLoading: boolean;
 }
 
-const EnvelopeSidebar: FC<EnvelopeSidebarProps> = ({ user, isTransactionsLoading }) => {
+const EnvelopeSidebar: FC<EnvelopeSidebarProps> = ({ user }) => {
   const [selectedEnvelopeName, setSelectedEnvelopeName] = useState<string>('');
   const [searchEnvelope, setSearchEnvelope] = useState<string>('');
   const [envelopeModal, setEnvelopeModal] = useState<boolean>(false);
@@ -48,10 +47,8 @@ const EnvelopeSidebar: FC<EnvelopeSidebarProps> = ({ user, isTransactionsLoading
   }, [currentEnvelopeName, user.envelopes, navigate]);
 
   const setCurrentEnvelope = (e: React.MouseEvent<HTMLLIElement, MouseEvent>, envelopeId: string) => {
-    if (!isTransactionsLoading) {
-      setSelectedEnvelopeName(envelopeId);
-      navigate(`/envelope/${envelopeId}`);
-    }
+    setSelectedEnvelopeName(envelopeId);
+    navigate(`/envelope/${envelopeId}`);
   };
 
   const searchEnvelopeHandleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -71,7 +68,6 @@ const EnvelopeSidebar: FC<EnvelopeSidebarProps> = ({ user, isTransactionsLoading
         envelopes={envelopesByName}
         selectedEnvelopeName={selectedEnvelopeName}
         setCurrentEnvelope={setCurrentEnvelope}
-        isTransactionsLoading={isTransactionsLoading}
       />
       <CustomModal title="Envelope" modal={envelopeModal} setModal={setEnvelopeModal}>
         <EnvelopeForm onSubmit={createEnvelope} envelopes={user.envelopes} />

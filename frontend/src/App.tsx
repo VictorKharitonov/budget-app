@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import './App.scss';
-import { theme, CssVarsProvider } from './theme';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 import AppRouter from './components/appRouter/AppRouter';
-import NavBar from './components/navBar/NavBar';
 import { Provider } from 'react-redux';
 import { store } from './store';
 import { AuthContext } from './context';
@@ -19,12 +17,9 @@ function App() {
           setIsAuth
         }}
       >
-        <Router>
-          <CssVarsProvider theme={theme}>
-            <NavBar />
-            <AppRouter />
-          </CssVarsProvider>
-        </Router>
+        <BrowserRouter>
+          <AppRouter />
+        </BrowserRouter>
       </AuthContext.Provider>
     </Provider>
   );

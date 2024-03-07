@@ -1,11 +1,12 @@
-import React, { FC, useContext, useEffect } from 'react';
+import React, { FC, useContext, useEffect, Suspense } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import cl from './AppRouter.module.scss';
 import { privateRoutes, publicRoutes } from '../../router';
-import { Box, CircularProgress, Container } from '@mui/material';
+import { CircularProgress, Container } from '@mui/material';
 import { fetchUserByChatIdAction } from '../../store/asyncActions';
 import { AuthContext, IAuthContext } from '../../context';
 import { useTypedSelector, useTypedDispatch } from '../../hooks/index';
+import Layout from '../layout/Layout';
 
 const AppRouter: FC = () => {
   const dispatch = useTypedDispatch();
@@ -20,34 +21,36 @@ const AppRouter: FC = () => {
 
   if (isLoading) {
     return (
-      <Box component="main">
-        <Container>
-          <div className={cl.loader}>
-            <CircularProgress color="primary" />
-          </div>
-        </Container>
-      </Box>
+      <Container>
+        <div className={cl.loader}>
+          <CircularProgress color="primary" />
+        </div>
+      </Container>
     );
   }
 
   if (isAuth && error) {
     return (
-      <Box component="main">
-        <Container>
-          <div>{error}</div>
-        </Container>
-      </Box>
+      <Container>
+        <div>{error}</div>
+      </Container>
     );
   }
 
   return (
-    <Box component="main">
-      <Routes>
+    <Routes>
+      <Route path="/" element={<Layout />}>
         {isAuth
-          ? privateRoutes.map(route => <Route path={route.path} element={route.element} key={route.path} />)
+          ? privateRoutes.map(route => (
+              <Route
+                path={route.path}
+                element={<Suspense fallback={<CircularProgress color="primary" />}>{route.element}</Suspense>}
+                key={route.path}
+              />
+            ))
           : publicRoutes.map(route => <Route path={route.path} element={route.element} key={route.path} />)}
-      </Routes>
-    </Box>
+      </Route>
+    </Routes>
   );
 };
 

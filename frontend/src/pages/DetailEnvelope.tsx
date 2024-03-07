@@ -31,7 +31,7 @@ const DetailEnvelope: FC = () => {
         categories: user.categories
       })
     );
-    dispatch(clearTransactionsAction());
+    dispatch(clearTransactionsAction(user.envelopes.length));
     setDeleteEnvelopeLoading(false);
   };
 

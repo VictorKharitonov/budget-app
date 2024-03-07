@@ -1,13 +1,6 @@
-import { EnvelopesInfo } from '../../types/envelopes';
+import { IEnvelopeInfo } from '../../types/envelopes';
 import { createSlice } from '@reduxjs/toolkit';
 import { envelopeInfoAction } from '../asyncActions';
-
-interface IEnvelopeInfo {
-  envelopeInfo: EnvelopesInfo | null;
-  isLoading: boolean;
-  isSuccess: boolean;
-  error: string | null;
-}
 
 const initialState: IEnvelopeInfo = {
   envelopeInfo: null,
@@ -33,8 +26,12 @@ export const envelopeInfoSlice = createSlice({
       state.error = null;
     });
     builder.addCase(envelopeInfoAction.rejected, (state, action) => {
-      state.isLoading = false;
-      state.error = action.payload || 'Something went wrong, try it`s later';
+      if (action.payload) {
+        state.error = action.payload;
+        state.isLoading = false;
+      } else {
+        state.error = action.error.message || 'Something went wrong, try it`s later';
+      }
     });
   }
 });

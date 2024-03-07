@@ -13,9 +13,9 @@ const Main: FC = () => {
 
   return (
     <Container>
-      <Grid container className={cl.mainContent} columnSpacing={2} rowSpacing={2} mt={2}>
+      <Grid container className={cl.mainContent} columnSpacing={2} rowSpacing={2} mt={2} mb={4}>
         <Grid item xs={12} sm={6} md={6} lg={3} order={{ sm: 1, lg: 1 }}>
-          <EnvelopeSidebar user={user} isTransactionsLoading={transactions.isLoading} />
+          <EnvelopeSidebar user={user} />
         </Grid>
         <Grid item xs={12} md={12} lg={6} order={{ sm: 3, lg: 2 }}>
           <Transactions transactions={transactions} user={user} currentEnvelope={currentEnvelope} />

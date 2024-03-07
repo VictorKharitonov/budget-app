@@ -1,11 +1,6 @@
 import * as React from 'react';
 import { Navigate } from 'react-router-dom';
-
-import Main from '../pages/Main';
-import DetailEnvelope from '../pages/DetailEnvelope';
-import Login from '../pages/Login';
-import TransactionShare from '../pages/TransactionShare';
-import NotFound from '../pages/NotFound';
+import { Main, DetailEnvelope, Login, TransactionShare, NotFound } from '../pages';
 
 interface Routes {
   path: string;
