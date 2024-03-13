@@ -5,5 +5,15 @@ import useRoutePath from './useRoutePath';
 import useTypedDispatch from './useTypedDispatch';
 import useTypedSelector from './useTypedSelector';
 import useNavMenu from './useNavMenu';
+import useScroll from './useScroll';
 
-export { useEnvelope, useFilter, usePagination, useRoutePath, useNavMenu, useTypedDispatch, useTypedSelector };
+export {
+  useEnvelope,
+  useFilter,
+  usePagination,
+  useRoutePath,
+  useNavMenu,
+  useTypedDispatch,
+  useTypedSelector,
+  useScroll
+};

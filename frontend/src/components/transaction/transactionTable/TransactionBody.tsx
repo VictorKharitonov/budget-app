@@ -8,6 +8,7 @@ import { TransactionRow } from '../index';
 interface TransactionBodyProps {
   transactions: Transactions;
   columns: readonly Column[];
+  scrollTo?: () => void;
 }
 
 const tableSkeletonCell = Array.from({ length: 6 }, (_, i) => {
@@ -22,7 +23,7 @@ const tableSkeletonRow = Array.from({ length: 10 }, (_, i) => {
   return <TableRow key={i}>{tableSkeletonCell}</TableRow>;
 });
 
-const TransactionBody: FC<TransactionBodyProps> = ({ transactions, columns }) => {
+const TransactionBody: FC<TransactionBodyProps> = ({ transactions, columns, scrollTo }) => {
   const dispatch = useTypedDispatch();
   const { transactions: content, isLoading, error, selectedTransaction } = transactions;
 
@@ -31,8 +32,11 @@ const TransactionBody: FC<TransactionBodyProps> = ({ transactions, columns }) =>
   const selectTransaction = useCallback(
     (id: string) => {
       dispatch(selectTransactionAction(id));
+      if (scrollTo) {
+        scrollTo();
+      }
     },
-    [dispatch]
+    [dispatch, scrollTo]
   );
 
   if (isLoading) {

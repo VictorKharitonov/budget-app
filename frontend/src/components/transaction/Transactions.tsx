@@ -18,6 +18,7 @@ interface TransactionsProps {
   isFilter?: boolean;
   rowsPerPageOptions?: number[];
   perPage?: number;
+  scrollTo?: () => void;
 }
 
 const Transactions: FC<TransactionsProps> = ({
@@ -27,7 +28,8 @@ const Transactions: FC<TransactionsProps> = ({
   isFilter = false,
   rowsPerPageOptions = [],
   perPage = 10,
-  currentEnvelope
+  currentEnvelope,
+  scrollTo
 }) => {
   const dispatch = useTypedDispatch();
   const { envelopeInfo, isLoading: paginationLoading } = useTypedSelector(state => state.envelopeInfo);
@@ -113,7 +115,7 @@ const Transactions: FC<TransactionsProps> = ({
             setOrderBy={setOrderBy}
             setOrder={setOrder}
           />
-          <TransactionBody transactions={transactions} columns={columns} />
+          <TransactionBody transactions={transactions} columns={columns} scrollTo={scrollTo} />
         </Table>
       </TableContainer>
       {isPagination && !paginationLoading && (

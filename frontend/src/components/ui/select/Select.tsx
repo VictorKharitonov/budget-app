@@ -49,8 +49,8 @@ const Select: FC<SelectProps> = ({ name, control, multiple = false, errors, opti
       {...props}
     >
       {options.map(option => (
-        <MenuItem key={name} value={name}>
-          {name}
+        <MenuItem key={option} value={option}>
+          {option}
         </MenuItem>
       ))}
     </TextField>

@@ -1,8 +1,8 @@
-import React, { FC, useCallback, useEffect, useState } from 'react';
-import { Alert, Box, Button, CircularProgress, Container, Grid, Paper, Typography } from '@mui/material';
+import React, { FC, useCallback, useEffect, useRef, useState } from 'react';
+import { Alert, Box, Button, CircularProgress, Container, Grid } from '@mui/material';
 import Transactions from '../components/transaction/Transactions';
 import DetailTransaction from '../components/detailTransaction/DetailTransaction';
-import { useTypedSelector, useTypedDispatch, useEnvelope } from '../hooks/index';
+import { useTypedSelector, useTypedDispatch, useEnvelope, useScroll } from '../hooks/index';
 import { useNavigate } from 'react-router-dom';
 import cl from './scss/DetailEnvelope.module.scss';
 import { EnvelopeItem } from '../types/envelopes';
@@ -20,10 +20,12 @@ const DetailEnvelope: FC = () => {
   const { currentEnvelope, setCurrentEnvelope } = useEnvelope(user);
   const [updateEnvelopeLoading, setUpdateEnvelopeLoading] = useState<boolean>(false);
   const [deleteEnvelopeLoading, setDeleteEnvelopeLoading] = useState<boolean>(false);
+  const detailTransactionRef = useRef<HTMLDivElement>(null);
+  const scrollToDetail = useScroll(detailTransactionRef);
 
   const removeEnvelope = async () => {
     setDeleteEnvelopeLoading(true);
-    const envelopesAfterRemove = [...user.envelopes].filter(envelope => envelope.name !== currentEnvelope?.name);
+    const envelopesAfterRemove = user.envelopes.filter(envelope => envelope.name !== currentEnvelope?.name);
     await dispatch(
       updateUserInfoAction({
         userId: user._id,
@@ -105,23 +107,17 @@ const DetailEnvelope: FC = () => {
             isFilter={true}
             perPage={25}
             rowsPerPageOptions={[25, 50, 100]}
+            scrollTo={scrollToDetail}
           />
         </Grid>
         <Grid item xs={12} md={4} lg={4}>
-          {transactions.selectedTransaction ? (
-            <DetailTransaction
-              transaction={transactions.selectedTransaction}
-              envelopes={user.envelopes}
-              categories={user.categories}
-              currentEnvelope={currentEnvelope}
-            />
-          ) : (
-            <Paper>
-              <Typography variant="body1" className={cl.detailTransactionEmpty}>
-                Select transaction from table to view details
-              </Typography>
-            </Paper>
-          )}
+          <DetailTransaction
+            transaction={transactions.selectedTransaction}
+            envelopes={user.envelopes}
+            categories={user.categories}
+            currentEnvelope={currentEnvelope}
+            ref={detailTransactionRef}
+          />
         </Grid>
       </Grid>
     </Container>
