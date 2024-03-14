@@ -1,4 +1,4 @@
-import React, { FC, useContext, useEffect } from 'react';
+import React, { FC, useContext, useLayoutEffect } from 'react';
 import { Box, Button, Container, Grid, Typography } from '@mui/material';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -16,20 +16,16 @@ const Login: FC = () => {
   const { setIsAuth } = useContext<IAuthContext>(AuthContext);
   const { user, error } = useTypedSelector(state => state.userInfo);
 
-  let defaultValue: ILogin = {
-    chatId: ''
-  };
-
   const {
     handleSubmit,
     control,
     formState: { errors }
   } = useForm<ILogin>({
-    defaultValues: defaultValue,
+    defaultValues: { chatId: '' },
     resolver: yupResolver(loginScheme)
   });
 
-  const fetchUser: SubmitHandler<ILogin> = async (data: ILogin) => {
+  const fetchUser: SubmitHandler<ILogin> = (data: ILogin) => {
     const { chatId } = data;
 
     if (typeof chatId === 'number') {
@@ -37,9 +33,9 @@ const Login: FC = () => {
     }
   };
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (user.chatId) {
-      localStorage.setItem('chatId', String(user.chatId));
+      localStorage.setItem('chatId', JSON.stringify(user.chatId));
       setIsAuth(true);
     }
   }, [setIsAuth, user.chatId]);
