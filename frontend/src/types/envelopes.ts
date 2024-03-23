@@ -12,3 +12,10 @@ export interface EnvelopesInfo {
   };
   documentsCount: number;
 }
+
+export interface IEnvelopeInfo {
+  envelopeInfo: EnvelopesInfo | null;
+  isLoading: boolean;
+  isSuccess: boolean;
+  error: string | null;
+}

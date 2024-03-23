@@ -5,4 +5,7 @@ export interface IAuthContext {
   setIsAuth: (val: boolean) => void;
 }
 
-export const AuthContext = createContext<IAuthContext | null>(null);
+export const AuthContext = createContext<IAuthContext>({
+  isAuth: false,
+  setIsAuth: () => {}
+});

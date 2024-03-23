@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, memo } from 'react';
 import { Breadcrumbs, BreadcrumbsProps, Typography } from '@mui/material';
 import { LinkRouter } from './LinkRouter';
 
@@ -29,4 +29,4 @@ const CustomBreadCrumbs: FC<CustomBreadCrumbs> = ({ pathNames, ...props }) => {
   );
 };
 
-export default CustomBreadCrumbs;
+export default memo(CustomBreadCrumbs);

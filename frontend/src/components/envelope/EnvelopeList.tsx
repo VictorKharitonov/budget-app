@@ -10,17 +10,11 @@ interface EnvelopesListProps {
   envelopes: EnvelopeItem[];
   selectedEnvelopeName: string;
   setCurrentEnvelope: (e: React.MouseEvent<HTMLLIElement, MouseEvent>, envelopeId: string) => void;
-  isTransactionsLoading: boolean;
 }
 type Color = 'success' | 'warning' | 'primary' | 'default' | 'secondary' | 'error' | 'info';
 type ColorStatus = Record<EnvelopeItem['status'], Color>;
 
-const EnvelopeList: FC<EnvelopesListProps> = ({
-  envelopes,
-  selectedEnvelopeName,
-  setCurrentEnvelope,
-  isTransactionsLoading
-}) => {
+const EnvelopeList: FC<EnvelopesListProps> = ({ envelopes, selectedEnvelopeName, setCurrentEnvelope }) => {
   const colorStatus: ColorStatus = {
     open: 'success',
     closed: 'error',
@@ -32,11 +26,9 @@ const EnvelopeList: FC<EnvelopesListProps> = ({
       {envelopes.length > 0 ? (
         envelopes.map(envelope => (
           <ListItem
-            disabled={isTransactionsLoading}
             secondaryAction={
               <IconButton
                 onClick={e => e.stopPropagation()}
-                disabled={isTransactionsLoading}
                 edge="end"
                 aria-label="envelope-modal"
                 color="primary"

@@ -1,30 +1,25 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { TransactionsItem } from '../../../types/transactions';
+import { IFilter, TransactionsItem } from '../../../types/transactions';
 import { getEnvelopeTransactions } from '../../../Api/budgetApi';
-
-export interface Filter {
-  field: string;
-  value: string | number | string[] | null;
-}
 
 export interface fetchTransactionsBody {
   userId: string;
-  envelope: string;
+  envelope: string | undefined;
   limit: number;
   offset: number;
-  sort?: Filter;
-  filter?: Filter[] | null;
+  sort?: IFilter;
+  filter?: IFilter[] | null;
 }
 
-export const fetchEnvelopeTransactions = createAsyncThunk<
+export const fetchEnvelopeTransactionsAction = createAsyncThunk<
   TransactionsItem[],
   fetchTransactionsBody,
   { rejectValue: string }
 >(
   'transactions/fetchEnvelopeTransactions',
-  async ({ userId, envelope, limit, offset, sort, filter }, { rejectWithValue }) => {
+  async ({ userId, envelope, limit, offset, sort, filter }, { rejectWithValue, signal }) => {
     try {
-      return await getEnvelopeTransactions({ userId, envelope, limit, offset, sort, filter });
+      return await getEnvelopeTransactions({ userId, envelope, limit, offset, sort, filter }, signal);
     } catch (error) {
       return rejectWithValue(error.message);
     }

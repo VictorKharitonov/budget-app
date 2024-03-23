@@ -1,29 +1,59 @@
-import React, { FC } from 'react';
+import React, { FC, memo, useEffect } from 'react';
 import { Box, Button, CircularProgress, Typography } from '@mui/material';
 import { EnvelopeItem } from '../../types/envelopes';
-import { SubmitHandler, UseFormReturn } from 'react-hook-form';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import Select from '../ui/select/Select';
 import Input from '../ui/input/Input';
 import { TransactionsItem } from '../../types/transactions';
 import { currency, paymentTypes } from '../../constants';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { transactionScheme } from '../../validations/transactionValidation';
 
 interface TransactionFormProps {
-  transactionForm: UseFormReturn<TransactionsItem, any>;
+  userId: string;
   envelopes: EnvelopeItem[];
-  createTransaction: SubmitHandler<TransactionsItem>;
+  onSubmit: (data: TransactionsItem) => void;
   isLoading: boolean;
 }
 
-const TransactionForm: FC<TransactionFormProps> = ({ transactionForm, envelopes, createTransaction, isLoading }) => {
+const TransactionForm: FC<TransactionFormProps> = ({ userId, envelopes, onSubmit, isLoading }) => {
+  const envelopesArr = envelopes.map(envelope => envelope.name);
+
+  const defaultTransaction: Omit<TransactionsItem, '_id'> = {
+    userId: '',
+    categories: [],
+    amount: 0,
+    currency: '',
+    description: '',
+    date: Date.now(),
+    type: 'income',
+    envelopes: []
+  };
+
   const {
     handleSubmit,
     control,
-    formState: { errors }
-  } = transactionForm;
-  const envelopesArr = envelopes.map(envelope => envelope.name);
+    formState: { errors },
+    reset
+  } = useForm<TransactionsItem>({
+    defaultValues: defaultTransaction,
+    resolver: yupResolver(transactionScheme)
+  });
+
+  const handleSubmitForm: SubmitHandler<TransactionsItem> = async (data: TransactionsItem) => {
+    data = { ...data, userId: userId };
+    onSubmit(data);
+    reset();
+  };
+
+  useEffect(() => {
+    return () => {
+      reset();
+    };
+  }, [reset]);
 
   return (
-    <Box component="form" onSubmit={handleSubmit(createTransaction)}>
+    <Box component="form" onSubmit={handleSubmit(handleSubmitForm)}>
       <Select name="currency" label="Currency" control={control} errors={errors.currency} options={currency} />
       <Select
         name="envelopes"
@@ -58,4 +88,4 @@ const TransactionForm: FC<TransactionFormProps> = ({ transactionForm, envelopes,
   );
 };
 
-export default TransactionForm;
+export default memo(TransactionForm);

@@ -24,17 +24,18 @@ export const getUserInfoByChatId = async (chatId: number) => {
   return response.data;
 };
 
-export const getEnvelopeTransactions = async (body: fetchTransactionsBody) => {
+export const getEnvelopeTransactions = async (body: fetchTransactionsBody, signal: AbortSignal) => {
   let response = await budgetApi.post<TransactionsItem[]>('/uuE9s772t3', body, {
     params: {
       key: 'f045954a-c4ee-49d4-8e0c-b230f3592816'
-    }
+    },
+    signal
   });
 
   return response.data;
 };
 
-export const getEnvelopeInfo = async (userId: string, envelope: string) => {
+export const getEnvelopeInfo = async (userId: string, envelope: string, signal: AbortSignal) => {
   let response = await budgetApi.post<EnvelopesInfo>(
     '/XTZvcfmtIR',
     {
@@ -44,7 +45,8 @@ export const getEnvelopeInfo = async (userId: string, envelope: string) => {
     {
       params: {
         key: 'dfaf5c12-0d49-4920-926e-633669802168'
-      }
+      },
+      signal
     }
   );
 

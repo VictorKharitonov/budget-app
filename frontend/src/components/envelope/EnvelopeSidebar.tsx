@@ -1,79 +1,54 @@
 import React, { useState, FC, useEffect, memo } from 'react';
+import cl from './scss/Envelope.module.scss';
 import { Divider, Box } from '@mui/material';
 import { EnvelopeItem } from '../../types/envelopes';
-import EnvelopeList from './EnvelopeList';
-import useFilter from '../../hooks/useFilter';
-import ToolBar from '../toolBar/ToolBar';
+import { User } from '../../types/user';
+import { EnvelopeList, EnvelopeToolBar, EnvelopeForm } from './index';
 import CustomModal from '../ui/modal/CustomModal';
-import EnvelopeForm from './EnvelopeForm';
-import { useNavigate, useLocation } from 'react-router-dom';
-import { getPathNames } from '../../utils/stringHelper';
-import { SubmitHandler, useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { envelopeScheme } from '../../validations/envelopeValidation';
-import { UserInfo } from '../../types/user';
-import { useTypedDispatch } from '../../hooks/useTypedDispatch';
-import { updateUserInfo } from '../../store/asyncActions/updateUserInfoAction';
-import cl from './scss/Envelope.module.scss';
+import { useNavigate } from 'react-router-dom';
+import { updateUserInfoAction } from '../../store/asyncActions';
+import { useRoutePath, useTypedDispatch, useFilter } from '../../hooks/index';
 
 interface EnvelopeSidebarProps {
-  envelopes: EnvelopeItem[];
-  userInfo: UserInfo;
-  isTransactionsLoading: boolean;
+  user: User;
 }
 
-const EnvelopeSidebar: FC<EnvelopeSidebarProps> = ({ envelopes, userInfo, isTransactionsLoading }) => {
+const EnvelopeSidebar: FC<EnvelopeSidebarProps> = ({ user }) => {
   const [selectedEnvelopeName, setSelectedEnvelopeName] = useState<string>('');
   const [searchEnvelope, setSearchEnvelope] = useState<string>('');
   const [envelopeModal, setEnvelopeModal] = useState<boolean>(false);
   const [createEnvelopeLoading, setCreateEnvelopeLoading] = useState<boolean>(false);
-  const { user } = userInfo;
   const dispatch = useTypedDispatch();
-  const envelopesByName = useFilter<EnvelopeItem>(searchEnvelope, envelopes, ['name']);
+  const envelopesByName = useFilter<EnvelopeItem>(searchEnvelope, user.envelopes, ['name']);
   const navigate = useNavigate();
-  const location = useLocation();
-  const pathNames: string[] = getPathNames(location);
+  const pathNames: string[] = useRoutePath();
   const currentEnvelopeName = pathNames.length > 1 ? pathNames[1] : null;
-  let defaultValue: EnvelopeItem = {
-    name: '',
-    status: 'open'
-  };
 
-  const envelopeCreateForm = useForm<EnvelopeItem>({
-    defaultValues: defaultValue,
-    resolver: yupResolver(envelopeScheme),
-    context: {
-      envelopes: [...user.envelopes].map(envelope => envelope.name)
-    }
-  });
-
-  const createEnvelope: SubmitHandler<EnvelopeItem> = (data: EnvelopeItem) => {
+  const createEnvelope = async (data: EnvelopeItem) => {
     setCreateEnvelopeLoading(true);
     setEnvelopeModal(false);
-    dispatch(
-      updateUserInfo({
+    await dispatch(
+      updateUserInfoAction({
         userId: user._id,
         envelopes: [data, ...user.envelopes],
         categories: user.categories
       })
-    ).finally(() => setCreateEnvelopeLoading(false));
-    envelopeCreateForm.reset();
+    );
+    setCreateEnvelopeLoading(false);
   };
 
   useEffect(() => {
     if (currentEnvelopeName !== null) {
       setSelectedEnvelopeName(decodeURI(currentEnvelopeName));
     }
-    if (envelopes.length !== 0 && currentEnvelopeName === null) {
-      navigate(`/envelope/${envelopes[0].name}`);
+    if (user.envelopes.length !== 0 && currentEnvelopeName === null) {
+      navigate(`/envelope/${user.envelopes[0].name}`);
     }
-  }, [currentEnvelopeName, envelopes, navigate]);
+  }, [currentEnvelopeName, user.envelopes, navigate]);
 
   const setCurrentEnvelope = (e: React.MouseEvent<HTMLLIElement, MouseEvent>, envelopeId: string) => {
-    if (!isTransactionsLoading) {
-      setSelectedEnvelopeName(envelopeId);
-      navigate(`/envelope/${envelopeId}`);
-    }
+    setSelectedEnvelopeName(envelopeId);
+    navigate(`/envelope/${envelopeId}`);
   };
 
   const searchEnvelopeHandleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -82,7 +57,7 @@ const EnvelopeSidebar: FC<EnvelopeSidebarProps> = ({ envelopes, userInfo, isTran
 
   return (
     <Box className={cl.envelopeSideBar}>
-      <ToolBar
+      <EnvelopeToolBar
         createEnvelopeLoading={createEnvelopeLoading}
         setModal={setEnvelopeModal}
         searchHandleChange={searchEnvelopeHandleChange}
@@ -93,10 +68,9 @@ const EnvelopeSidebar: FC<EnvelopeSidebarProps> = ({ envelopes, userInfo, isTran
         envelopes={envelopesByName}
         selectedEnvelopeName={selectedEnvelopeName}
         setCurrentEnvelope={setCurrentEnvelope}
-        isTransactionsLoading={isTransactionsLoading}
       />
       <CustomModal title="Envelope" modal={envelopeModal} setModal={setEnvelopeModal}>
-        <EnvelopeForm envelopeCreateForm={envelopeCreateForm} createEnvelope={createEnvelope} />
+        <EnvelopeForm onSubmit={createEnvelope} envelopes={user.envelopes} />
       </CustomModal>
     </Box>
   );

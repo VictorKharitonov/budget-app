@@ -1,13 +1,13 @@
-import React, { FC, useContext, useEffect } from 'react';
+import React, { FC, useContext, useLayoutEffect } from 'react';
 import { Box, Button, Container, Grid, Typography } from '@mui/material';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { ILogin } from '../types/login';
 import { loginScheme } from '../validations/loginValidation';
 import Input from '../components/ui/input/Input';
-import { fetchUserByChatId } from '../store/asyncActions/fetchUserByChatIdAction';
-import { useTypedDispatch } from '../hooks/useTypedDispatch';
-import { useTypedSelector } from '../hooks/useTypedSelector';
+import { fetchUserByChatIdAction } from '../store/asyncActions';
+import { useTypedSelector, useTypedDispatch } from '../hooks/index';
+
 import { AuthContext, IAuthContext } from '../context';
 import Link from '@mui/material/Link';
 
@@ -16,30 +16,26 @@ const Login: FC = () => {
   const { setIsAuth } = useContext<IAuthContext>(AuthContext);
   const { user, error } = useTypedSelector(state => state.userInfo);
 
-  let defaultValue: ILogin = {
-    chatId: ''
-  };
-
   const {
     handleSubmit,
     control,
     formState: { errors }
   } = useForm<ILogin>({
-    defaultValues: defaultValue,
+    defaultValues: { chatId: '' },
     resolver: yupResolver(loginScheme)
   });
 
-  const fetchUser: SubmitHandler<ILogin> = async (data: ILogin) => {
+  const fetchUser: SubmitHandler<ILogin> = (data: ILogin) => {
     const { chatId } = data;
 
     if (typeof chatId === 'number') {
-      dispatch(fetchUserByChatId(chatId));
+      dispatch(fetchUserByChatIdAction(chatId));
     }
   };
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (user.chatId) {
-      localStorage.setItem('chatId', String(user.chatId));
+      localStorage.setItem('chatId', JSON.stringify(user.chatId));
       setIsAuth(true);
     }
   }, [setIsAuth, user.chatId]);

@@ -1,9 +1,12 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Transactions } from '../../types/transactions';
-import { fetchEnvelopeTransactions } from '../asyncActions/transaction/fetchEnvelopeTransactionsAction';
-import { createTransactionAction } from '../asyncActions/transaction/createTransactionAction';
-import { deleteTransactionAction } from '../asyncActions/transaction/deleteTransactionAction';
-import { updateTransactionAction } from '../asyncActions/transaction/updateTransactionAction';
+import {
+  fetchEnvelopeTransactionsAction,
+  createTransactionAction,
+  deleteTransactionAction,
+  updateTransactionAction
+} from '../asyncActions/transaction';
+import { getTransactionById } from '../../utils/transactionsHelper';
 
 const initialState: Transactions = {
   isLoading: false,
@@ -18,37 +21,49 @@ const initialState: Transactions = {
   createError: '',
   updateError: '',
   deleteError: '',
-  transactions: []
+  transactions: [],
+  selectedTransaction: undefined
 };
 
 export const transactionsSlice = createSlice({
   name: 'transactions',
   initialState,
   reducers: {
-    clearTransactions(state) {
+    selectTransactionAction(state, action) {
+      state.selectedTransaction = getTransactionById(action.payload, state.transactions);
+    },
+    clearTransactionsAction(state, action: PayloadAction<number>) {
       state.transactions = [];
+      state.isSuccess = false;
+      state.selectedTransaction = undefined;
+      state.isLoading = action.payload > 0;
     }
   },
   extraReducers: builder => {
-    builder.addCase(fetchEnvelopeTransactions.pending, state => {
+    builder.addCase(fetchEnvelopeTransactionsAction.pending, state => {
       state.isLoading = true;
       state.isDeleteSuccess = false;
       state.isCreateSuccess = false;
     });
-    builder.addCase(fetchEnvelopeTransactions.fulfilled, (state, action) => {
+    builder.addCase(fetchEnvelopeTransactionsAction.fulfilled, (state, action) => {
       state.isSuccess = true;
       state.isLoading = false;
+      state.error = '';
       state.transactions = action.payload;
     });
-    builder.addCase(fetchEnvelopeTransactions.rejected, (state, action) => {
-      state.isLoading = false;
-      state.error = action.payload || 'Something went wrong, try it`s later';
+    builder.addCase(fetchEnvelopeTransactionsAction.rejected, (state, action) => {
+      if (action.payload) {
+        state.error = action.payload;
+        state.isLoading = false;
+      } else {
+        state.error = action.error.message || 'Something went wrong, try it`s later';
+      }
     });
     builder.addCase(createTransactionAction.pending, state => {
       state.isLoadingCreate = true;
       state.isCreateSuccess = false;
     });
-    builder.addCase(createTransactionAction.fulfilled, (state, action) => {
+    builder.addCase(createTransactionAction.fulfilled, state => {
       state.isLoadingCreate = false;
       state.isCreateSuccess = true;
     });
@@ -82,6 +97,7 @@ export const transactionsSlice = createSlice({
       state.transactions = state.transactions.map(transaction =>
         transaction._id === action.payload._id ? action.payload : transaction
       );
+      state.selectedTransaction = action.payload;
     });
     builder.addCase(updateTransactionAction.rejected, (state, action) => {
       state.isLoadingUpdate = false;
@@ -90,4 +106,4 @@ export const transactionsSlice = createSlice({
   }
 });
 
-export const { clearTransactions } = transactionsSlice.actions;
+export const { clearTransactionsAction, selectTransactionAction } = transactionsSlice.actions;

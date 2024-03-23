@@ -1,23 +1,42 @@
 import React, { FC } from 'react';
 import { Box, Button, Typography } from '@mui/material';
-import { SubmitHandler, UseFormReturn } from 'react-hook-form';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import { EnvelopeItem } from '../../types/envelopes';
 import Input from '../ui/input/Input';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { envelopeScheme } from '../../validations/envelopeValidation';
 
 interface EnvelopeFormProps {
-  envelopeCreateForm: UseFormReturn<EnvelopeItem, any>;
-  createEnvelope: SubmitHandler<EnvelopeItem>;
+  envelopes: EnvelopeItem[];
+  onSubmit: (data: EnvelopeItem) => Promise<void>;
 }
 
-const EnvelopeForm: FC<EnvelopeFormProps> = ({ envelopeCreateForm, createEnvelope }) => {
+const EnvelopeForm: FC<EnvelopeFormProps> = ({ envelopes, onSubmit }) => {
+  const defaultValue: EnvelopeItem = {
+    name: '',
+    status: 'open'
+  };
+
   const {
     handleSubmit,
     control,
-    formState: { errors }
-  } = envelopeCreateForm;
+    formState: { errors },
+    reset
+  } = useForm<EnvelopeItem>({
+    defaultValues: defaultValue,
+    resolver: yupResolver(envelopeScheme),
+    context: {
+      envelopes: envelopes.map((envelope: EnvelopeItem) => envelope.name)
+    }
+  });
+
+  const handleCreateEnvelope: SubmitHandler<EnvelopeItem> = data => {
+    onSubmit(data);
+    reset();
+  };
 
   return (
-    <Box component="form" onSubmit={handleSubmit(createEnvelope)}>
+    <Box component="form" onSubmit={handleSubmit(handleCreateEnvelope)}>
       <Input
         name="name"
         control={control}
